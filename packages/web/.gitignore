@@ -3,5 +3,6 @@ build
 .cache
 dist
 .env
+.next
 
 coverage

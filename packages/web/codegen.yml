@@ -1,18 +1,21 @@
-schema: http://localhost:5555/graphql
-documents: ./src/**/*.tsx
+schema: http://localhost:5000/graphql
+documents:
+  - "./components/**/*.{ts,tsx}"
+  - "./lib/**/*.{ts,tsx}"
+  - "./pages/**/*.{ts,tsx}"
 overwrite: true
 generates:
-  ./src/lib/graphql.tsx:
+  ./lib/graphql.tsx:
     config:
-      withHooks: true
-      withComponent: false
-      withHOC: false
       withMutationFn: false
-      gqlImport: "graphql-tag.macro"
-      reactApolloVersion: 3
-      apolloReactCommonImportFrom: "@apollo/client"
+      addDocBlocks: false
       apolloReactHooksImportFrom: "@apollo/client"
+      gqlImport: "@apollo/client#gql"
+      scalars:
+        DateTime: string
     plugins:
+      - add:
+          content: "/* eslint-disable */"
       - typescript
       - typescript-operations
       - typescript-react-apollo

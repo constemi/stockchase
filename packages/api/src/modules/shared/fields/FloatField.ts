@@ -7,17 +7,18 @@ interface FloatFieldOptions {
   nullable?: boolean
   default?: number
   graphql?: boolean
+  deprecationReason?: string
 }
 
-export function FloatField(args: FloatFieldOptions = {}): any {
+export function FloatField({ deprecationReason, ...args }: FloatFieldOptions = {}): any {
   const nullableOption = args.nullable === true ? { nullable: true } : {}
-  const defaultOption =
-    args.default === undefined ? {} : { default: args.default }
+  const defaultOption = args.default === undefined ? {} : { default: args.default }
   const factories = []
   if (args.graphql !== false) {
     factories.push(
       Field(() => Float, {
         ...nullableOption,
+        deprecationReason,
       }),
     )
   }

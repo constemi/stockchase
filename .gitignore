@@ -4,7 +4,8 @@ build
 .eslintcache
 dist
 .env
-.vscode
 tmp
 temp
 coverage
+.parcel-cache
+.netlify

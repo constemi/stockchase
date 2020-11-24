@@ -7,7 +7,7 @@ import {
 import { ID, Field, ObjectType } from "type-graphql"
 
 @ObjectType()
-export abstract class BaseEntity<T = {}> extends TBaseEntity {
+export abstract class BaseEntity<T = unknown> extends TBaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn("uuid")
   id: string

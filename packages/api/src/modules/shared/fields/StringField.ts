@@ -1,19 +1,20 @@
 import { MaxLength, MinLength } from "class-validator"
 import { Field } from "type-graphql"
-import { Column } from "typeorm"
+import { Column, ColumnOptions } from "typeorm"
 
 import { composeMethodDecorators, MethodDecoratorFactory } from "./utils"
 
-interface StringFieldOptions {
+interface StringFieldOptions extends ColumnOptions {
   maxLength?: number
   minLength?: number
   nullable?: boolean
   unique?: boolean
   default?: string
   graphql?: boolean
+  deprecationReason?: string
 }
 
-export function StringField(args: StringFieldOptions = {}): any {
+export function StringField({ deprecationReason, ...args }: StringFieldOptions = {}): any {
   const nullableOption = args.nullable === true ? { nullable: true } : {}
   const maxLenOption = args.maxLength ? { length: args.maxLength } : {}
   const uniqueOption = args.unique ? { unique: true } : {}
@@ -24,6 +25,7 @@ export function StringField(args: StringFieldOptions = {}): any {
     factories.push(
       Field(() => String, {
         ...nullableOption,
+        deprecationReason,
       }),
     )
   }

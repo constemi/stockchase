@@ -14,14 +14,14 @@ export function DateField(args: DateFieldOptions = {}): any {
   const factories = []
   if (args.graphql !== false) {
     factories.push(
-      Field(() => Date, {
+      Field(() => String, {
         ...nullableOption,
       }),
     )
   }
   factories.push(
     Column({
-      type: "timestamp with time zone",
+      type: "date",
       ...nullableOption,
     }) as MethodDecoratorFactory,
   )

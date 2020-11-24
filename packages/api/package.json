@@ -6,43 +6,48 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "watch": "tsnd --respawn --transpileOnly --no-notify --ignore-watch node_modules src/index.ts",
-    "work": "tsnd --respawn --transpileOnly --no-notify --ignore-watch node_modules src/workers.ts",
-    "db:migrate": "ts-node node_modules/typeorm/cli.js migration:run -c ${NODE_ENV}",
-    "db:create": "ts-node node_modules/typeorm/cli.js migration:create -c ${NODE_ENV} -n",
-    "db:generate": "ts-node node_modules/typeorm/cli.js migration:generate -c ${NODE_ENV} -n",
-    "db:rollback": "ts-node node_modules/typeorm/cli.js migration:revert -c ${NODE_ENV}",
+    "watch": "tsnd --respawn --transpile-only --no-notify --ignore-watch node_modules src/index.ts",
+    "work": "tsnd --respawn --transpile-only --no-notify --ignore-watch node_modules src/workers.ts",
+    "db:migrate": "ts-node node_modules/typeorm/cli.js migration:run -c development",
+    "db:create": "ts-node node_modules/typeorm/cli.js migration:create -c development -n",
+    "db:generate": "yarn db:migrate && ts-node node_modules/typeorm/cli.js migration:generate -c development -n",
+    "db:rollback": "ts-node node_modules/typeorm/cli.js migration:revert -c development",
     "seed": "ts-node src/seed.ts",
     "build": "rimraf dist && tsc --build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --fix --cache --ext .ts,.tsx src",
+    "lint:test": "eslint --cache --ext .ts,.tsx src",
     "prettify": "prettier --write './src/**/*.ts'",
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,jsx,json,ts,tsx,html}": [
-      "prettier --write",
-      "git add"
+    "*.(js|jsx|json|ts|tsx|html)": [
+      "prettier --write"
     ],
-    "*.{ts,tsx}": [
-      "eslint --fix --cache --ext .ts,.tsx src",
-      "git add"
+    "*.(ts|tsx)": [
+      "eslint --fix --cache"
     ]
   },
   "dependencies": {
-    "@noquarter/utils": "1.0.8",
-    "@sendgrid/client": "6.5.5",
-    "@sendgrid/mail": "6.5.5",
+    "@sendgrid/client": "7.4.0",
+    "@sendgrid/mail": "7.4.0",
+    "@sentry/node": "5.27.6",
+    "@sentry/tracing": "5.27.6",
     "apollo-server-express": "2.19.0",
-    "aws-sdk": "2.783.0",
+    "aws-sdk": "2.725.0",
     "bcryptjs": "2.4.3",
+    "bull": "3.19.1",
+    "chalk": "4.1.0",
     "class-transformer": "0.3.1",
     "class-validator": "0.12.2",
     "dataloader": "2.0.0",
+    "dayjs": "1.9.6",
     "dotenv": "8.2.0",
     "express": "4.17.1",
-    "express-jwt": "5.3.3",
+    "express-jwt": "6.0.0",
     "glob": "7.1.6",
+    "graphql": "15.4.0",
+    "handlebars": "4.7.6",
     "ioredis": "4.19.2",
     "jsonwebtoken": "8.5.1",
     "morgan": "1.10.0",
@@ -50,23 +55,23 @@
     "pg": "8.5.1",
     "reflect-metadata": "0.1.13",
     "routing-controllers": "0.8.1",
-    "type-graphql": "0.18.0-beta.17",
-    "typed-rest-client": "1.8.0",
+    "type-graphql": "1.1.1",
+    "type-graphql-dataloader": "0.3.7",
     "typedi": "0.8.0",
     "typeorm": "0.2.29"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
+    "@types/bull": "3.14.4",
     "@types/express": "4.17.9",
     "@types/express-jwt": "0.0.42",
-    "@types/faker": "4.1.12",
+    "@types/faker": "5.1.4",
     "@types/ioredis": "4.17.8",
     "@types/jsonwebtoken": "8.5.0",
     "@types/morgan": "1.9.2",
     "@types/node": "11.15.37",
     "@types/nodemailer": "6.4.0",
-    "faker": "4.1.0",
-    "ts-node": "8.10.2",
+    "ts-node": "9.0.0",
     "ts-node-dev": "1.0.0"
   },
   "workspaces": {

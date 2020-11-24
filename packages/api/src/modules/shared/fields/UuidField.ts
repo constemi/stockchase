@@ -7,9 +7,10 @@ interface UuidFieldOptions {
   nullable?: boolean
   unique?: boolean
   graphql?: boolean
+  deprecationReason?: string
 }
 
-export function UuidField(args: UuidFieldOptions = {}): any {
+export function UuidField({ deprecationReason, ...args }: UuidFieldOptions = {}): any {
   const nullableOption = args.nullable === true ? { nullable: true } : {}
   const uniqueOption = args.unique ? { unique: true } : {}
 
@@ -18,6 +19,7 @@ export function UuidField(args: UuidFieldOptions = {}): any {
     factories.push(
       Field(() => String, {
         ...nullableOption,
+        deprecationReason,
       }),
     )
   }

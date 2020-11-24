@@ -1,5 +1,9 @@
 import { MiddlewareFn, ArgumentValidationError } from "type-graphql"
-import { UserInputError } from "apollo-server-express"
+import { UserInputError, AuthenticationError } from "apollo-server-express"
+import chalk from "chalk"
+import * as Sentry from "@sentry/node"
+
+import { IS_PRODUCTION } from "./config"
 
 export const ErrorInterceptor: MiddlewareFn = async ({}, next) => {
   try {
@@ -7,10 +11,14 @@ export const ErrorInterceptor: MiddlewareFn = async ({}, next) => {
   } catch (err) {
     if (
       !(err instanceof ArgumentValidationError) &&
-      !(err instanceof UserInputError)
+      !(err instanceof UserInputError) &&
+      !(err instanceof AuthenticationError)
     ) {
-      // Error logging goes here
-      console.log("Error interceptor:", err)
+      if (IS_PRODUCTION) {
+        Sentry.captureException(err)
+      } else {
+        console.log(`[${chalk.red("ERROR")}] `, err)
+      }
     }
     throw err
   }

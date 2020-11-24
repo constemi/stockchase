@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 
 export interface ExpressRequest extends Request {
-  user?: { id: string; role: string }
+  user?: { id: string }
 }
 
 export interface ExpressContext {

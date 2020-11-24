@@ -10,7 +10,7 @@ Comes with user authentication included
 - [TypeGraphQL](https://github.com/19majkel94/type-graphql)
 - [TypeORM](https://github.com/typeorm/typeorm)
 - Postgres
-- Typescript
+- TypeScript
 - Eslint
 - Graphql Code Generator
 - Apollo Client
@@ -20,6 +20,8 @@ Comes with user authentication included
 - Customizable Theme
 - Dark mode
 - React hooks
+- Sendgrid SMTP
+- Sentry
 - Chakra UI
 - React hook form
 - Lerna Monorepo
@@ -35,3 +37,12 @@ Comes with user authentication included
 3. `createdb fullstack-boilerplate` (must have postgres setup locally)
 4. `cd packages/api && yarn watch`
 5. `cd packages/web && yarn start`
+
+### For mailers
+
+- Create a Sendgrid account and set a SENDGRID_API_KEY environment variable in .env
+- Create templates for each email you want to send and use the templateId in the corresponding mailer class
+
+### For error tracing
+
+- Create a Sentry account + project for each package and add the DSN to the web config and the api env variables

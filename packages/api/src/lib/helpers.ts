@@ -1,3 +1,5 @@
+import dayjs from "dayjs"
+
 function toCamel(text: string) {
   return text.replace(
     /^([A-Z])|[\s-_]+(\w)/g,
@@ -19,4 +21,10 @@ export const keysToCamel = (o: { [key: string]: any }) => {
     }
   })
   return n
+}
+
+export const timeUntilEndOfDay = () => {
+  const date1 = dayjs().endOf("day")
+  const date2 = dayjs()
+  return date1.diff(date2)
 }

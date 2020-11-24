@@ -7,17 +7,18 @@ interface IntFieldOptions {
   nullable?: boolean
   default?: number
   graphql?: boolean
+  deprecationReason?: string
 }
 
-export function IntField(args: IntFieldOptions = {}): any {
+export function IntField({ deprecationReason, ...args }: IntFieldOptions = {}): any {
   const nullableOption = args.nullable === true ? { nullable: true } : {}
-  const defaultOption =
-    args.default === undefined ? {} : { default: args.default }
+  const defaultOption = args.default === undefined ? {} : { default: args.default }
   const factories = []
   if (args.graphql !== false) {
     factories.push(
       Field(() => Int, {
         ...nullableOption,
+        deprecationReason,
       }),
     )
   }

@@ -1,5 +1,6 @@
 export * from "./BooleanField"
 export * from "./StringField"
+export * from "./DateTimeField"
 export * from "./DateField"
 export * from "./IntField"
 export * from "./UuidField"

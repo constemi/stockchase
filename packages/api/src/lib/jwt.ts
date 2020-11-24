@@ -1,16 +1,9 @@
 import jwt from "jsonwebtoken"
 import { APP_SECRET, APP_AUTH_SECRET } from "./config"
 
-type Payload =
-  | string
-  | {
-      [key: string]: any
-    }
+type Payload = Record<string, any>
 
-export const createToken = (
-  payload: Payload,
-  options?: jwt.SignOptions,
-): string => {
+export const createToken = (payload: Payload, options?: jwt.SignOptions): string => {
   try {
     const token = jwt.sign(payload, APP_SECRET, {
       issuer: "@fullstack-boilerplate/api",

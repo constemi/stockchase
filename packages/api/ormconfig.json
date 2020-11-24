@@ -5,8 +5,9 @@
     "host": "localhost",
     "port": 5432,
     "database": "fullstack-boilerplate",
-    "synchronize": true,
-    "logging": false,
+    "synchronize": false,
+    "logging": true,
+    "cache": true,
     "entities": ["src/modules/**/*.entity.ts"],
     "migrations": ["src/db/migrations/*.ts"],
     "cli": { "migrationsDir": "src/db/migrations" }
@@ -16,8 +17,9 @@
     "type": "postgres",
     "synchronize": false,
     "logging": true,
-    "entities": ["packages/api/dist/modules/**/*.entity.js"],
-    "migrations": ["packages/api/dist/db/migrations/*.js"],
+    "cache": true,
+    "entities": ["modules/**/*.entity.js"],
+    "migrations": ["db/migrations/*.js"],
     "cli": { "migrationsDir": "src/db/migrations" }
   }
 ]
