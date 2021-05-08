@@ -1,39 +1,52 @@
-import { BeforeInsert, Entity } from "typeorm"
-import { ObjectType, Field } from "type-graphql"
-import bcrypt from "bcryptjs"
+import { BeforeInsert, Entity, OneToMany } from 'typeorm'
+import { ObjectType, Field } from 'type-graphql'
+import argon2 from 'argon2'
 
-import { BaseEntity } from "../shared/base.entity"
-import { StringField } from "../shared/fields"
+import { BaseEntity } from '../shared/base.entity'
+import { BooleanField, StringField } from '../shared/fields'
+import { Payment } from '../payment/payment.entity'
+import { Message } from '../message/message.entity'
 
 @ObjectType()
 @Entity()
 export class User extends BaseEntity<User> {
-  @StringField({ unique: true })
+  @StringField({ unique: true, protected: true, encrypt: true })
   email: string
 
-  @StringField()
+  @StringField({ protected: true })
   password: string
 
   @StringField({ nullable: true })
-  firstName: string | null
+  firstName?: string
 
   @StringField({ nullable: true })
-  lastName: string | null
+  lastName?: string
+
+  @BooleanField({ default: false, protected: true })
+  emailVerified: boolean
 
   // RELATIONS
+
+  @Field(() => [Payment], { nullable: 'items' })
+  @OneToMany(() => Payment, (payment) => payment.user, { lazy: true, cascade: true })
+  payments: Payment[]
+
+  @Field(() => [Message], { nullable: 'items' })
+  @OneToMany(() => Message, (message) => message.user, { lazy: true, cascade: true })
+  messages: Message[]
 
   // FIELD HELPERS
 
   @Field(() => String)
   fullName() {
-    if (!this.firstName && !this.lastName) return ""
-    return (this.firstName + " " + this.lastName).trim()
+    if (!this.firstName && !this.lastName) return ''
+    return (this.firstName + ' ' + this.lastName).trim()
   }
 
   // ENTITY HELPERS
   async update(data: Partial<User>) {
     if (data.password) {
-      data.password = await bcrypt.hash(data.password, 10)
+      data.password = await argon2.hash(data.password)
     }
     if (data.email) {
       data.email = data.email.trim().toLowerCase()
@@ -47,7 +60,7 @@ export class User extends BaseEntity<User> {
   @BeforeInsert()
   async initValues(): Promise<void> {
     if (this.password) {
-      this.password = await bcrypt.hash(this.password, 10)
+      this.password = await argon2.hash(this.password)
     }
     if (this.email) {
       this.email = this.email.trim().toLowerCase()

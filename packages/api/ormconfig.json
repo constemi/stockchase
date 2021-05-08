@@ -10,6 +10,8 @@
     "cache": true,
     "entities": ["src/modules/**/*.entity.ts"],
     "migrations": ["src/db/migrations/*.ts"],
+    "seeds": ["src/db/seeds/**/*{.ts,.js}"],
+    "factories": ["src/db/factories/**/*{.ts,.js}"],
     "cli": { "migrationsDir": "src/db/migrations" }
   },
   {

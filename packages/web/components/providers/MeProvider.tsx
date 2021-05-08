@@ -1,7 +1,7 @@
-import * as React from "react"
-import { gql } from "@apollo/client"
+import * as React from 'react'
+import { gql } from '@apollo/client'
 
-import { MeFragmentDoc, useMeQuery, MeFragment } from "lib/graphql"
+import { MeFragmentDoc, useMeQuery, MeFragment } from 'lib/graphql'
 
 export const ME_FRAGMENT = gql`
   fragment Me on User {
@@ -10,6 +10,15 @@ export const ME_FRAGMENT = gql`
     lastName
     fullName
     email
+    payments {
+      invoiceId
+      productDesc
+      taxAmount
+      amountExcludingTax
+      amountIncludingTax
+      last4
+      cardType
+    }
   }
 `
 

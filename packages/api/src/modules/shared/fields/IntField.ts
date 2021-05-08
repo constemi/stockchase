@@ -1,12 +1,12 @@
-import { Field, Int } from "type-graphql"
-import { Column } from "typeorm"
+import { Field, Int } from 'type-graphql'
+import { Column } from 'typeorm'
 
-import { composeMethodDecorators, MethodDecoratorFactory } from "./utils"
+import { composeMethodDecorators, MethodDecoratorFactory } from './utils'
 
 interface IntFieldOptions {
   nullable?: boolean
   default?: number
-  graphql?: boolean
+  protected?: boolean
   deprecationReason?: string
 }
 
@@ -14,7 +14,7 @@ export function IntField({ deprecationReason, ...args }: IntFieldOptions = {}): 
   const nullableOption = args.nullable === true ? { nullable: true } : {}
   const defaultOption = args.default === undefined ? {} : { default: args.default }
   const factories = []
-  if (args.graphql !== false) {
+  if (!args.protected) {
     factories.push(
       Field(() => Int, {
         ...nullableOption,
@@ -24,7 +24,7 @@ export function IntField({ deprecationReason, ...args }: IntFieldOptions = {}): 
   }
   factories.push(
     Column({
-      type: "int",
+      type: 'int',
       ...nullableOption,
       ...defaultOption,
     }) as MethodDecoratorFactory,

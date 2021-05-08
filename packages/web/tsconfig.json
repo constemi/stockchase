@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "lib": ["dom", "es2018", "esnext.asynciterable"],
+    "lib": ["dom", "es2018", "es2019.object", "esnext.asynciterable"],
+    "typeRoots": ["./node_modules/@types"],
     "rootDir": "src",
-    "target": "es5",
+    "target": "es6",
     "composite": false,
     "allowJs": true,
     "moduleResolution": "node",

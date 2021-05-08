@@ -1,8 +1,7 @@
-import { UserInputError } from "apollo-server-express"
-import { Service } from "typedi"
-import { FindOneOptions, FindManyOptions } from "typeorm"
-
-import { User } from "./user.entity"
+import { UserInputError } from 'apollo-server-express'
+import { Service } from 'typedi'
+import { FindOneOptions, FindManyOptions } from 'typeorm'
+import { User } from './user.entity'
 
 @Service()
 export class UserRepository {
@@ -13,7 +12,7 @@ export class UserRepository {
     try {
       return await User.findOneOrFail(userId, options)
     } catch {
-      throw new UserInputError("User not found")
+      throw new UserInputError('User not found')
     }
   }
 

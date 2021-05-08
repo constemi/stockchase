@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import { Request, Response } from 'express'
 
 export interface ExpressRequest extends Request {
   user?: { id: string }

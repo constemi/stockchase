@@ -1,12 +1,12 @@
-import { Field } from "type-graphql"
-import { Column } from "typeorm"
+import { Field } from 'type-graphql'
+import { Column } from 'typeorm'
 
-import { composeMethodDecorators, MethodDecoratorFactory } from "./utils"
+import { composeMethodDecorators, MethodDecoratorFactory } from './utils'
 
 interface BooleanFieldOptions {
   default: boolean
   nullable?: boolean
-  graphql?: boolean
+  protected?: boolean
   deprecationReason?: string
 }
 
@@ -16,19 +16,22 @@ export function BooleanField(
     nullable: false,
   },
 ): any {
+  // remove the protected key before passing args to col/field
+  const restArgs = Object.fromEntries(Object.entries(args).filter(([k]) => k !== 'protected'))
+
   const factories = []
-  if (args.graphql !== false) {
+  if (!args.protected) {
     factories.push(
       Field(() => Boolean, {
-        ...args,
+        ...restArgs,
         deprecationReason,
       }),
     )
   }
   factories.push(
     Column({
-      type: "boolean",
-      ...args,
+      type: 'boolean',
+      ...restArgs,
     }) as MethodDecoratorFactory,
   )
 

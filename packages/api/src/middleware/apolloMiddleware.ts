@@ -1,9 +1,9 @@
-import { MiddlewareFn, ArgumentValidationError } from "type-graphql"
-import { UserInputError, AuthenticationError } from "apollo-server-express"
-import chalk from "chalk"
-import * as Sentry from "@sentry/node"
+import chalk from 'chalk'
+import * as Sentry from '@sentry/node'
+import { MiddlewareFn, ArgumentValidationError } from 'type-graphql'
+import { UserInputError, AuthenticationError } from 'apollo-server-express'
 
-import { IS_PRODUCTION } from "./config"
+import { IS_PRODUCTION } from '../lib/config'
 
 export const ErrorInterceptor: MiddlewareFn = async ({}, next) => {
   try {
@@ -17,7 +17,7 @@ export const ErrorInterceptor: MiddlewareFn = async ({}, next) => {
       if (IS_PRODUCTION) {
         Sentry.captureException(err)
       } else {
-        console.log(`[${chalk.red("ERROR")}] `, err)
+        console.log(`[${chalk.red('ERROR')}] `, err)
       }
     }
     throw err

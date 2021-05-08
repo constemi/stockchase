@@ -1,4 +1,7 @@
 node_modules
+packages/api/src/db/migrations
+packages/api/src/db/seeds
+packages/api/src/db/data
 build
 .cache
 .eslintcache

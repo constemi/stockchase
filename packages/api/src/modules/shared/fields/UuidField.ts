@@ -1,12 +1,12 @@
-import { Field } from "type-graphql"
-import { Column } from "typeorm"
+import { Field } from 'type-graphql'
+import { Column } from 'typeorm'
 
-import { composeMethodDecorators, MethodDecoratorFactory } from "./utils"
+import { composeMethodDecorators, MethodDecoratorFactory } from './utils'
 
 interface UuidFieldOptions {
   nullable?: boolean
   unique?: boolean
-  graphql?: boolean
+  protected?: boolean
   deprecationReason?: string
 }
 
@@ -15,7 +15,7 @@ export function UuidField({ deprecationReason, ...args }: UuidFieldOptions = {})
   const uniqueOption = args.unique ? { unique: true } : {}
 
   const factories = []
-  if (args.graphql !== false) {
+  if (!args.protected) {
     factories.push(
       Field(() => String, {
         ...nullableOption,
@@ -25,7 +25,7 @@ export function UuidField({ deprecationReason, ...args }: UuidFieldOptions = {})
   }
   factories.push(
     Column({
-      type: "character varying",
+      type: 'character varying',
       ...nullableOption,
       ...uniqueOption,
     }) as MethodDecoratorFactory,

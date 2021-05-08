@@ -1,7 +1,7 @@
-import { getConnectionOptions, createConnection, Connection } from "typeorm"
-import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"
-import * as Sentry from "@sentry/node"
-import { NODE_ENV, DATABASE_URL, IS_PRODUCTION } from "../lib/config"
+import { getConnectionOptions, createConnection, Connection } from 'typeorm'
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
+import * as Sentry from '@sentry/node'
+import { NODE_ENV, DATABASE_URL, IS_PRODUCTION } from '../lib/config'
 
 interface Props {
   runMigrations?: boolean
@@ -13,7 +13,7 @@ export const createDbConnection = async (args?: Props): Promise<Connection> => {
 
   const connection = await createConnection({
     ...options,
-    name: "default",
+    name: 'default',
     url: DATABASE_URL,
   })
 

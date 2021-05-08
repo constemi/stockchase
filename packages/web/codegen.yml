@@ -1,21 +1,23 @@
 schema: http://localhost:5000/graphql
 documents:
-  - "./components/**/*.{ts,tsx}"
-  - "./lib/**/*.{ts,tsx}"
-  - "./pages/**/*.{ts,tsx}"
+  - './components/**/*.{ts,tsx}'
+  - './layouts/**/*.{ts,tsx}'
+  - './features/**/*.{ts,tsx}'
+  - './lib/**/*.{ts,tsx}'
+  - './pages/**/*.{ts,tsx}'
 overwrite: true
 generates:
   ./lib/graphql.tsx:
     config:
       withMutationFn: false
       addDocBlocks: false
-      apolloReactHooksImportFrom: "@apollo/client"
-      gqlImport: "@apollo/client#gql"
+      apolloReactHooksImportFrom: '@apollo/client'
+      gqlImport: '@apollo/client#gql'
       scalars:
         DateTime: string
     plugins:
       - add:
-          content: "/* eslint-disable */"
+          content: '/* eslint-disable */'
       - typescript
       - typescript-operations
       - typescript-react-apollo

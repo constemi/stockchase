@@ -1,18 +1,18 @@
-import { Field } from "type-graphql"
-import { Column } from "typeorm"
+import { Field } from 'type-graphql'
+import { Column } from 'typeorm'
 
-import { composeMethodDecorators, MethodDecoratorFactory } from "./utils"
+import { composeMethodDecorators, MethodDecoratorFactory } from './utils'
 
 interface DateFieldOptions {
   nullable?: boolean
-  graphql?: boolean
+  protected?: boolean
 }
 
 export function DateField(args: DateFieldOptions = {}): any {
   const nullableOption = args.nullable === true ? { nullable: true } : {}
 
   const factories = []
-  if (args.graphql !== false) {
+  if (!args.protected) {
     factories.push(
       Field(() => String, {
         ...nullableOption,
@@ -21,7 +21,7 @@ export function DateField(args: DateFieldOptions = {}): any {
   }
   factories.push(
     Column({
-      type: "date",
+      type: 'date',
       ...nullableOption,
     }) as MethodDecoratorFactory,
   )

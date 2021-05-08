@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { gql } from "@apollo/client"
-import * as Apollo from "@apollo/client"
-import * as ApolloReactHooks from "@apollo/client"
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+import * as ApolloReactHooks from '@apollo/client'
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
 /** All built-in and custom scalars, mapped to their actual values */
@@ -16,85 +16,230 @@ export type Scalars = {
 }
 
 export type BaseEntity = {
-  __typename?: "BaseEntity"
-  id: Scalars["ID"]
-  createdAt: Scalars["DateTime"]
-  updatedAt: Scalars["DateTime"]
+  __typename?: 'BaseEntity'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+}
+
+export type Payment = {
+  __typename?: 'Payment'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  invoiceId?: Maybe<Scalars['String']>
+  invoiceDelivered: Scalars['Boolean']
+  paymentId?: Maybe<Scalars['String']>
+  productId?: Maybe<Scalars['String']>
+  quantity: Scalars['Int']
+  productDesc?: Maybe<Scalars['String']>
+  discountToken?: Maybe<Scalars['String']>
+  taxAmount?: Maybe<Scalars['Float']>
+  amountExcludingTax?: Maybe<Scalars['Float']>
+  amountIncludingTax?: Maybe<Scalars['Float']>
+  last4?: Maybe<Scalars['String']>
+  cardType?: Maybe<Scalars['String']>
+  user: User
 }
 
 export type User = {
-  __typename?: "User"
-  id: Scalars["ID"]
-  createdAt: Scalars["DateTime"]
-  updatedAt: Scalars["DateTime"]
-  email: Scalars["String"]
-  password: Scalars["String"]
-  firstName?: Maybe<Scalars["String"]>
-  lastName?: Maybe<Scalars["String"]>
-  fullName: Scalars["String"]
+  __typename?: 'User'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  email: Scalars['String']
+  password: Scalars['String']
+  firstName?: Maybe<Scalars['String']>
+  lastName?: Maybe<Scalars['String']>
+  payments: Array<Maybe<Payment>>
+  messages: Array<Maybe<Message>>
+  fullName: Scalars['String']
+}
+
+export type Security = {
+  __typename?: 'Security'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  currency: Scalars['String']
+  description: Scalars['String']
+  displaySymbol: Scalars['String']
+  figi: Scalars['String']
+  mic: Scalars['String']
+  symbolId: Scalars['String']
+  symbol: Scalars['String']
+  type: Scalars['String']
+  trending: Scalars['Boolean']
+  trendingScore?: Maybe<Scalars['Float']>
+  documentWithWeights?: Maybe<Scalars['Float']>
+  messages: Array<Maybe<Message>>
+}
+
+export type Message = {
+  __typename?: 'Message'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  messageId: Scalars['String']
+  content: Scalars['String']
+  embedUrl?: Maybe<Scalars['String']>
+  fileUrl?: Maybe<Scalars['String']>
+  children: Array<Message>
+  user: User
+  security: Security
+}
+
+export type Author = {
+  __typename?: 'Author'
+  firstName: Scalars['String']
+}
+
+export type MessageChildren = {
+  __typename?: 'MessageChildren'
+  messageId: Scalars['String']
+  content: Scalars['String']
+  user: Author
+  children: Array<MessageChildren>
+}
+
+export type MessageChildrenResponse = {
+  __typename?: 'MessageChildrenResponse'
+  descendants: Scalars['Float']
+  message: MessageChildren
 }
 
 export type BulkSignedResponse = {
-  __typename?: "BulkSignedResponse"
-  url: Scalars["String"]
-  key: Scalars["String"]
+  __typename?: 'BulkSignedResponse'
+  url: Scalars['String']
+  key: Scalars['String']
+}
+
+export type SearchSecurityResponse = {
+  __typename?: 'SearchSecurityResponse'
+  symbolId: Scalars['String']
+  displaySymbol: Scalars['String']
+  figi: Scalars['String']
+  type: Scalars['String']
+  currency: Scalars['String']
+  description: Scalars['String']
 }
 
 export type AuthResponse = {
-  __typename?: "AuthResponse"
+  __typename?: 'AuthResponse'
   user: User
-  token: Scalars["String"]
+  token: Scalars['String']
+}
+
+export type CreateMessageInput = {
+  symbolId: Scalars['String']
+  content: Scalars['String']
+  embedUrl?: Maybe<Scalars['String']>
+  fileUrl?: Maybe<Scalars['String']>
+}
+
+export type RemoveMessageInput = {
+  messageId: Scalars['String']
+}
+
+export type ReplyToMessageInput = {
+  messageId: Scalars['String']
+  content: Scalars['String']
+  embedUrl?: Maybe<Scalars['String']>
+  fileUrl?: Maybe<Scalars['String']>
+}
+
+export type GetMessagesInput = {
+  symbolId: Scalars['String']
+}
+
+export type GetMessageChildrenInput = {
+  messageId: Scalars['String']
 }
 
 export type S3SignedUrlInput = {
-  key: Scalars["String"]
-  fileType: Scalars["String"]
+  key: Scalars['String']
+  fileType: Scalars['String']
 }
 
 export type S3BulkSignedUrlInput = {
   files: Array<S3SignedUrlInput>
 }
 
+export type SearchSecurityInput = {
+  symbol: Scalars['String']
+}
+
 export type UpdateUserInput = {
-  firstName?: Maybe<Scalars["String"]>
-  lastName?: Maybe<Scalars["String"]>
-  email?: Maybe<Scalars["String"]>
-  avatarKey?: Maybe<Scalars["String"]>
-  password?: Maybe<Scalars["String"]>
+  firstName?: Maybe<Scalars['String']>
+  lastName?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
+  avatarKey?: Maybe<Scalars['String']>
+  password?: Maybe<Scalars['String']>
 }
 
 export type ResetPasswordInput = {
-  password: Scalars["String"]
-  token: Scalars["String"]
+  password: Scalars['String']
+  token: Scalars['String']
 }
 
 export type LoginInput = {
-  email: Scalars["String"]
-  password: Scalars["String"]
+  email: Scalars['String']
+  password: Scalars['String']
 }
 
 export type RegisterInput = {
-  firstName: Scalars["String"]
-  lastName: Scalars["String"]
-  email: Scalars["String"]
-  password: Scalars["String"]
+  firstName: Scalars['String']
+  lastName: Scalars['String']
+  email: Scalars['String']
+  password: Scalars['String']
 }
 
 export type Query = {
-  __typename?: "Query"
+  __typename?: 'Query'
+  getMessages?: Maybe<Array<Message>>
+  getChildMessages?: Maybe<MessageChildrenResponse>
+  getPayments: Array<Maybe<Payment>>
+  search: Array<Maybe<SearchSecurityResponse>>
   me?: Maybe<User>
 }
 
+export type QueryGetMessagesArgs = {
+  data: GetMessagesInput
+}
+
+export type QueryGetChildMessagesArgs = {
+  data: GetMessageChildrenInput
+}
+
+export type QuerySearchArgs = {
+  data: SearchSecurityInput
+}
+
 export type Mutation = {
-  __typename?: "Mutation"
-  getSignedS3Url?: Maybe<Scalars["String"]>
+  __typename?: 'Mutation'
+  createMessage: Message
+  replyToMessage: Message
+  removeMessage: Message
+  getSignedS3Url?: Maybe<Scalars['String']>
   getBulkSignedS3Url?: Maybe<Array<BulkSignedResponse>>
   login: AuthResponse
   register: AuthResponse
   updateMe: User
-  logout: Scalars["Boolean"]
-  forgotPassword: Scalars["Boolean"]
-  resetPassword: Scalars["Boolean"]
+  logout: Scalars['Boolean']
+  forgotPassword: Scalars['Boolean']
+  resetPassword: Scalars['Boolean']
+}
+
+export type MutationCreateMessageArgs = {
+  data: CreateMessageInput
+}
+
+export type MutationReplyToMessageArgs = {
+  data: ReplyToMessageInput
+}
+
+export type MutationRemoveMessageArgs = {
+  data: RemoveMessageInput
 }
 
 export type MutationGetSignedS3UrlArgs = {
@@ -118,73 +263,103 @@ export type MutationUpdateMeArgs = {
 }
 
 export type MutationForgotPasswordArgs = {
-  email: Scalars["String"]
+  email: Scalars['String']
 }
 
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput
 }
 
-export type MeFragment = { __typename?: "User" } & Pick<
+export type MeFragment = { __typename?: 'User' } & Pick<
   User,
-  "id" | "firstName" | "lastName" | "fullName" | "email"
->
+  'id' | 'firstName' | 'lastName' | 'fullName' | 'email'
+> & {
+    payments: Array<
+      Maybe<
+        { __typename?: 'Payment' } & Pick<
+          Payment,
+          | 'invoiceId'
+          | 'productDesc'
+          | 'taxAmount'
+          | 'amountExcludingTax'
+          | 'amountIncludingTax'
+          | 'last4'
+          | 'cardType'
+        >
+      >
+    >
+  }
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>
 
-export type MeQuery = { __typename?: "Query" } & { me?: Maybe<{ __typename?: "User" } & MeFragment> }
-
-export type LogoutMutationVariables = Exact<{ [key: string]: never }>
-
-export type LogoutMutation = { __typename?: "Mutation" } & Pick<Mutation, "logout">
-
-export type GetSignedUrlMutationVariables = Exact<{
-  data: S3SignedUrlInput
-}>
-
-export type GetSignedUrlMutation = { __typename?: "Mutation" } & Pick<Mutation, "getSignedS3Url">
-
-export type GetBulkSignedUrlMutationVariables = Exact<{
-  data: S3BulkSignedUrlInput
-}>
-
-export type GetBulkSignedUrlMutation = { __typename?: "Mutation" } & {
-  getBulkSignedS3Url?: Maybe<
-    Array<{ __typename?: "BulkSignedResponse" } & Pick<BulkSignedResponse, "url" | "key">>
-  >
-}
-
-export type ForgotPasswordMutationVariables = Exact<{
-  email: Scalars["String"]
-}>
-
-export type ForgotPasswordMutation = { __typename?: "Mutation" } & Pick<Mutation, "forgotPassword">
-
-export type LoginMutationVariables = Exact<{
-  data: LoginInput
-}>
-
-export type LoginMutation = { __typename?: "Mutation" } & {
-  login: { __typename?: "AuthResponse" } & Pick<AuthResponse, "token"> & {
-      user: { __typename?: "User" } & MeFragment
-    }
-}
+export type MeQuery = { __typename?: 'Query' } & { me?: Maybe<{ __typename?: 'User' } & MeFragment> }
 
 export type RegisterMutationVariables = Exact<{
   data: RegisterInput
 }>
 
-export type RegisterMutation = { __typename?: "Mutation" } & {
-  register: { __typename?: "AuthResponse" } & Pick<AuthResponse, "token"> & {
-      user: { __typename?: "User" } & MeFragment
+export type RegisterMutation = { __typename?: 'Mutation' } & {
+  register: { __typename?: 'AuthResponse' } & Pick<AuthResponse, 'token'> & {
+      user: { __typename?: 'User' } & MeFragment
     }
 }
+
+export type SearchQueryVariables = Exact<{
+  data: SearchSecurityInput
+}>
+
+export type SearchQuery = { __typename?: 'Query' } & {
+  search: Array<
+    Maybe<
+      { __typename?: 'SearchSecurityResponse' } & Pick<
+        SearchSecurityResponse,
+        'symbolId' | 'displaySymbol' | 'figi' | 'type' | 'currency' | 'description'
+      >
+    >
+  >
+}
+
+export type LoginMutationVariables = Exact<{
+  data: LoginInput
+}>
+
+export type LoginMutation = { __typename?: 'Mutation' } & {
+  login: { __typename?: 'AuthResponse' } & Pick<AuthResponse, 'token'> & {
+      user: { __typename?: 'User' } & MeFragment
+    }
+}
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never }>
+
+export type LogoutMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'logout'>
+
+export type GetSignedUrlMutationVariables = Exact<{
+  data: S3SignedUrlInput
+}>
+
+export type GetSignedUrlMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'getSignedS3Url'>
+
+export type GetBulkSignedUrlMutationVariables = Exact<{
+  data: S3BulkSignedUrlInput
+}>
+
+export type GetBulkSignedUrlMutation = { __typename?: 'Mutation' } & {
+  getBulkSignedS3Url?: Maybe<
+    Array<{ __typename?: 'BulkSignedResponse' } & Pick<BulkSignedResponse, 'url' | 'key'>>
+  >
+}
+
+export type ForgotPasswordMutationVariables = Exact<{
+  email: Scalars['String']
+}>
+
+export type ForgotPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'forgotPassword'>
 
 export type ResetPasswordMutationVariables = Exact<{
   data: ResetPasswordInput
 }>
 
-export type ResetPasswordMutation = { __typename?: "Mutation" } & Pick<Mutation, "resetPassword">
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'resetPassword'>
 
 export const MeFragmentDoc = gql`
   fragment Me on User {
@@ -193,6 +368,15 @@ export const MeFragmentDoc = gql`
     lastName
     fullName
     email
+    payments {
+      invoiceId
+      productDesc
+      taxAmount
+      amountExcludingTax
+      amountIncludingTax
+      last4
+      cardType
+    }
   }
 `
 export const MeDocument = gql`
@@ -214,6 +398,72 @@ export function useMeLazyQuery(
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>
+export const RegisterDocument = gql`
+  mutation Register($data: RegisterInput!) {
+    register(data: $data) {
+      user {
+        ...Me
+      }
+      token
+    }
+  }
+  ${MeFragmentDoc}
+`
+export function useRegisterMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<RegisterMutation, RegisterMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<RegisterMutation, RegisterMutationVariables>(
+    RegisterDocument,
+    baseOptions,
+  )
+}
+export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>
+export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>
+export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>
+export const SearchDocument = gql`
+  query Search($data: SearchSecurityInput!) {
+    search(data: $data) {
+      symbolId
+      displaySymbol
+      figi
+      type
+      currency
+      description
+    }
+  }
+`
+export function useSearchQuery(
+  baseOptions: ApolloReactHooks.QueryHookOptions<SearchQuery, SearchQueryVariables>,
+) {
+  return ApolloReactHooks.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions)
+}
+export function useSearchLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>,
+) {
+  return ApolloReactHooks.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, baseOptions)
+}
+export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>
+export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>
+export type SearchQueryResult = Apollo.QueryResult<SearchQuery, SearchQueryVariables>
+export const LoginDocument = gql`
+  mutation Login($data: LoginInput!) {
+    login(data: $data) {
+      user {
+        ...Me
+      }
+      token
+    }
+  }
+  ${MeFragmentDoc}
+`
+export function useLoginMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>,
+) {
+  return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions)
+}
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>
 export const LogoutDocument = gql`
   mutation Logout {
     logout
@@ -290,47 +540,6 @@ export type ForgotPasswordMutationOptions = Apollo.BaseMutationOptions<
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
 >
-export const LoginDocument = gql`
-  mutation Login($data: LoginInput!) {
-    login(data: $data) {
-      user {
-        ...Me
-      }
-      token
-    }
-  }
-  ${MeFragmentDoc}
-`
-export function useLoginMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<LoginMutation, LoginMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions)
-}
-export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
-export type LoginMutationResult = Apollo.MutationResult<LoginMutation>
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>
-export const RegisterDocument = gql`
-  mutation Register($data: RegisterInput!) {
-    register(data: $data) {
-      user {
-        ...Me
-      }
-      token
-    }
-  }
-  ${MeFragmentDoc}
-`
-export function useRegisterMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<RegisterMutation, RegisterMutationVariables>,
-) {
-  return ApolloReactHooks.useMutation<RegisterMutation, RegisterMutationVariables>(
-    RegisterDocument,
-    baseOptions,
-  )
-}
-export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>
-export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>
-export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>
 export const ResetPasswordDocument = gql`
   mutation ResetPassword($data: ResetPasswordInput!) {
     resetPassword(data: $data)

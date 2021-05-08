@@ -1,82 +1,64 @@
-import * as React from "react"
-import cookie from "cookie"
-import { gql, useApolloClient } from "@apollo/client"
-import { Box, Stack, Heading, Button, Center } from "@chakra-ui/react"
-import { useRouter } from "next/router"
-import Link from "next/link"
-import Head from "next/head"
-
-import { MeFragmentDoc, RegisterInput, MeQuery, MeDocument, useRegisterMutation } from "lib/graphql"
-import Yup from "lib/yup"
-import { Form } from "components/Form"
-import { Input } from "components/Input"
-import { SESSION_TOKEN } from "lib/config"
-import { FormError } from "components/FormError"
-import { useForm } from "lib/hooks/useForm"
-
-export const REGISTER = gql`
-  mutation Register($data: RegisterInput!) {
-    register(data: $data) {
-      user {
-        ...Me
-      }
-      token
-    }
-  }
-  ${MeFragmentDoc}
-`
-
-const RegisterSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().min(8, "Must be at least 8 characters").required("Required"),
-  firstName: Yup.string().required("Required"),
-  lastName: Yup.string().required("Required"),
-})
+import { Box, Heading, Text, useColorModeValue as mode } from '@chakra-ui/react'
+import * as React from 'react'
+import NextLink from 'next/link'
+import { GradientBanner } from 'features/banner/GradientBanner'
+import { Logo } from 'layouts/shared/Logo'
+import { SigupForm } from 'features/register/RegisterForm'
 
 export default function Register() {
-  const client = useApolloClient()
-
-  const [register, { loading }] = useRegisterMutation()
-  const router = useRouter()
-  const redirectTo = router.query.redirectTo as string | undefined
-  const form = useForm({ schema: RegisterSchema })
-
-  const onSubmit = (values: RegisterInput) => {
-    return form.handler(() => register({ variables: { data: values } }), {
-      onSuccess: (data) => {
-        document.cookie = cookie.serialize(SESSION_TOKEN, data.register.token, {
-          path: "/",
-          maxAge: 30 * 24 * 60 * 60, // 30 days
-        })
-        client.writeQuery<MeQuery>({
-          query: MeDocument,
-          data: { me: data.register.user },
-        })
-        router.replace(redirectTo || "/")
-      },
-    })
-  }
   return (
-    <Center minH="100vh">
-      <Head>
-        <title>Fullstack boilerplate - Register</title>
-      </Head>
-      <Box w={["100%", 400]}>
-        <Form onSubmit={onSubmit} {...form}>
-          <Stack spacing={2}>
-            <Heading as="h1">Register</Heading>
-            <Input name="email" label="Email" placeholder="jim@gmail.com" />
-            <Input name="password" label="Password" type="password" placeholder="********" />
-            <Input name="firstName" label="First name" placeholder="Jim" />
-            <Input name="lastName" label="Last name" placeholder="Bob" />
-            <Button colorScheme="orange" type="submit" isFullWidth isLoading={loading} isDisabled={loading}>
-              Register
-            </Button>
-            <FormError />
-            <Link href="/login">Already have an account?</Link>
-          </Stack>
-        </Form>
+    <Box minH="100vh" bg={{ md: mode('gray.100', 'inherit') }}>
+      <GradientBanner
+        showBanner
+        boldText="Confirm your email"
+        buttonText="Resend email"
+        messageText="we've sent a message to sample@gmail.com"
+      />
+      <Box maxW="6x1" mx="auto" py={{ base: '10', md: '20' }} px={{ base: '4', md: '10' }}>
+        <Box w="full" maxW="xl" mx="auto">
+          <Box
+            bg={{ md: mode('white', 'gray.700') }}
+            rounded={{ md: '2xl' }}
+            p={{ base: '4', md: '12' }}
+            borderWidth={{ md: '1px' }}
+            borderColor={mode('gray.200', 'transparent')}
+            shadow={{ md: 'lg' }}
+          >
+            <NextLink href="/" passHref>
+              <Box as="a">
+                <Logo
+                  h="6"
+                  mb={{ base: '16', md: '10' }}
+                  iconColor="blue.600"
+                  mx={{ base: 'auto', md: 'unset' }}
+                />
+              </Box>
+            </NextLink>
+            <Box mb="8" textAlign={{ base: 'center', md: 'start' }}>
+              <Heading size="lg" mb="2" fontWeight="extrabold">
+                Welcome to StockChase
+              </Heading>
+              <Text fontSize="lg" color={mode('gray.600', 'gray.400')} fontWeight="medium">
+                Enter your info to get started
+              </Text>
+            </Box>
+            <SigupForm />
+          </Box>
+
+          <Text mt="8" align="center" fontWeight="medium">
+            Already have an account?{' '}
+            <NextLink href="/login" passHref>
+              <Box
+                as="a"
+                color={mode('blue.600', 'blue.200')}
+                display={{ base: 'block', md: 'inline-block' }}
+              >
+                Log in to StockChase
+              </Box>
+            </NextLink>
+          </Text>
+        </Box>
       </Box>
-    </Center>
+    </Box>
   )
 }

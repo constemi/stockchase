@@ -1,81 +1,105 @@
-import * as React from "react"
-import cookie from "cookie"
-import { gql, useApolloClient } from "@apollo/client"
-import { Box, Stack, Heading, Button, Center, Flex } from "@chakra-ui/react"
-import Link from "next/link"
-import Head from "next/head"
-import { useRouter } from "next/router"
-
-import { MeFragmentDoc, LoginInput, MeQuery, MeDocument, useLoginMutation } from "lib/graphql"
-import Yup from "lib/yup"
-import { Form } from "components/Form"
-import { Input } from "components/Input"
-import { SESSION_TOKEN } from "lib/config"
-import { FormError } from "components/FormError"
-import { useForm } from "lib/hooks/useForm"
-
-export const LOGIN = gql`
-  mutation Login($data: LoginInput!) {
-    login(data: $data) {
-      user {
-        ...Me
-      }
-      token
-    }
-  }
-  ${MeFragmentDoc}
-`
-
-const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().min(8, "Must be at least 8 characters"),
-})
+import { Box, Flex, Heading, HStack, Text, useColorModeValue as mode } from '@chakra-ui/react'
+import * as React from 'react'
+import NextLink from 'next/link'
+import { HiOutlineExternalLink } from 'react-icons/hi'
+import { Logo } from 'layouts/shared/Logo'
+import { SigninForm } from 'features/signin/SigninForm'
 
 export default function Login() {
-  const client = useApolloClient()
-
-  const [login, { loading }] = useLoginMutation()
-  const router = useRouter()
-  const redirectTo = router.query.redirectTo as string | undefined
-  const form = useForm({ schema: LoginSchema })
-
-  const onSubmit = (values: LoginInput) => {
-    return form.handler(() => login({ variables: { data: values } }), {
-      onSuccess: (data) => {
-        document.cookie = cookie.serialize(SESSION_TOKEN, data.login.token, {
-          path: "/",
-          maxAge: 30 * 24 * 60 * 60, // 30 days
-        })
-        client.writeQuery<MeQuery>({
-          query: MeDocument,
-          data: { me: data.login.user },
-        })
-        router.replace(redirectTo || "/")
-      },
-    })
-  }
   return (
-    <Center minH="100vh">
-      <Head>
-        <title>Fullstack boilerplate - Login</title>
-      </Head>
-      <Box w={["100%", 400]}>
-        <Form onSubmit={onSubmit} {...form}>
-          <Stack spacing={2}>
-            <Heading as="h1">Login</Heading>
-            <Input name="email" label="Email" placeholder="jim@gmail.com" />
-            <Input name="password" label="Password" type="password" placeholder="********" />
-            <Button colorScheme="orange" type="submit" isFullWidth isLoading={loading} isDisabled={loading}>
-              Login
-            </Button>
-            <FormError />
-            <Flex justify="space-between">
-              <Link href="/register">Register</Link>
-              <Link href="/forgot-password">Forgot password?</Link>
-            </Flex>
-          </Stack>
-        </Form>
+    <Flex minH="100vh" direction={{ base: 'column', md: 'row' }}>
+      <Box
+        display={{ base: 'none', md: 'block' }}
+        maxW={{ base: '20rem', lg: '40rem' }}
+        flex="1"
+        bg="blue.600"
+        color="white"
+        px="10"
+        py="8"
+      >
+        <NextLink href="/" passHref>
+          <Box as="a">
+            <Logo w="auto" h="7" color="white" />
+          </Box>
+        </NextLink>
+        <Flex direction="column" align="center" justify="center" h="full" textAlign="center" mt="-10">
+          <Box>
+            <Text
+              maxW="md"
+              mx="auto"
+              fontWeight="extrabold"
+              fontSize={{ base: '4xl', lg: '5xl' }}
+              letterSpacing="tight"
+              lineHeight="normal"
+            >
+              Introducing our 2020 report
+            </Text>
+            <Text mt="5" maxW="sm" mx="auto">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun.
+            </Text>
+          </Box>
+          <HStack
+            justify="center"
+            as="a"
+            href="#"
+            minW="2xs"
+            py="3"
+            fontWeight="semibold"
+            px="2"
+            mt="5"
+            border="2px solid white"
+            rounded="lg"
+            _hover={{ bg: 'whiteAlpha.200' }}
+          >
+            <Box>View Report</Box>
+            <HiOutlineExternalLink />
+          </HStack>
+        </Flex>
       </Box>
-    </Center>
+      <Box
+        flex="1"
+        px={{ base: '6', md: '10', lg: '16', xl: '28' }}
+        py={{ base: '10', md: '64' }}
+        bg={{ md: mode('gray.50', 'gray.800') }}
+      >
+        <Box maxW="xl">
+          <Box>
+            <Box display={{ md: 'none' }} mb="16">
+              <Logo w="auto" h="7" iconColor="blue.400" />
+            </Box>
+            <Heading
+              color={mode('blue.600', 'blue.400')}
+              as="h1"
+              size="2xl"
+              fontWeight="extrabold"
+              letterSpacing="tight"
+            >
+              Welcome back
+            </Heading>
+            <Text
+              mt="3"
+              fontSize={{ base: 'xl', md: '3xl' }}
+              fontWeight="bold"
+              color={mode('gray.500', 'inherit')}
+            >
+              Sign in to continue
+            </Text>
+          </Box>
+
+          <Box
+            minW={{ md: '420px' }}
+            mt="10"
+            rounded="xl"
+            bg={{ md: mode('white', 'gray.700') }}
+            shadow={{ md: 'lg' }}
+            px={{ md: '10' }}
+            pt={{ base: '8', md: '12' }}
+            pb="8"
+          >
+            <SigninForm />
+          </Box>
+        </Box>
+      </Box>
+    </Flex>
   )
 }

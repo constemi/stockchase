@@ -3,6 +3,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
+    "typeRoots": ["./node_modules/@types", "src/types"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": ["dom", "es2019"],
@@ -18,6 +19,6 @@
     "target": "es6",
     "noUnusedLocals": true
   },
-  "exclude": ["./node_modules"],
+  "exclude": ["./node_modules", "src/types"],
   "include": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.js"]
 }

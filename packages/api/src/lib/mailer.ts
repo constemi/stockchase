@@ -1,11 +1,11 @@
-import sendgrid from "@sendgrid/mail"
-import sendgridClient from "@sendgrid/client"
-import handlebars from "handlebars"
-import nodemailer, { Transporter } from "nodemailer"
-import dayjs from "dayjs"
-import * as Sentry from "@sentry/node"
+import sendgrid from '@sendgrid/mail'
+import sendgridClient from '@sendgrid/client'
+import handlebars from 'handlebars'
+import nodemailer, { Transporter } from 'nodemailer'
+import dayjs from 'dayjs'
+import * as Sentry from '@sentry/node'
 
-import { DEV_EMAIL_OPTIONS, IS_PRODUCTION, SENDGRID_API_KEY } from "./config"
+import { DEV_EMAIL_OPTIONS, IS_PRODUCTION, SENDGRID_API_KEY } from './config'
 
 sendgrid.setApiKey(SENDGRID_API_KEY)
 sendgridClient.setApiKey(SENDGRID_API_KEY)
@@ -28,7 +28,7 @@ type MailArgs = {
 }
 
 export class Mailer {
-  private readonly from: string = "Fullstack boilerplate <info@noquarter.co>"
+  private readonly from: string = 'Fullstack boilerplate <info@noquarter.co>'
   private devMail: Transporter
 
   constructor() {
@@ -50,13 +50,13 @@ export class Mailer {
       }
     } catch (err) {
       Sentry.captureException(err)
-      console.log("Error sending mail:", err)
+      console.log('Error sending mail:', err)
     }
   }
 
   async sendDev(args: MailArgs) {
     const [template] = await sendgridClient.request({
-      method: "GET",
+      method: 'GET',
       url: `/v3/templates/${args.templateId}`,
     })
 

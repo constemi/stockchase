@@ -3,22 +3,26 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from "typeorm"
-import { ID, Field, ObjectType } from "type-graphql"
+  DeleteDateColumn,
+} from 'typeorm'
+import { ID, Field, ObjectType } from 'type-graphql'
 
 @ObjectType()
 export abstract class BaseEntity<T = unknown> extends TBaseEntity {
   @Field(() => ID)
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Field()
-  @CreateDateColumn({ type: "timestamp with time zone" })
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   createdAt: Date
 
   @Field()
-  @UpdateDateColumn({ type: "timestamp with time zone" })
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
   updatedAt: Date
+
+  @DeleteDateColumn({ nullable: true })
+  deletedAt: Date | null
 
   // Helpers
 
