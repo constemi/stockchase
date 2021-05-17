@@ -1,7 +1,6 @@
 import { tsvParse } from 'd3-dsv'
 import { timeParse } from 'd3-time-format'
 import * as React from 'react'
-import { Box } from '@chakra-ui/react'
 import { IOHLCData } from './iOHLCData'
 
 const parseDate = timeParse('%Y-%m-%d')
@@ -69,11 +68,7 @@ export function withOHLCData(dataSet = 'DAILY') {
           return <div className="center">{message}</div>
         }
 
-        return (
-          <Box h="500">
-            <OriginalComponent {...(this.props as TProps)} data={data} />
-          </Box>
-        )
+        return <OriginalComponent {...(this.props as TProps)} data={data} />
       }
     }
   }

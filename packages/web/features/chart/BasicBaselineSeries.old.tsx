@@ -14,15 +14,15 @@ import { XAxis, YAxis } from '@react-financial-charts/axes'
 import { discontinuousTimeScaleProviderBuilder } from '@react-financial-charts/scales'
 import { AreaSeries, AreaSeriesProps } from '@react-financial-charts/series'
 import { withDeviceRatio, withSize } from '@react-financial-charts/utils'
-import { IOHLCData, withUpdatingData } from './data'
+import { IOHLCData, withOHLCData, withUpdatingData } from './data'
 
 export interface ChartProps extends Partial<AreaSeriesProps> {
-  readonly data?: IOHLCData[]
+  readonly data: IOHLCData[]
   readonly height: number
   readonly ratio: number
   readonly width: number
   readonly yScale?: ScaleLogarithmic<number, number> | undefined | false
-  readonly tickLabelFill?: string // x-y axis label color
+  readonly tickLabelFill: string // x-y axis label color
 }
 
 class BasicAreaSeries extends React.Component<ChartProps> {
@@ -35,7 +35,7 @@ class BasicAreaSeries extends React.Component<ChartProps> {
   public render() {
     const { data: initialData, height, ratio, width, tickLabelFill, yScale, ...rest } = this.props
 
-    const { data, xScale, xAccessor, displayXAccessor } = this.xScaleProvider(initialData as IOHLCData[])
+    const { data, xScale, xAccessor, displayXAccessor } = this.xScaleProvider(initialData)
 
     const gridHeight = height - this.margin.top - this.margin.bottom
     const barChartHeight = gridHeight
@@ -106,6 +106,10 @@ class BasicAreaSeries extends React.Component<ChartProps> {
   }
 }
 
-export const SimpleAreaSeries = withUpdatingData()(
-  withSize({ style: { minHeight: 600 } })(withDeviceRatio()(BasicAreaSeries)),
+export const SimpleAreaSeries = withOHLCData('SECONDS')(
+  withUpdatingData()(withSize({ style: { minHeight: 600 } })(withDeviceRatio()(BasicLineSeries))),
+)
+
+export const Intraday = withOHLCData('MINUTES')(
+  withSize({ style: { minHeight: 500 } })(withDeviceRatio()(BasicAreaSeries)),
 )

@@ -68,7 +68,7 @@ export const Dashboard = (props: DashBoardProps) => {
   ])
 
   // const handleClickSendMessage = React.useCallback(() => sendMessage('Hello'), [sendMessage])
-  // const { me } = props;
+  // const { me } = props
 
   return (
     <Page heading="Overview">
@@ -76,16 +76,18 @@ export const Dashboard = (props: DashBoardProps) => {
       <Box as="main" flex="1">
         <Container maxW="7xl" py="10">
           <Box bgGradient={mode('none', 'linear(to-t, #393d4f1c, gray.900)')} shadow="md" rounded="md">
-            <SimpleAreaSeries
-              yScale={logarithmic && scaleLog()}
-              tickLabelFill={mode('inherit', 'currentColor')}
-            />
-            <ButtonPanel
-              isActive={isActive}
-              logarithmic={logarithmic}
-              setLogScale={setLogScale}
-              setActiveButton={setActiveButton}
-            />
+            <Box h="500">
+              <SimpleAreaSeries
+                yScale={logarithmic && scaleLog()}
+                tickLabelFill={mode('inherit', 'currentColor')}
+              />
+              <ButtonPanel
+                isActive={isActive}
+                logarithmic={logarithmic}
+                setLogScale={setLogScale}
+                setActiveButton={setActiveButton}
+              />
+            </Box>
           </Box>
         </Container>
       </Box>
