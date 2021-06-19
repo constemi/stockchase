@@ -39,6 +39,6 @@
     "seeds": ["dist/db/seeds/**/*{.ts,.js}"],
     "factories": ["dist/db/factories/**/*{.ts,.js}"],
     "migrations": ["db/migrations/*.js"],
-    "cli": { "migrationsDir": "src/db/migrations" }
+    "cli": { "migrationsDir": "dist/db/migrations" }
   }
 ]
