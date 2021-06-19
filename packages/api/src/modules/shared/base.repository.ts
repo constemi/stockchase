@@ -1,5 +1,5 @@
-import { SelectQueryBuilder } from "typeorm"
-import { TableArgs } from "./args/table.args"
+import { SelectQueryBuilder } from 'typeorm'
+import { TableArgs } from './args/table.args'
 
 export interface EntityFilters {
   [key: string]: { [key: string]: string[] }
@@ -20,8 +20,8 @@ export class BaseRepository<T> {
 
   applyRelations(query: SelectQueryBuilder<T>, relations: string[]) {
     relations.forEach((join) => {
-      const entity = join.split(".")[0]
-      const relation = join.split(".")[1]
+      const entity = join.split('.')[0]
+      const relation = join.split('.')[1]
       query.leftJoinAndSelect(`${entity}.${relation}`, relation)
     })
   }
@@ -48,7 +48,7 @@ export class BaseRepository<T> {
         acc += ` OR ${fieldQuery}`
       }
       return acc
-    }, "")
+    }, '')
     query.andWhere(`(${searchQuery})`, {
       search: `%${search}%`,
     })
@@ -61,13 +61,13 @@ export class BaseRepository<T> {
       orderBy?: string
       skip?: number
       take?: number
-      order?: "ASC" | "DESC"
+      order?: 'ASC' | 'DESC'
     },
   ) {
     query
       .skip(args.skip)
       .take(args.take)
-      .orderBy(args.orderBy || `${entity}.createdAt`, args.order || "DESC")
+      .orderBy(args.orderBy || `${entity}.createdAt`, args.order || 'DESC')
   }
 
   async getMany(query: SelectQueryBuilder<T>) {
