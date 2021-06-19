@@ -10,4 +10,4 @@ export const redisOptions: Redis.RedisOptions = {
   },
 }
 
-export const redis = new Redis(redisOptions)
+// export const redis = new Redis(redisOptions)
