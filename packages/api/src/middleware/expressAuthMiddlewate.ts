@@ -6,9 +6,13 @@ export interface ExpressRequest extends Request {
   user?: { id: string }
 }
 
-export function AuthMiddleware(req: ExpressRequest, response: Response, next: (err?: any) => any): any {
+export async function AuthMiddleware(
+  req: ExpressRequest,
+  response: Response,
+  next: (err?: any) => any,
+): Promise<any> {
   if (req?.user?.id) {
-    const currentUser = User.createQueryBuilder().where({ id: req.user.id }).getOne()
+    const currentUser = await User.createQueryBuilder().where({ id: req.user.id }).getOne()
     if (currentUser) return next()
     response.json(new UnauthorizedError('Not authorized'))
   } else {

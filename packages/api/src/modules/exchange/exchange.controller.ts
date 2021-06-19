@@ -51,7 +51,7 @@ export class ExchangeController {
     }
     try {
       const response = await fetch('https://finnhub.io/api/v1/stock/candle?' + new URLSearchParams(params))
-      const data = response.json()
+      const data: Record<string, any> = response.json()
       if ('error' in data) {
         throw new BadRequestError(data['error'])
       }
@@ -72,7 +72,7 @@ export class ExchangeController {
     }
     try {
       const response = await fetch('https://finnhub.io/api/v1/quote?' + new URLSearchParams(params))
-      const data = response.json()
+      const data: Record<string, any> = response.json()
       if ('error' in data) {
         throw new BadRequestError(data['error'])
       }
@@ -90,7 +90,7 @@ export class ExchangeController {
     const params = { symbol, token: FINNHUB_KEY }
     try {
       const response = await fetch('https://finnhub.io/api/v1/stock/profile2?' + new URLSearchParams(params))
-      const data = response.json()
+      const data: Record<string, any> = response.json()
       if ('error' in data) {
         throw new BadRequestError(data['error'])
       }
@@ -108,7 +108,7 @@ export class ExchangeController {
     const params = { symbol, token: FINNHUB_KEY }
     try {
       const response = await fetch('https://finnhub.io/api/v1/etf/profile?' + new URLSearchParams(params))
-      const data = response.json()
+      const data: Record<string, any> = response.json()
       if ('error' in data) {
         throw new BadRequestError(data['error'])
       }
@@ -126,7 +126,7 @@ export class ExchangeController {
     const params = { symbol, token: FINNHUB_KEY, from: intervalStart, to: intervalEnd }
     try {
       const response = await fetch('https://finnhub.io/api/v1/company-news?' + new URLSearchParams(params))
-      const data = response.json()
+      const data: Record<string, any> = response.json()
       if ('error' in data) {
         throw new BadRequestError(data['error'])
       }
