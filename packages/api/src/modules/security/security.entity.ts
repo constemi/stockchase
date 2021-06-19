@@ -6,7 +6,7 @@ import { BaseEntity } from '../shared/base.entity'
 import { StringField, NumericField, BooleanField, TsVectorField } from '../shared/fields'
 import { Message } from '../message/message.entity'
 
-// const sample = {
+// const shape = {
 //   currency: 'CAD',
 //   description: 'LABRADOR IRON ORE ROYALTY CO',
 //   displaySymbol: 'LIF.TO',

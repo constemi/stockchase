@@ -1,16 +1,18 @@
 // A tiny wrapper around fetch(), borrowed from
 // https://kentcdodds.com/blog/replace-axios-with-a-simple-custom-fetch-wrapper
 import { parseCookies } from 'lib/helpers/utils'
+import { SESSION_TOKEN } from '../config'
 
 interface Config {
   method?: string
   headers?: Record<string, any>
+  credentials?: RequestCredentials | undefined
   body?: BodyInit
   inputData?: Record<string, any>
 }
 
 export async function client(endpoint: string, { inputData, ...customConfig }: Config = {}) {
-  const token = parseCookies()['SESSION_TOKEN']
+  const token = parseCookies()[SESSION_TOKEN]
   const headers: Record<string, any> = { 'Content-Type': 'application/json' }
 
   if (token) {

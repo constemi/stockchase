@@ -10,11 +10,14 @@ import { Message } from '../message/message.entity'
 @ObjectType()
 @Entity()
 export class User extends BaseEntity<User> {
-  @StringField({ unique: true, protected: true, encrypt: true })
+  @StringField({ unique: true, protected: true })
   email: string
 
   @StringField({ protected: true })
-  password: string
+  password?: string
+
+  @StringField({ nullable: true })
+  username?: string
 
   @StringField({ nullable: true })
   firstName?: string

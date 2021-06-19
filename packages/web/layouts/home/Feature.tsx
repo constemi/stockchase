@@ -1,11 +1,11 @@
-import { Box, SimpleGrid } from '@chakra-ui/react'
+import { Box, SimpleGrid, useColorModeValue as mode } from '@chakra-ui/react'
 import * as React from 'react'
 import { FcDoughnutChart, FcMultipleDevices, FcPrivacy, FcTimeline } from 'react-icons/fc'
 import { FeatureItem } from './Feature/FeatureItem'
 
 export const Feature = () => {
   return (
-    <Box as="section" py="24">
+    <Box as="section" py="24" bg={mode('white', 'gray.900')}>
       <Box maxW={{ base: 'xl', md: '5xl' }} mx="auto" px={{ base: '6', md: '8' }}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacingX="10" spacingY="14">
           <FeatureItem title="Secure by default" icon={<FcPrivacy />}>

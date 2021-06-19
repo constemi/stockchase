@@ -15,6 +15,21 @@
     "cli": { "migrationsDir": "src/db/migrations" }
   },
   {
+    "name": "worker",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "database": "fullstack-boilerplate",
+    "synchronize": false,
+    "logging": true,
+    "cache": true,
+    "entities": ["src/modules/**/*.entity.ts"],
+    "migrations": ["src/db/migrations/*.ts"],
+    "seeds": ["src/db/seeds/**/*{.ts,.js}"],
+    "factories": ["src/db/factories/**/*{.ts,.js}"],
+    "cli": { "migrationsDir": "src/db/migrations" }
+  },
+  {
     "name": "production",
     "type": "postgres",
     "synchronize": false,

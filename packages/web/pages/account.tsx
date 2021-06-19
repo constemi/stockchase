@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Box, Stack } from '@chakra-ui/react'
 import { Page } from 'layouts/page/Page'
-import { AccountSettings } from 'layouts/AccountSettings'
+import { AccountSettings } from 'layouts/account/AccountSettings'
 import { DangerZone } from 'layouts/account/DangerZone'
 import { SocialAccountSettings } from 'layouts/account/SocialAccountSettings'
 

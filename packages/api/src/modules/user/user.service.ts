@@ -2,9 +2,10 @@ import { UserInputError } from 'apollo-server-express'
 import { Service, Inject } from 'typedi'
 import argon2 from 'argon2'
 import { User } from './user.entity'
-
 import { UserRepository } from './user.repository'
+import { createOtpToken } from '../../lib/otp'
 import { createAuthToken } from '../../lib/jwt'
+import { CreateInput } from './inputs/create.input'
 import { RegisterInput } from './inputs/register.input'
 
 @Service()
@@ -28,6 +29,13 @@ export class UserService {
     return user
   }
 
+  async createPartial(data: CreateInput) {
+    const email = data.email.toLowerCase().trim()
+    await this.checkUserExists({ email })
+    const user = await User.create(data).save()
+    return user
+  }
+
   async update(userId: string, data: Partial<User>): Promise<User> {
     const user = await this.userRepository.findById(userId)
     if (data.email && data.email.trim().toLowerCase() !== user.email) {
@@ -43,6 +51,10 @@ export class UserService {
 
   createAuthToken(user: User): string {
     return createAuthToken({ id: user.id })
+  }
+
+  createOtpToken(user: Partial<User>): string {
+    return createOtpToken({ email: user.email })
   }
 
   async checkUserExists(field: Partial<User>) {

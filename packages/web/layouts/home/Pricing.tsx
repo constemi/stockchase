@@ -13,7 +13,7 @@ const FeatureItem: React.FC = ({ children }) => (
 
 export const Pricing = () => {
   return (
-    <Box as="section" bg={mode('gray.100', 'gray.800')} py="24">
+    <Box as="section" bg={mode('gray.100', 'gray.900')} py="24">
       <Box maxW={{ base: 'xl', md: '5xl' }} mx="auto" px={{ base: '6', md: '8' }}>
         <Flex direction="column" align={{ base: 'flex-start', md: 'center' }} maxW="2xl" mx="auto">
           <Heading

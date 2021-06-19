@@ -1,12 +1,18 @@
-import * as React from "react"
-import Router from "next/router"
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-export const useRouteChanged = (callback: (url: string) => void, deps: any[] = []) => {
-  React.useEffect(() => {
-    Router.events.on("routeChangeComplete", callback)
-    return () => {
-      Router.events.off("routeChangeComplete", callback)
+export const useRouteChanged = (fn: () => void) => {
+  const router = useRouter()
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      fn()
+      console.log('App is changing to: ', url)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps)
+
+    router.events.on('routeChangeComplete', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events, fn])
 }

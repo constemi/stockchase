@@ -4,6 +4,7 @@ import { decryptToken, createToken } from '../../lib/jwt'
 import { User } from './user.entity'
 import { UserService } from './user.service'
 import { UserMailer } from './user.mailer'
+import { CreateInput } from './inputs/create.input'
 import { UpdateUserInput } from './inputs/updateUser.input'
 import { ResetPasswordInput } from './inputs/resetPassword.input'
 import { UserRepository } from './user.repository'
@@ -40,6 +41,19 @@ export class UserResolver {
     const token = this.userService.createAuthToken(user)
     context.req.user = user
     return { user, token }
+  }
+
+  // REGISTER OTP
+  @Mutation(() => Boolean)
+  async create(@Arg('data') data: CreateInput): Promise<boolean> {
+    try {
+      const user = await this.userService.createPartial(data)
+      const token = this.userService.createOtpToken(user)
+      this.userMailer.sendOtpRegisterLink(user, token)
+      return true
+    } catch (error) {
+      return false
+    }
   }
 
   // ME

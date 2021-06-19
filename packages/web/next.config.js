@@ -7,13 +7,32 @@ const withTM = require('next-transpile-modules')([
   '@react-financial-charts/annotations',
 ])
 
-module.exports = withTM({
-  future: {
-    webpack5: true,
-  },
-  typescript: {
-    ignoreDevErrors: true,
-    ignoreBuildErrors: true,
-  },
-  trailingSlash: false,
-})
+const generateNextConf = (pluginOptions = {}) => (nextConfig = {}) => {
+  const extension = pluginOptions.extension || /\.js$/
+
+  return Object.assign(
+    {},
+    nextConfig,
+    withTM({
+      webpack5: true,
+      webpack: (config, options) => {
+        config.experiments = {
+          topLevelAwait: true,
+        }
+
+        if (typeof nextConfig.webpack === 'function') {
+          return nextConfig.webpack(config, options)
+        }
+
+        return config
+      },
+      typescript: {
+        ignoreDevErrors: true,
+        ignoreBuildErrors: true,
+      },
+      trailingSlash: false,
+    }),
+  )
+}
+
+module.exports = generateNextConf()

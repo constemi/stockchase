@@ -1,17 +1,14 @@
 import 'reflect-metadata'
 import 'dotenv/config'
+import * as Eta from 'eta'
 import * as Sentry from '@sentry/node'
-import jwt from 'express-jwt'
-import WebSocket from 'ws'
-import Redis from 'ioredis'
 import path from 'path'
-import express from 'express'
+import jwt from 'express-jwt'
 import depthLimit from 'graphql-depth-limit'
 import { Integrations } from '@sentry/tracing'
 import { getConnection } from 'typeorm'
 import { ApolloServer } from 'apollo-server-express'
 import { buildSchema } from 'type-graphql'
-import { RedisPubSub } from 'graphql-redis-subscriptions'
 import { Container } from 'typedi'
 import { useExpressServer, useContainer } from 'routing-controllers'
 import { ApolloServerLoaderPlugin } from 'type-graphql-dataloader'
@@ -23,7 +20,6 @@ import {
   CONTROLLER_PATHS,
   SENTRY_DSN,
   IS_PRODUCTION,
-  FINNHUB_KEY,
 } from './lib/config'
 
 Sentry.init({
@@ -34,14 +30,14 @@ Sentry.init({
 })
 
 import { ExpressContext } from './lib/types'
-import { Server } from './lib/server'
-import { redisOptions } from './lib/redis'
+import { addJobs } from './lib/worker'
+import { ServerWithWebsocket } from './lib/wserver'
 import { createDbConnection } from './db'
-import { formatResponse } from './lib/formatResponse'
+import { formatResponse } from './middleware/formatResponse'
 import { ErrorInterceptor } from './middleware/apolloMiddleware'
 import { ComplexityMiddleware } from './middleware/complexityMiddleware'
 
-class FullstackBoilerplate extends Server {
+class FullstackBoilerplate extends ServerWithWebsocket {
   constructor() {
     super()
     this.init().catch((error) => {
@@ -55,12 +51,14 @@ class FullstackBoilerplate extends Server {
     await this.setUpAuth()
     await this.setupApollo()
     await this.setupControllers()
+    await this.setupWebsocket()
     await this.setupRoutes()
     this.start()
   }
 
   async setupDb() {
     await createDbConnection({ runMigrations: true })
+    await addJobs()
     this.logger.info('DB ready')
   }
 
@@ -73,16 +71,10 @@ class FullstackBoilerplate extends Server {
   }
 
   async setupApollo() {
-    const pubSub = new RedisPubSub({
-      publisher: new Redis(redisOptions),
-      subscriber: new Redis(redisOptions),
-    })
-
     const schema = await buildSchema({
       container: Container,
       resolvers: [__dirname + RESOLVER_PATHS],
       globalMiddlewares: [ErrorInterceptor],
-      pubSub,
     })
 
     const queryComplexityPlugin = {
@@ -97,10 +89,6 @@ class FullstackBoilerplate extends Server {
       introspection: true,
       playground: true,
       schema,
-      subscriptions: {
-        path: '/subscriptions',
-        onConnect: () => this.logger.info('Connected to websocket'),
-      },
     })
 
     apolloServer.installSubscriptionHandlers(this.httpServer)
@@ -114,32 +102,24 @@ class FullstackBoilerplate extends Server {
   async setupControllers() {
     useContainer(Container)
     useExpressServer(this.app, {
+      cors: {
+        origin: 'http://localhost:3000',
+        credentials: true,
+      },
+      routePrefix: '/v1',
+      validation: true,
       controllers: [__dirname + CONTROLLER_PATHS],
     })
     this.logger.info('Controllers ready')
   }
 
   async setupRoutes() {
-    this.wss.path = '/echo'
-    this.wss.on('connection', (client) => {
-      client.send('connected')
-
-      client.on('message', (msg: string) => {
-        client.send(`received ${msg}`)
-      })
-
-      const finnhub = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_KEY}`)
-      finnhub.addEventListener('open', () => {
-        finnhub.send(JSON.stringify({ type: 'subscribe', symbol: 'AAPL' }))
-      })
-      finnhub.addEventListener('message', (event) => {
-        client.send(event.data)
-      })
-    })
-
     this.app
-      .use(express.static(path.join(__dirname, '../public')))
-      .get('*', (_, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
+      // .use(express.static(path.join(__dirname, '../public')))
+      // .get('*', (_, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
+      .engine('eta', Eta.renderFile)
+      .set('view engine', 'eta')
+      .set('views', path.join(__dirname, './pages'))
     this.logger.info('Routes ready')
   }
 }

@@ -5,15 +5,17 @@ import { NODE_ENV, DATABASE_URL, IS_PRODUCTION } from '../lib/config'
 
 interface Props {
   runMigrations?: boolean
+  connectionName?: string
 }
 
 export const createDbConnection = async (args?: Props): Promise<Connection> => {
   // Create DB connection
+  const connectionName = args?.connectionName || 'default'
   const options = (await getConnectionOptions(NODE_ENV)) as PostgresConnectionOptions
 
   const connection = await createConnection({
     ...options,
-    name: 'default',
+    name: connectionName,
     url: DATABASE_URL,
   })
 

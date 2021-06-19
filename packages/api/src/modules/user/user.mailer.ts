@@ -7,6 +7,21 @@ import { Mailer } from '../../lib/mailer'
 
 @Service()
 export class UserMailer extends Mailer {
+  sendOtpRegisterLink(user: Partial<User>, token: string) {
+    try {
+      if (!user.email) return
+      this.send({
+        templateId: 'todo',
+        to: user.email,
+        variables: {
+          link: `${FULL_WEB_URL}/v1/auth/callback/challenge?` + new URLSearchParams({ token }),
+        },
+      })
+    } catch (error) {
+      Sentry.captureException(error)
+    }
+  }
+
   sendResetPasswordLink(user: User, token: string) {
     try {
       if (!user.email) return

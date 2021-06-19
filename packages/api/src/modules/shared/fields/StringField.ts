@@ -1,9 +1,7 @@
 import { MaxLength, MinLength } from 'class-validator'
 import { Field } from 'type-graphql'
 import { Column, ColumnOptions } from 'typeorm'
-import { EncryptionTransformer } from 'typeorm-encrypted'
 import { composeMethodDecorators, MethodDecoratorFactory } from './utils'
-import { ENCRYPTION_KEY, INITIAL_VECTOR } from '../../../lib/config'
 
 interface StringFieldOptions extends ColumnOptions {
   maxLength?: number
@@ -16,25 +14,11 @@ interface StringFieldOptions extends ColumnOptions {
   deprecationReason?: string
 }
 
-export const EncryptionTransformerConfig = {
-  key: ENCRYPTION_KEY as string,
-  algorithm: 'aes-256-cbc',
-  ivLength: 16,
-  iv: INITIAL_VECTOR as string,
-}
-
 export function StringField({ deprecationReason, ...args }: StringFieldOptions = {}): any {
   const nullableOption = args.nullable === true ? { nullable: true } : {}
   const maxLenOption = args.maxLength ? { length: args.maxLength } : {}
   const uniqueOption = args.unique ? { unique: true } : {}
   const defaultOption = args.default ? { default: args.default } : {}
-  const transformerOption = args.encrypt
-    ? {
-        transformer: new EncryptionTransformer({
-          ...EncryptionTransformerConfig,
-        }),
-      }
-    : {}
 
   const factories = []
   factories.push(
@@ -50,7 +34,6 @@ export function StringField({ deprecationReason, ...args }: StringFieldOptions =
       ...nullableOption,
       ...uniqueOption,
       ...defaultOption,
-      ...transformerOption,
     }) as MethodDecoratorFactory,
   )
 

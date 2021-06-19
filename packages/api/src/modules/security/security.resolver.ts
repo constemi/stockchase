@@ -19,7 +19,7 @@ export class SecurityResolver {
   // MUTATIONS
 
   // QUERIES
-  @Query(() => [SearchSecurityResponse], { nullable: 'items' })
+  @Query(() => [SearchSecurityResponse])
   search(
     @ContextUser() user: ContextUser,
     @Arg('data') data: SearchSecurityInput,

@@ -15,6 +15,17 @@ export type Scalars = {
   DateTime: string
 }
 
+export type AuthResponse = {
+  __typename?: 'AuthResponse'
+  user: User
+  token: Scalars['String']
+}
+
+export type Author = {
+  __typename?: 'Author'
+  firstName: Scalars['String']
+}
+
 export type BaseEntity = {
   __typename?: 'BaseEntity'
   id: Scalars['ID']
@@ -22,57 +33,34 @@ export type BaseEntity = {
   updatedAt: Scalars['DateTime']
 }
 
-export type Payment = {
-  __typename?: 'Payment'
-  id: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
-  invoiceId?: Maybe<Scalars['String']>
-  invoiceDelivered: Scalars['Boolean']
-  paymentId?: Maybe<Scalars['String']>
-  productId?: Maybe<Scalars['String']>
-  quantity: Scalars['Int']
-  productDesc?: Maybe<Scalars['String']>
-  discountToken?: Maybe<Scalars['String']>
-  taxAmount?: Maybe<Scalars['Float']>
-  amountExcludingTax?: Maybe<Scalars['Float']>
-  amountIncludingTax?: Maybe<Scalars['Float']>
-  last4?: Maybe<Scalars['String']>
-  cardType?: Maybe<Scalars['String']>
-  user: User
+export type BulkSignedResponse = {
+  __typename?: 'BulkSignedResponse'
+  url: Scalars['String']
+  key: Scalars['String']
 }
 
-export type User = {
-  __typename?: 'User'
-  id: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
+export type CreateInput = {
+  email: Scalars['String']
+}
+
+export type CreateMessageInput = {
+  symbolId: Scalars['String']
+  content: Scalars['String']
+  embedUrl?: Maybe<Scalars['String']>
+  fileUrl?: Maybe<Scalars['String']>
+}
+
+export type GetMessageChildrenInput = {
+  messageId: Scalars['String']
+}
+
+export type GetMessagesInput = {
+  symbolId: Scalars['String']
+}
+
+export type LoginInput = {
   email: Scalars['String']
   password: Scalars['String']
-  firstName?: Maybe<Scalars['String']>
-  lastName?: Maybe<Scalars['String']>
-  payments: Array<Maybe<Payment>>
-  messages: Array<Maybe<Message>>
-  fullName: Scalars['String']
-}
-
-export type Security = {
-  __typename?: 'Security'
-  id: Scalars['ID']
-  createdAt: Scalars['DateTime']
-  updatedAt: Scalars['DateTime']
-  currency: Scalars['String']
-  description: Scalars['String']
-  displaySymbol: Scalars['String']
-  figi: Scalars['String']
-  mic: Scalars['String']
-  symbolId: Scalars['String']
-  symbol: Scalars['String']
-  type: Scalars['String']
-  trending: Scalars['Boolean']
-  trendingScore?: Maybe<Scalars['Float']>
-  documentWithWeights?: Maybe<Scalars['Float']>
-  messages: Array<Maybe<Message>>
 }
 
 export type Message = {
@@ -89,11 +77,6 @@ export type Message = {
   security: Security
 }
 
-export type Author = {
-  __typename?: 'Author'
-  firstName: Scalars['String']
-}
-
 export type MessageChildren = {
   __typename?: 'MessageChildren'
   messageId: Scalars['String']
@@ -108,113 +91,6 @@ export type MessageChildrenResponse = {
   message: MessageChildren
 }
 
-export type BulkSignedResponse = {
-  __typename?: 'BulkSignedResponse'
-  url: Scalars['String']
-  key: Scalars['String']
-}
-
-export type SearchSecurityResponse = {
-  __typename?: 'SearchSecurityResponse'
-  symbolId: Scalars['String']
-  displaySymbol: Scalars['String']
-  figi: Scalars['String']
-  type: Scalars['String']
-  currency: Scalars['String']
-  description: Scalars['String']
-}
-
-export type AuthResponse = {
-  __typename?: 'AuthResponse'
-  user: User
-  token: Scalars['String']
-}
-
-export type CreateMessageInput = {
-  symbolId: Scalars['String']
-  content: Scalars['String']
-  embedUrl?: Maybe<Scalars['String']>
-  fileUrl?: Maybe<Scalars['String']>
-}
-
-export type RemoveMessageInput = {
-  messageId: Scalars['String']
-}
-
-export type ReplyToMessageInput = {
-  messageId: Scalars['String']
-  content: Scalars['String']
-  embedUrl?: Maybe<Scalars['String']>
-  fileUrl?: Maybe<Scalars['String']>
-}
-
-export type GetMessagesInput = {
-  symbolId: Scalars['String']
-}
-
-export type GetMessageChildrenInput = {
-  messageId: Scalars['String']
-}
-
-export type S3SignedUrlInput = {
-  key: Scalars['String']
-  fileType: Scalars['String']
-}
-
-export type S3BulkSignedUrlInput = {
-  files: Array<S3SignedUrlInput>
-}
-
-export type SearchSecurityInput = {
-  symbol: Scalars['String']
-}
-
-export type UpdateUserInput = {
-  firstName?: Maybe<Scalars['String']>
-  lastName?: Maybe<Scalars['String']>
-  email?: Maybe<Scalars['String']>
-  avatarKey?: Maybe<Scalars['String']>
-  password?: Maybe<Scalars['String']>
-}
-
-export type ResetPasswordInput = {
-  password: Scalars['String']
-  token: Scalars['String']
-}
-
-export type LoginInput = {
-  email: Scalars['String']
-  password: Scalars['String']
-}
-
-export type RegisterInput = {
-  firstName: Scalars['String']
-  lastName: Scalars['String']
-  email: Scalars['String']
-  password: Scalars['String']
-}
-
-export type Query = {
-  __typename?: 'Query'
-  getMessages?: Maybe<Array<Message>>
-  getChildMessages?: Maybe<MessageChildrenResponse>
-  getPayments: Array<Maybe<Payment>>
-  search: Array<Maybe<SearchSecurityResponse>>
-  me?: Maybe<User>
-}
-
-export type QueryGetMessagesArgs = {
-  data: GetMessagesInput
-}
-
-export type QueryGetChildMessagesArgs = {
-  data: GetMessageChildrenInput
-}
-
-export type QuerySearchArgs = {
-  data: SearchSecurityInput
-}
-
 export type Mutation = {
   __typename?: 'Mutation'
   createMessage: Message
@@ -224,6 +100,7 @@ export type Mutation = {
   getBulkSignedS3Url?: Maybe<Array<BulkSignedResponse>>
   login: AuthResponse
   register: AuthResponse
+  create: Scalars['Boolean']
   updateMe: User
   logout: Scalars['Boolean']
   forgotPassword: Scalars['Boolean']
@@ -258,6 +135,10 @@ export type MutationRegisterArgs = {
   data: RegisterInput
 }
 
+export type MutationCreateArgs = {
+  data: CreateInput
+}
+
 export type MutationUpdateMeArgs = {
   data: UpdateUserInput
 }
@@ -268,6 +149,136 @@ export type MutationForgotPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   data: ResetPasswordInput
+}
+
+export type Payment = {
+  __typename?: 'Payment'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  invoiceId?: Maybe<Scalars['String']>
+  invoiceDelivered: Scalars['Boolean']
+  paymentId?: Maybe<Scalars['String']>
+  productId?: Maybe<Scalars['String']>
+  quantity: Scalars['Int']
+  productDesc?: Maybe<Scalars['String']>
+  discountToken?: Maybe<Scalars['String']>
+  taxAmount?: Maybe<Scalars['Float']>
+  amountExcludingTax?: Maybe<Scalars['Float']>
+  amountIncludingTax?: Maybe<Scalars['Float']>
+  last4?: Maybe<Scalars['String']>
+  cardType?: Maybe<Scalars['String']>
+  user: User
+}
+
+export type Query = {
+  __typename?: 'Query'
+  getMessages?: Maybe<Array<Message>>
+  getChildMessages?: Maybe<MessageChildrenResponse>
+  getPayments: Array<Maybe<Payment>>
+  search: Array<SearchSecurityResponse>
+  me?: Maybe<User>
+}
+
+export type QueryGetMessagesArgs = {
+  data: GetMessagesInput
+}
+
+export type QueryGetChildMessagesArgs = {
+  data: GetMessageChildrenInput
+}
+
+export type QuerySearchArgs = {
+  data: SearchSecurityInput
+}
+
+export type RegisterInput = {
+  firstName: Scalars['String']
+  lastName: Scalars['String']
+  email: Scalars['String']
+  password: Scalars['String']
+}
+
+export type RemoveMessageInput = {
+  messageId: Scalars['String']
+}
+
+export type ReplyToMessageInput = {
+  messageId: Scalars['String']
+  content: Scalars['String']
+  embedUrl?: Maybe<Scalars['String']>
+  fileUrl?: Maybe<Scalars['String']>
+}
+
+export type ResetPasswordInput = {
+  password: Scalars['String']
+  token: Scalars['String']
+}
+
+export type S3BulkSignedUrlInput = {
+  files: Array<S3SignedUrlInput>
+}
+
+export type S3SignedUrlInput = {
+  key: Scalars['String']
+  fileType: Scalars['String']
+}
+
+export type SearchSecurityInput = {
+  symbol: Scalars['String']
+}
+
+export type SearchSecurityResponse = {
+  __typename?: 'SearchSecurityResponse'
+  symbolId: Scalars['String']
+  displaySymbol: Scalars['String']
+  figi: Scalars['String']
+  type: Scalars['String']
+  currency: Scalars['String']
+  description: Scalars['String']
+}
+
+export type Security = {
+  __typename?: 'Security'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  currency: Scalars['String']
+  description: Scalars['String']
+  displaySymbol: Scalars['String']
+  figi: Scalars['String']
+  mic: Scalars['String']
+  symbolId: Scalars['String']
+  symbol: Scalars['String']
+  simple: Scalars['String']
+  type: Scalars['String']
+  trending: Scalars['Boolean']
+  trendingScore?: Maybe<Scalars['Float']>
+  documentWithWeights?: Maybe<Scalars['Float']>
+  messages: Array<Maybe<Message>>
+}
+
+export type UpdateUserInput = {
+  firstName?: Maybe<Scalars['String']>
+  lastName?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
+  avatarKey?: Maybe<Scalars['String']>
+  password?: Maybe<Scalars['String']>
+}
+
+export type User = {
+  __typename?: 'User'
+  id: Scalars['ID']
+  createdAt: Scalars['DateTime']
+  updatedAt: Scalars['DateTime']
+  email: Scalars['String']
+  password: Scalars['String']
+  username?: Maybe<Scalars['String']>
+  firstName?: Maybe<Scalars['String']>
+  lastName?: Maybe<Scalars['String']>
+  payments: Array<Maybe<Payment>>
+  messages: Array<Maybe<Message>>
+  fullName: Scalars['String']
 }
 
 export type MeFragment = { __typename?: 'User' } & Pick<
@@ -310,11 +321,9 @@ export type SearchQueryVariables = Exact<{
 
 export type SearchQuery = { __typename?: 'Query' } & {
   search: Array<
-    Maybe<
-      { __typename?: 'SearchSecurityResponse' } & Pick<
-        SearchSecurityResponse,
-        'symbolId' | 'displaySymbol' | 'figi' | 'type' | 'currency' | 'description'
-      >
+    { __typename?: 'SearchSecurityResponse' } & Pick<
+      SearchSecurityResponse,
+      'symbolId' | 'displaySymbol' | 'figi' | 'type' | 'currency' | 'description'
     >
   >
 }

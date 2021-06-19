@@ -5,7 +5,6 @@ import { ApolloProvider } from '@apollo/client'
 import { ChakraProvider } from '@chakra-ui/react'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
-
 import { MeProvider } from 'components/providers/MeProvider'
 import { useApollo } from 'lib/apollo/client'
 import { theme } from 'lib/theme'

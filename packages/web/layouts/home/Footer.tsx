@@ -17,7 +17,7 @@ import { LinkGroup } from './Footer/LinkGroup'
 import { SubscribeForm } from './Footer/SubscribeForm'
 
 export const Footer = () => (
-  <Box as="footer" bg={mode('gray.50', 'gray.800')}>
+  <Box as="footer" bg={mode('gray.50', 'gray.900')}>
     <Box maxW={{ base: 'xl', md: '7xl' }} mx="auto" px={{ base: '6', md: '8' }} py={{ base: '12', md: '20' }}>
       <Flex
         direction={{ base: 'column', lg: 'row' }}

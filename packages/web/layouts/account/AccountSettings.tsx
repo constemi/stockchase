@@ -13,9 +13,9 @@ import {
   StackProps,
 } from '@chakra-ui/react'
 import * as React from 'react'
-import { Card } from './shared/Card'
-import { FieldGroup } from './account/FieldGroup'
-import { HeadingGroup } from './shared/HeadingGroup'
+import { Card } from '../shared/Card'
+import { FieldGroup } from './FieldGroup'
+import { HeadingGroup } from '../shared/HeadingGroup'
 
 export const AccountSettings = (props: StackProps) => (
   <Stack as="section" spacing="6" {...props}>

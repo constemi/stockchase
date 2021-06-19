@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { WebSocketLink } from '@apollo/client/link/ws'
-import { getMainDefinition } from '@apollo/client/utilities'
-import { ApolloClient, InMemoryCache, NormalizedCacheObject, createHttpLink, split } from '@apollo/client'
+// import { WebSocketLink } from '@apollo/client/link/ws'
+// import { getMainDefinition } from '@apollo/client/utilities'
+import { ApolloClient, InMemoryCache, NormalizedCacheObject, createHttpLink } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import { API_URL, SUBSCRIPTIONS_URL, SESSION_TOKEN } from 'lib/config'
+import { GRAPHQL_API_URL, SESSION_TOKEN } from 'lib/config'
 import { parseCookies } from 'lib/helpers/utils'
 
 type Callback = () => string
@@ -13,23 +13,23 @@ type Options = {
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null
 
-const _httpLink = createHttpLink({ uri: API_URL })
+const _httpLink = createHttpLink({ uri: GRAPHQL_API_URL })
 
-const wsLink = (token: string) => {
-  return process.browser
-    ? new WebSocketLink({
-        uri: SUBSCRIPTIONS_URL,
-        options: {
-          reconnect: true,
-          connectionParams: {
-            headers: {
-              Authorization: token ? `Bearer ${token}` : '',
-            },
-          },
-        },
-      })
-    : null
-}
+// const wsLink = (token: string) => {
+//   return process.browser
+//     ? new WebSocketLink({
+//         uri: SUBSCRIPTIONS_URL,
+//         options: {
+//           reconnect: true,
+//           connectionParams: {
+//             headers: {
+//               Authorization: token ? `Bearer ${token}` : '',
+//             },
+//           },
+//         },
+//       })
+//     : null
+// }
 
 function createApolloClient(initialState: null | Record<string, any>, options: Options) {
   const { getToken } = options
@@ -47,21 +47,21 @@ function createApolloClient(initialState: null | Record<string, any>, options: O
 
   // Split queries where subscriptions are transported via WebSocket and the rest
   // through http link
-  const splitLink = process.browser
-    ? split(
-        ({ query }) => {
-          const definition = getMainDefinition(query)
-          return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
-        },
-        wsLink(getToken()) as WebSocketLink,
-        httpLink,
-      )
-    : httpLink
+  // const splitLink = process.browser
+  //   ? split(
+  //       ({ query }) => {
+  //         const definition = getMainDefinition(query)
+  //         return definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+  //       },
+  //       wsLink(getToken()) as WebSocketLink,
+  //       httpLink,
+  //     )
+  //   : httpLink
 
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     ssrForceFetchDelay: 100,
-    link: splitLink,
+    link: httpLink,
     defaultOptions: {
       mutate: { errorPolicy: 'all' },
       query: { errorPolicy: 'all' },

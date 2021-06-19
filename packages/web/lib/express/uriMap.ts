@@ -1,0 +1,9 @@
+import { EXPRESS_API_URL, API_VERSION } from '../config'
+
+const GET_NEWS = `${EXPRESS_API_URL}/${API_VERSION}/news`
+const GET_CANDLES = `${EXPRESS_API_URL}/${API_VERSION}/stock/candle`
+const GET_QUOTE = `${EXPRESS_API_URL}/${API_VERSION}/quote`
+const GET_ETF_PROFILE = `${EXPRESS_API_URL}/${API_VERSION}/etf/profile`
+const GET_STOCK_PROFILE2 = `${EXPRESS_API_URL}/${API_VERSION}/stock/profile2`
+
+export { GET_NEWS, GET_CANDLES, GET_QUOTE, GET_ETF_PROFILE, GET_STOCK_PROFILE2 }

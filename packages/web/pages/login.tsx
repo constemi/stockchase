@@ -16,6 +16,7 @@ export default function Login() {
         color="white"
         px="10"
         py="8"
+        borderRight="1px solid #ffffff26"
       >
         <NextLink href="/" passHref>
           <Box as="a">
@@ -32,7 +33,7 @@ export default function Login() {
               letterSpacing="tight"
               lineHeight="normal"
             >
-              Introducing our 2020 report
+              Introducing our 2021 report
             </Text>
             <Text mt="5" maxW="sm" mx="auto">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun.
@@ -60,7 +61,7 @@ export default function Login() {
         flex="1"
         px={{ base: '6', md: '10', lg: '16', xl: '28' }}
         py={{ base: '10', md: '64' }}
-        bg={{ md: mode('gray.50', 'gray.800') }}
+        bgGradient={{ md: 'linear(to-r, blue.600, purple.600)', sm: 'none' }}
       >
         <Box maxW="xl">
           <Box>
@@ -89,12 +90,12 @@ export default function Login() {
           <Box
             minW={{ md: '420px' }}
             mt="10"
-            rounded="xl"
-            bg={{ md: mode('white', 'gray.700') }}
+            rounded={{ md: '2xl' }}
+            bg={{ md: mode('white', 'gray.800') }}
             shadow={{ md: 'lg' }}
             px={{ md: '10' }}
             pt={{ base: '8', md: '12' }}
-            pb="8"
+            p="8"
           >
             <SigninForm />
           </Box>

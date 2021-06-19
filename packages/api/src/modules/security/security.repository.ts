@@ -30,7 +30,7 @@ export class SecurityRespository {
         query: `${query}:*`,
       })
       .orderBy('ts_rank("documentWithWeights", plainto_tsquery(:query))', 'DESC')
-      .limit(10)
+      .limit(50)
       .getMany()
 
     return entities

@@ -1,9 +1,12 @@
 import * as React from 'react'
 import { useMe } from 'components/providers/MeProvider'
-import { Dashboard } from 'layouts/Dashboard'
-import { Home } from 'layouts/Home'
+import { Dashboard } from 'layouts/dashboard/Dashboard'
+import { Home } from 'layouts/home/Footer/Home'
 
 export default function Index() {
   const me = useMe()
-  return me ? <Dashboard me={me} /> : <Home />
+  if (me) {
+    return <Dashboard me={me} />
+  }
+  return <Home />
 }

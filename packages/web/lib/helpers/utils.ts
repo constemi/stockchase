@@ -1,31 +1,51 @@
-import { IncomingMessage } from "http"
-import cookie from "cookie"
-import Router from "next/router"
-import dayjs from "dayjs"
-import { GetServerSidePropsContext } from "next"
+import { IncomingMessage } from 'http'
+import cookie from 'cookie'
+import Router from 'next/router'
+import dayjs from 'dayjs'
+import { GetServerSidePropsContext } from 'next'
 
-import { ParsedUrlQuery } from "querystring"
+import { ParsedUrlQuery } from 'querystring'
 
-export const isBrowser = typeof window !== "undefined"
+export const isBrowser = typeof window !== 'undefined'
+
+export const get = (
+  object: {
+    [key: string]: any
+  },
+  parser: string, // 'deeply.nested[0].name'
+) => {
+  parser = parser.replace(/\[(\w+)\]/g, '.$1')
+  parser = parser.replace(/^\./, '')
+  const a = parser.split('.')
+  for (let i = 0, n = a.length; i < n; ++i) {
+    const k = a[i]
+    if (typeof object === 'object' && k in object) {
+      object = object[k]
+    } else {
+      return
+    }
+  }
+  return object
+}
 
 export const humanize = (str: string) => {
   return str
-    .replace(/^[\s_]+|[\s_]+$/g, "")
-    .replace(/[_\s]+/g, " ")
+    .replace(/^[\s_]+|[\s_]+$/g, '')
+    .replace(/[_\s]+/g, ' ')
     .replace(/^[a-z]/, function (m) {
       return m.toUpperCase()
     })
 }
 
 export const formatFileName = (filename: string): string => {
-  const type = filename.split(".").pop()
+  const type = filename.split('.').pop()
   let name = filename
-    .split(".")[0]
+    .split('.')[0]
     .toLowerCase()
-    .replace(/[^a-z0-9]/g, "-")
-  name = dayjs().format("YYYYMMDDHHmmss") + "-" + name
+    .replace(/[^a-z0-9]/g, '-')
+  name = dayjs().format('YYYYMMDDHHmmss') + '-' + name
   if (type) {
-    name = name + "." + type.toLowerCase()
+    name = name + '.' + type.toLowerCase()
   }
   return name
 }
@@ -45,12 +65,12 @@ export const redirect = (
 }
 
 export function parseCookies(req?: IncomingMessage, options = {}): Record<string, string> {
-  return cookie.parse(req ? req.headers.cookie || "" : document.cookie, options)
+  return cookie.parse(req ? req.headers.cookie || '' : document.cookie, options)
 }
 
 export function groupBy<T>(arr: T[], criteria: (item: T) => string | string): Record<string, T[]> {
   return arr.reduce((obj: any, item: any) => {
-    const key = typeof criteria === "function" ? criteria(item) : item[criteria]
+    const key = typeof criteria === 'function' ? criteria(item) : item[criteria]
     if (!obj.hasOwnProperty(key)) {
       obj[key] = []
     }
@@ -64,9 +84,9 @@ export function capitalize(word: string): string {
 }
 
 export function camelToHuman(name?: string | null): string {
-  if (!name) return ""
+  if (!name) return ''
   const words = name.match(/[A-Za-z][a-z]*/g) || []
-  return words.map(capitalize).join(" ")
+  return words.map(capitalize).join(' ')
 }
 
 export function reorder<R>(list: R[], startIndex: number, endIndex: number): R[] {

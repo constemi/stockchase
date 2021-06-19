@@ -28,7 +28,7 @@ type MailArgs = {
 }
 
 export class Mailer {
-  private readonly from: string = 'Fullstack boilerplate <info@noquarter.co>'
+  private readonly from: string = 'StockChase <info@stockchase.org>'
   private devMail: Transporter
 
   constructor() {
@@ -51,6 +51,7 @@ export class Mailer {
     } catch (err) {
       Sentry.captureException(err)
       console.log('Error sending mail:', err)
+      throw err
     }
   }
 

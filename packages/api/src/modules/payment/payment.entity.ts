@@ -7,7 +7,7 @@ import { BooleanField, StringField, IntField, NumericField } from '../shared/fie
 import { User } from '../user/user.entity'
 
 /* 
-{
+const shape = {
     'quantity': "1",
     'amountExcludingTax': "450",
     'taxPercentage': "1111",

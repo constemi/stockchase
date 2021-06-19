@@ -14,7 +14,7 @@ export class SetupFullTextSearch1616366488589 implements MigrationInterface {
     USING GIN ("documentWithWeights");
             CREATE FUNCTION security_tsvector_trigger() RETURNS trigger AS $$
     begin
-    new.documentWithWeights :=
+    new."documentWithWeights" :=
     setweight(to_tsvector('english', coalesce(new.symbol, '')), 'A')
     || setweight(to_tsvector('english', coalesce(new.simple, '')), 'B')
     || setweight(to_tsvector('english', coalesce(new.description, '')), 'C');

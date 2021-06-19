@@ -14,7 +14,7 @@ import { HiArrowRight } from 'react-icons/hi'
 
 export function Hero() {
   return (
-    <Box as="section" bg={mode('gray.50', 'gray.800')} pos="relative" px={{ base: '6', lg: '12' }}>
+    <Box as="section" bg={mode('gray.50', 'gray.900')} pos="relative" px={{ base: '6', lg: '12' }}>
       <Box maxW="7xl" mx="auto">
         <Box maxW={{ lg: 'md', xl: 'xl' }} pt={{ base: '20', lg: '40' }} pb={{ base: '16', lg: '24' }}>
           <HStack

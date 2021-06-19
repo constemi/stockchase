@@ -1,19 +1,14 @@
 import 'reflect-metadata'
 import 'dotenv/config'
-
-import WebSocket from 'ws'
 import express from 'express'
 import helmet from 'helmet'
 import http from 'http'
 import chalk from 'chalk'
 import morgan from 'morgan'
-import * as finnhub from 'finnhub'
-import { PORT, FINNHUB_KEY } from './config'
+import { PORT } from './config'
 
 export class Server {
   private readonly _app: express.Application
-  private readonly _wss: WebSocket.Server
-  private readonly _fhub: finnhub.DefaultApi
   private readonly _http_server: http.Server
 
   readonly logger: {
@@ -37,11 +32,6 @@ export class Server {
       )
 
     this._http_server = http.createServer(this._app)
-    this._wss = new WebSocket.Server({ server: this._http_server, port: 8080 })
-
-    const api_key = finnhub.ApiClient.instance.authentications['api_key']
-    api_key.apiKey = FINNHUB_KEY
-    this._fhub = new finnhub.DefaultApi()
 
     this.logger = {
       info: this.info,
@@ -63,14 +53,6 @@ export class Server {
 
   protected get httpServer(): http.Server {
     return this._http_server
-  }
-
-  protected get wss(): WebSocket.Server {
-    return this._wss
-  }
-
-  protected get fhub(): any {
-    return this._fhub
   }
 
   start(): void {

@@ -9,7 +9,7 @@ import {
   MouseCoordinateY,
   OHLCTooltip,
 } from 'react-financial-charts'
-import { Chart, ChartCanvas, mouseBasedZoomAnchor } from '@react-financial-charts/core'
+import { Chart, ChartCanvas, mouseBasedZoomAnchor } from 'react-financial-charts'
 import { XAxis, YAxis } from '@react-financial-charts/axes'
 import { discontinuousTimeScaleProviderBuilder } from '@react-financial-charts/scales'
 import { AreaSeries, AreaSeriesProps } from '@react-financial-charts/series'
@@ -106,6 +106,10 @@ class BasicAreaSeries extends React.Component<ChartProps> {
   }
 }
 
-export const SimpleAreaSeries = withUpdatingData()(
-  withSize({ style: { minHeight: 600 } })(withDeviceRatio()(BasicAreaSeries)),
+const SimpleAreaSeries = withUpdatingData()(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error: TS doesn't detect HOC props passthrough
+  withSize({ style: { minHeight: 500 } })(withDeviceRatio()(BasicAreaSeries)),
 )
+
+export default SimpleAreaSeries
