@@ -5,7 +5,7 @@ type Payload = Record<string, any>
 
 export const createOtpToken = (payload: Payload): string => {
   try {
-    const serializer = URLSafeTimedSerializer(OTP_KEY, { salt: OTP_SALT, digestMethod: 'sha512' })
+    const serializer = new URLSafeTimedSerializer(OTP_KEY, { salt: OTP_SALT, digestMethod: 'sha512' })
     const token = serializer.dumps(payload)
     return token
   } catch (error) {
@@ -14,9 +14,9 @@ export const createOtpToken = (payload: Payload): string => {
   }
 }
 
-export const decryptOtpToken = (token: string, maxAge: number = 60 * 60): { email: string } | undefined => {
+export const decryptOtpToken = (token: string, maxAge: number = 60 * 60): Payload | undefined => {
   try {
-    const serializer = URLSafeTimedSerializer(OTP_KEY, { salt: OTP_SALT, digestMethod: 'sha512' })
+    const serializer = new URLSafeTimedSerializer(OTP_KEY, { salt: OTP_SALT, digestMethod: 'sha512' })
     const payload = serializer.loads(token, maxAge)
     return payload
   } catch (error) {

@@ -4,6 +4,9 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "typeRoots": ["./node_modules/@types", "src/types"],
+    "paths": {
+      "@constemi/itsdangerjs": ["./types/constemi__itsdangerjs"]
+    },
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": ["dom", "es2019"],
