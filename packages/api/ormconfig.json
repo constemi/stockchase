@@ -35,7 +35,7 @@
     "host": "ec2-54-90-211-192.compute-1.amazonaws.com",
     "port": 5432,
     "database": "dfl40k1ne5ndv7",
-    "user": "vmakwgifykjsjl",
+    "username": "vmakwgifykjsjl",
     "password": "b763ca24e0b65c9b02d8363953e4435bc0c0cd23c6f2c5ab0643f6b27d319c9b",
     "synchronize": false,
     "logging": true,
