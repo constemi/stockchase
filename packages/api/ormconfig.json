@@ -36,7 +36,6 @@
     "logging": true,
     "cache": true,
     "entities": ["dist/modules/**/*.entity.js"],
-    "entitiesTs": ["src/modules/**/*.entity.ts"],
     "migrations": ["dist/migrations/*.js"],
     "cli": { "migrationsDir": "dist/db/migrations" }
   }
