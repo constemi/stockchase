@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node'
 import fetch from 'node-fetch'
 import cuid from 'cuid'
 import { Queue, Worker } from 'bullmq'
-import { REDIS_PORT, REDIS_URL, EXCHANGE_URL, FINNHUB_KEY } from './config'
+import { REDIS_PORT, REDIS_URL, REDIS_PASS, EXCHANGE_URL, FINNHUB_KEY } from './config'
 import { getRepository } from 'typeorm'
 import { Security } from '../modules/security/security.entity'
 
@@ -25,7 +25,8 @@ interface Asset {
 const syncQueue = new Queue('Sync', {
   connection: {
     host: REDIS_URL,
-    port: REDIS_PORT,
+    port: +REDIS_PORT,
+    password: REDIS_PASS,
   },
 })
 
@@ -58,7 +59,8 @@ export const syncWorker = new Worker(
   {
     connection: {
       host: REDIS_URL,
-      port: REDIS_PORT,
+      port: +REDIS_PORT,
+      password: REDIS_PASS,
     },
     // concurrency: 2,
   },
