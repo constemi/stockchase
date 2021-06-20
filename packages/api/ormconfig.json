@@ -35,10 +35,9 @@
     "synchronize": false,
     "logging": true,
     "cache": true,
-    "entities": ["dist/modules/**/*.entity.ts"],
-    "seeds": ["dist/db/seeds/**/*{.ts,.js}"],
-    "factories": ["dist/db/factories/**/*{.ts,.js}"],
-    "migrations": ["db/migrations/*.js"],
+    "entities": ["dist/modules/**/*.entity.js"],
+    "entitiesTs": ["src/modules/**/*.entity.ts"],
+    "migrations": ["dist/migrations/*.js"],
     "cli": { "migrationsDir": "dist/db/migrations" }
   }
 ]
