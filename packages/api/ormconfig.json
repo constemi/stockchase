@@ -39,6 +39,12 @@
     "password": "c46832e14ce05a59fbaa62220f78fe01d35698f08a2bd354d7028fa7c14f1071",
     "synchronize": false,
     "logging": true,
+    "ssl": true,
+    "extra": {
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    },
     "cache": true,
     "entities": ["dist/modules/**/*.entity.js"],
     "migrations": ["dist/migrations/*.js"],
