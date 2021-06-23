@@ -54,4 +54,4 @@ const ormconfig: Array<ConnectionOptions & { seeds?: string[]; factories?: strin
   },
 ]
 
-export default ormconfig
+module.exports = ormconfig
