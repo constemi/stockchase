@@ -1,6 +1,4 @@
-import { ConnectionOptions } from 'typeorm'
-
-const ormconfig: Array<ConnectionOptions & { seeds?: string[]; factories?: string[] }> = [
+const ormconfig = [
   {
     name: 'development',
     type: 'postgres',
@@ -54,4 +52,4 @@ const ormconfig: Array<ConnectionOptions & { seeds?: string[]; factories?: strin
   },
 ]
 
-module.exports = ormconfig
+export default ormconfig
