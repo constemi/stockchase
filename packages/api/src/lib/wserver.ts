@@ -1,5 +1,5 @@
 import WebSocket from 'ws'
-import Sentry from '@sentry/node'
+import * as Sentry from '@sentry/node'
 import get from 'lodash/get'
 import { Server as IOServer } from 'socket.io'
 import { Server } from './server'

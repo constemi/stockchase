@@ -1,14 +1,14 @@
-import jwt from "jsonwebtoken"
-import { APP_SECRET, APP_AUTH_SECRET } from "./config"
+import jwt from 'jsonwebtoken'
+import { APP_SECRET, APP_AUTH_SECRET } from './config'
 
 type Payload = Record<string, any>
 
 export const createToken = (payload: Payload, options?: jwt.SignOptions): string => {
   try {
     const token = jwt.sign(payload, APP_SECRET, {
-      issuer: "@fullstack-boilerplate/api",
-      audience: ["@fullstack-boilerplate/app", "@fullstack-boilerplate/web"],
-      expiresIn: "4w",
+      issuer: '@stockchase/api',
+      audience: ['@stockchase/app', '@stockchase/web'],
+      expiresIn: '4w',
       ...options,
     })
     return token
@@ -18,12 +18,13 @@ export const createToken = (payload: Payload, options?: jwt.SignOptions): string
   }
 }
 
-export const createAuthToken = (payload: Payload): string => {
+export const createAuthToken = (payload: Payload, options?: jwt.SignOptions): string => {
   try {
     const token = jwt.sign(payload, APP_AUTH_SECRET, {
-      issuer: "@fullstack-boilerplate/api",
-      audience: ["@fullstack-boilerplate/app", "@fullstack-boilerplate/web"],
-      expiresIn: "4w",
+      issuer: '@stockchase/api',
+      audience: ['@stockchase/app', '@stockchase/web'],
+      expiresIn: '4w',
+      ...options,
     })
     return token
   } catch (error) {

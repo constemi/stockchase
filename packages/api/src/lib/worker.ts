@@ -26,10 +26,8 @@ const syncQueue = new Queue('Sync', {
   connection: {
     host: REDIS_URL,
     port: +REDIS_PORT,
-    password: REDIS_PASS,
-    tls: {
-      host: REDIS_URL,
-    },
+    ...(REDIS_PASS && { password: REDIS_PASS }),
+    ...(REDIS_PASS && { tls: { host: REDIS_URL } }),
   },
 })
 
@@ -63,10 +61,8 @@ export const syncWorker = new Worker(
     connection: {
       host: REDIS_URL,
       port: +REDIS_PORT,
-      password: REDIS_PASS,
-      tls: {
-        host: REDIS_URL,
-      },
+      ...(REDIS_PASS && { password: REDIS_PASS }),
+      ...(REDIS_PASS && { tls: { host: REDIS_URL } }),
     },
     // concurrency: 2,
   },
