@@ -52,4 +52,4 @@ const ormconfig = [
   },
 ]
 
-export default ormconfig
+module.exports = ormconfig
