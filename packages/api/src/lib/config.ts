@@ -16,6 +16,7 @@ export const {
   SESSION_TOKEN = 'stockchase:token',
   EXCHANGE_URL = 'EXCHANGE_URL',
   FINNHUB_KEY = 'FINNHUB_KEY',
+  POLYGON_KEY = 'POLYGON_KEY',
   SENTRY_DSN = 'SENTRY_URL',
   CDN_URL = 'CDN_URL',
   OTP_KEY = 'OTP_KEY',

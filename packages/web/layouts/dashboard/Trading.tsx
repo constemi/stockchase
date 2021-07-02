@@ -37,27 +37,33 @@ export interface SimpleProfile {
 }
 
 export interface EtfProfile {
-  profile: {
-    assetClass: string
-    aum: number
-    avgVolume: number
-    cusip: string
-    description: string
-    domicile: string
-    etfCompany: string
-    expenseRatio: number
-    inceptionDate: string
-    investmentSegment: string
-    isin: string
-    name: string
-    nav: number
-    navCurrency: string
-    priceToBook: number
-    priceToEarnings: number
-    trackingIndex: string
-    website: string
-  }
+  logo: string
+  listdate: string
+  cik: string
+  bloomberg: string
+  figi: string | null
+  lei: string | null
+  country: string
+  industry: string
+  sector: string
+  marketcap: number
+  employees: number | null
+  phone: string
+  ceo: string
+  url: string
+  description: string
+  exchange: string
+  name: string
   symbol: string
+  exchangeSymbol: string
+  hq_address: string
+  hq_state: string
+  hq_country: string
+  type: string
+  updated: string
+  tags: Array<string | null>
+  similar: Array<string | null>
+  active: boolean
 }
 
 interface TradingProps {
@@ -92,7 +98,7 @@ export function Trading(props: TradingProps) {
     color = mode('blackAlpha.700', 'whiteAlpha.800')
   }
 
-  const currency = security?.currency || security?.profile.domicile + 'D'
+  const currency = security?.currency || (security?.country === 'united states' && 'USD')
 
   return (
     <Box bg={mode('white', 'gray.900')} as="section" minH="140px" position="relative">
@@ -105,10 +111,10 @@ export function Trading(props: TradingProps) {
               size="xl"
               fontWeight="extrabold"
             >
-              {security?.name || security?.profile?.name}
+              {security?.name || security?.name}
             </Heading>
             <Text color={mode('blackAlpha.700', 'whiteAlpha.800')} fontSize={{ md: '2xl' }} maxW="lg">
-              {currentSymbol} 🇺🇸 {security?.exchange || security?.profile?.trackingIndex}
+              {currentSymbol} 🇺🇸 {security?.exchange}
             </Text>
             <Stack direction="row" justifyContent="space-between" py="4">
               <Box display="flex" direction="row">
@@ -124,13 +130,9 @@ export function Trading(props: TradingProps) {
               </Box>
               <Stack direction="row" spacing={12}>
                 <Image borderRadius="full" boxSize="25px" src={security?.logo} />
-                <Text fontWeight="extrabold">{security?.ipo || security?.profile.expenseRatio}</Text>
-                <Text fontWeight="extrabold">
-                  {security?.marketCapitalization || security?.profile.priceToBook}
-                </Text>
-                <Text fontWeight="extrabold">
-                  {security?.shareOutstanding || security?.profile.priceToEarnings}
-                </Text>
+                <Text fontWeight="extrabold">{security?.ipo || security?.listdate}</Text>
+                <Text fontWeight="extrabold">{security?.marketCapitalization || security?.marketcap}</Text>
+                <Text fontWeight="extrabold">{security?.shareOutstanding || security?.type}</Text>
               </Stack>
             </Stack>
             <Stack direction="row" justifyContent="space-between" py="2">
@@ -148,11 +150,11 @@ export function Trading(props: TradingProps) {
                   </Stack>
                 )}
                 {securityType === 'ETP' && (
-                  <Stack direction="row" spacing={8}>
+                  <Stack direction="row" spacing={14}>
                     <Text fontSize="xs">COMPANY</Text>
-                    <Text fontSize="xs">EXPENSE RATIO</Text>
-                    <Text fontSize="xs">PRICE/BOOK</Text>
-                    <Text fontSize="xs">PRICE/EARNING</Text>
+                    <Text fontSize="xs">IPO DATE</Text>
+                    <Text fontSize="xs">MARKETCAP</Text>
+                    <Text fontSize="xs">TYPE</Text>
                   </Stack>
                 )}
               </Box>

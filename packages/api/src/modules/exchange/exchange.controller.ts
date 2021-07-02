@@ -3,7 +3,7 @@ import { json } from 'body-parser'
 import { IsString, IsNumber } from 'class-validator'
 import { Body, Post, Controller, UseBefore, BadRequestError } from 'routing-controllers'
 import { AuthMiddleware } from '../../middleware/expressAuthMiddlewate'
-import { FINNHUB_KEY } from '../../lib/config'
+import { FINNHUB_KEY, POLYGON_KEY } from '../../lib/config'
 
 class OHLCRequestParams {
   @IsString()
@@ -105,9 +105,11 @@ export class ExchangeController {
   @UseBefore(json())
   async etfProfile(@Body({ required: true }) body: ProfileRequestParams) {
     const { symbol } = body
-    const params = { symbol, token: FINNHUB_KEY }
+    const params = { apiKey: POLYGON_KEY }
     try {
-      const response = await fetch('https://finnhub.io/api/v1/etf/profile?' + new URLSearchParams(params))
+      const response = await fetch(
+        `https://api.polygon.io/v1/meta/symbols/${symbol}/company?` + new URLSearchParams(params),
+      )
       const data: Record<string, any> = response.json()
       if ('error' in data) {
         throw new BadRequestError(data['error'])
