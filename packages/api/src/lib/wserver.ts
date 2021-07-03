@@ -12,7 +12,7 @@ export class ServerWithWebsocket extends Server {
   constructor() {
     super()
     this._socketio = new IOServer(this.httpServer, {
-      cors: { origin: 'stockchase.vercel.app', methods: ['GET', 'POST'], credentials: true },
+      cors: { origin: 'https://stockchase.vercel.app', methods: ['GET', 'POST'], credentials: true },
     })
   }
 

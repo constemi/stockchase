@@ -103,7 +103,7 @@ class FullstackBoilerplate extends ServerWithWebsocket {
     useContainer(Container)
     useExpressServer(this.app, {
       cors: {
-        origin: 'stockchase.vercel.app',
+        origin: 'https://stockchase.vercel.app',
         credentials: true,
       },
       routePrefix: '/v1',
