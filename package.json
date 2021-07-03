@@ -14,14 +14,8 @@
     "build": "yarn build:api",
     "typecheck": "lerna run typecheck",
     "lint": "lerna run lint",
-    "ci": "yarn typecheck && yarn lint"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lerna run  --concurrency 1 --stream  pre-commit",
-      "pre-push": "node ./hooks/pre-push.js"
-    }
+    "ci": "yarn typecheck && yarn lint",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "11.0.0",
@@ -47,6 +41,5 @@
     "prettier": "2.2.0",
     "**/react": "17.0.1",
     "**/react-dom": "17.0.1"
-  },
-  "dependencies": {}
+  }
 }
