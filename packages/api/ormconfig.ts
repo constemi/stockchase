@@ -46,6 +46,7 @@ const ormconfig = [
         rejectUnauthorized: false,
       },
     },
+    autoLoadEntities: true,
     entities: [__dirname + '/modules/**/*.entity.js'],
     migrations: ['migrations/*.js'],
     cli: { migrationsDir: './db/migrations' },
