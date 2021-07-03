@@ -29,7 +29,7 @@ export class AuthController {
       if (user) {
         const authToken = createAuthToken({ id: user.id })
         res.cookie(SESSION_TOKEN, authToken, { httpOnly: false, secure: true, domain: 'localhost' })
-        res.redirect('http://localhost:3000')
+        res.redirect('https://stockchase.vercel.app/')
         return res
       }
     } catch (error) {
