@@ -10,12 +10,12 @@ interface Props {
 
 export const createDbConnection = async (args?: Props): Promise<Connection> => {
   // Create DB connection
-  const connectionName = args?.connectionName || 'default'
+  // const connectionName = args?.connectionName || 'default'
   const options = (await getConnectionOptions(NODE_ENV)) as PostgresConnectionOptions
-
+  console.log(options)
   const connection = await createConnection({
     ...options,
-    name: connectionName,
+    // name: connectionName,
     url: DATABASE_URL,
   })
 
