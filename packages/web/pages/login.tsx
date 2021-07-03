@@ -36,7 +36,7 @@ export default function Login() {
               Introducing our 2021 report
             </Text>
             <Text mt="5" maxW="sm" mx="auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun.
+              Read our view on the global financial outlook going forward
             </Text>
           </Box>
           <HStack
@@ -69,7 +69,7 @@ export default function Login() {
               <Logo w="auto" h="7" iconColor="blue.400" />
             </Box>
             <Heading
-              color={mode('blue.600', 'blue.400')}
+              color={mode('whiteAlpha.300', 'blue.400')}
               as="h1"
               size="2xl"
               fontWeight="extrabold"
@@ -81,7 +81,7 @@ export default function Login() {
               mt="3"
               fontSize={{ base: 'xl', md: '3xl' }}
               fontWeight="bold"
-              color={mode('gray.500', 'inherit')}
+              color={mode('whiteAlpha.500', 'inherit')}
             >
               Sign in to continue
             </Text>

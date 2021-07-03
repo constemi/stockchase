@@ -31,7 +31,11 @@ const RegisterSchema = Yup.object().shape({
   lastName: Yup.string().required('Required'),
 })
 
-export const SigupForm = () => {
+interface SignupFormProps {
+  setEmail: (email: string) => void
+}
+
+export const SignupForm = (props: SignupFormProps) => {
   const client = useApolloClient()
 
   const [hasFocus, setFocus] = useState(false)
@@ -57,6 +61,7 @@ export const SigupForm = () => {
     if (!isSolved) return
     return form.handler(() => register({ variables: { data: values } }), {
       onSuccess: (data) => {
+        props.setEmail(values.email)
         document.cookie = cookie.serialize(SESSION_TOKEN, data.register.token, {
           path: '/',
           maxAge: 30 * 24 * 60 * 60, // 30 days

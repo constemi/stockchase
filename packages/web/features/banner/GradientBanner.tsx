@@ -13,7 +13,7 @@ interface BannerProps {
 export const GradientBanner = (props: BannerProps) => {
   const { boldText, messageText, buttonText, showBanner } = props
   return (
-    <Box as="section" hidden={!showBanner}>
+    <Box transition="ease-in 1s" as="section" hidden={!showBanner}>
       <Box
         bgGradient="linear(to-r, blue.500, purple.500)"
         color="white"
