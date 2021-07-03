@@ -47,7 +47,7 @@ const ormconfig = [
       },
     },
     autoLoadEntities: true,
-    entities: [__dirname + '/modules/**/*.entity.js'],
+    entities: [__dirname + '/dist/modules/**/*.entity.js'],
     migrations: ['migrations/*.js'],
     cli: { migrationsDir: './db/migrations' },
   },
