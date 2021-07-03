@@ -5,7 +5,7 @@ import { User } from '../user/user.entity'
 import { Get, Res, Controller, HttpCode, Render, QueryParam } from 'routing-controllers'
 import { createAuthToken } from '../../lib/jwt'
 import { decryptOtpToken } from '../../lib/otp'
-import { SESSION_TOKEN } from '../../lib/config'
+import { SESSION_TOKEN, WEB_ORIGIN, API_ORIGIN } from '../../lib/config'
 
 @Controller()
 export class AuthController {
@@ -29,13 +29,13 @@ export class AuthController {
       if (user) {
         const authToken = createAuthToken({ id: user.id })
         res.cookie(SESSION_TOKEN, authToken, { httpOnly: false, secure: true, domain: 'localhost' })
-        res.redirect('https://stockchase.vercel.app/')
+        res.redirect(WEB_ORIGIN)
         return res
       }
     } catch (error) {
       Sentry.captureException(error)
     }
-    res.redirect('http://localhost:5000' + '/v1/auth/error?' + new URLSearchParams({ error: 'Verification' }))
+    res.redirect(API_ORIGIN + '/v1/auth/error?' + new URLSearchParams({ error: 'Verification' }))
     return res
   }
 

@@ -8,7 +8,6 @@ export const {
   PORT = 5000,
   AWS_S3_BUCKET = 'S3_BUCKET',
   SENDGRID_API_KEY = 'SENDGRID_API_KEY',
-  WEB_URL = 'localhost:3001',
   DATABASE_URL = '',
   REDIS_URL = '127.0.0.1',
   REDIS_PORT = 6379,
@@ -18,7 +17,6 @@ export const {
   FINNHUB_KEY = 'FINNHUB_KEY',
   POLYGON_KEY = 'POLYGON_KEY',
   SENTRY_DSN = 'SENTRY_URL',
-  CDN_URL = 'CDN_URL',
   OTP_KEY = 'OTP_KEY',
   OTP_SALT = 'OTP_SALT',
 } = process.env
@@ -31,6 +29,9 @@ export const CORS_OPTIONS: CORS.CorsOptions = {
   origin: '*',
   maxAge: 86400,
 }
+export const WEB_ORIGIN = IS_PRODUCTION ? 'https://stockchase.vercel.app' : 'http://localhost:3000'
+
+export const API_ORIGIN = IS_PRODUCTION ? 'https://stockchase.herokuapp.com' : 'http://localhost:5000'
 
 // GRAPHQL PATH
 export const GRAPHQL_PATH = '/graphql'
@@ -70,6 +71,3 @@ export const S3_CONFIG = {
 }
 
 export const S3_URL = `https://${AWS_S3_BUCKET}.s3.amazonaws.com/`
-
-// WEB URL
-export const FULL_WEB_URL = `${IS_PRODUCTION ? 'https://' : 'http://'}${WEB_URL}`

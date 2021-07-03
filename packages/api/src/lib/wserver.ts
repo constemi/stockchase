@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/node'
 import get from 'lodash/get'
 import { Server as IOServer } from 'socket.io'
 import { Server } from './server'
-import { FINNHUB_KEY } from './config'
+import { FINNHUB_KEY, WEB_ORIGIN } from './config'
 
 const timestamp = () => new Date().toISOString().replace('T', ' ').substr(0, 19)
 
@@ -12,7 +12,7 @@ export class ServerWithWebsocket extends Server {
   constructor() {
     super()
     this._socketio = new IOServer(this.httpServer, {
-      cors: { origin: 'https://stockchase.vercel.app', methods: ['GET', 'POST'], credentials: true },
+      cors: { origin: WEB_ORIGIN, methods: ['GET', 'POST'], credentials: true },
     })
   }
 

@@ -20,6 +20,7 @@ import {
   CONTROLLER_PATHS,
   SENTRY_DSN,
   IS_PRODUCTION,
+  WEB_ORIGIN,
 } from './lib/config'
 
 Sentry.init({
@@ -103,7 +104,7 @@ class FullstackBoilerplate extends ServerWithWebsocket {
     useContainer(Container)
     useExpressServer(this.app, {
       cors: {
-        origin: 'https://stockchase.vercel.app',
+        origin: WEB_ORIGIN,
         credentials: true,
       },
       routePrefix: '/v1',
@@ -115,8 +116,6 @@ class FullstackBoilerplate extends ServerWithWebsocket {
 
   async setupRoutes() {
     this.app
-      // .use(express.static(path.join(__dirname, '../public')))
-      // .get('*', (_, res) => res.sendFile(path.join(__dirname, '../public/index.html')))
       .engine('eta', Eta.renderFile)
       .set('view engine', 'eta')
       .set('views', path.join(__dirname, './pages'))
