@@ -32,8 +32,8 @@ const syncQueue = new Queue('Sync', {
 })
 
 export async function addJobs() {
-  // await syncQueue.add('updateCASymbols', { exchange: 'TO' }, { repeat: { cron: '* 15 3 * * *' } })
-  // await syncQueue.add('updateUSSymbols', { exchange: 'US' })
+  await syncQueue.add('updateCASymbols', { exchange: 'TO' }, { repeat: { cron: '* 15 3 * * *' } })
+  await syncQueue.add('updateUSSymbols', { exchange: 'US' }, { repeat: { cron: '* 15 1 * * *' } })
 }
 
 export async function getWorkers() {
