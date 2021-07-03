@@ -1,5 +1,5 @@
 import { Stack, StackProps } from '@chakra-ui/react'
-import { FaBitbucket, FaGithub, FaGoogle, FaSpotify } from 'react-icons/fa'
+import { FaMoneyBill, FaChartLine, FaChartArea, FaChartPie } from 'react-icons/fa'
 import * as React from 'react'
 import { Card } from '../shared/Card'
 import { HeadingGroup } from '../shared/HeadingGroup'
@@ -13,10 +13,15 @@ export const SocialAccountSettings = (props: StackProps) => (
     />
     <Card>
       <Stack spacing="5">
-        <SocialAccount provider="Github" icon={FaGithub} username="dabestcoder03" />
-        <SocialAccount provider="Google" icon={FaGoogle} iconColor="red.500" />
-        <SocialAccount provider="Bitbucket" icon={FaBitbucket} iconColor="blue.500" />
-        <SocialAccount provider="Spotify" icon={FaSpotify} iconColor="green.500" username="lisabeats09" />
+        <SocialAccount
+          provider="Questrade"
+          icon={FaChartLine}
+          iconColor="green.500"
+          username="dabestcoder03"
+        />
+        <SocialAccount provider="Interactive Brokers" icon={FaChartArea} iconColor="red.500" />
+        <SocialAccount provider="Wealthica" icon={FaMoneyBill} iconColor="blue.500" />
+        <SocialAccount provider="Passiv" icon={FaChartPie} username="lisabeats09" />
       </Stack>
     </Card>
   </Stack>

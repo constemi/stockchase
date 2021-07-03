@@ -9,7 +9,7 @@ import { TabLink } from './TabLink'
 type MeType = MeFragment | null | undefined
 
 interface PageProps {
-  me: MeType
+  me?: MeType
   heading?: string
   children: React.ReactNode
   tradeContext?: boolean
