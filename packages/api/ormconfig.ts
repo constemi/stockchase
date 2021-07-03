@@ -33,7 +33,7 @@ const ormconfig = [
     name: 'production',
     type: 'postgres',
     host: process.env.DATABASE_HOST,
-    port: +process.env.DATABASE_PORT,
+    port: process.env.DATABASE_PORT ? +process.env.DATABASE_PORT : 5432,
     database: process.env.DATABASE_NAME,
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASS,
@@ -46,9 +46,9 @@ const ormconfig = [
         rejectUnauthorized: false,
       },
     },
-    entities: ['dist/modules/**/*.entity.js'],
-    migrations: ['dist/migrations/*.js'],
-    cli: { migrationsDir: 'dist/db/migrations' },
+    entities: [__dirname + '/modules/**/*.entity.js'],
+    migrations: ['migrations/*.js'],
+    cli: { migrationsDir: './db/migrations' },
   },
 ]
 
