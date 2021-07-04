@@ -1,28 +1,48 @@
+import * as React from 'react'
 import {
   Box,
   BoxProps,
   Button,
-  createIcon,
-  Divider,
-  Heading,
+  Flex,
+  FlexProps,
+  LightMode,
   List,
+  ListIcon,
   ListItem,
   ListItemProps,
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
-import * as React from 'react'
+import { HiArrowNarrowRight, HiCheckCircle } from 'react-icons/hi'
 
-const CheckIcon = createIcon({
-  viewBox: '0 0 17 12',
-  d: 'M0 5.82857L1.64571 4.11429L5.48571 7.2L14.8114 0L16.4571 1.71429L5.48571 12L0 5.82857Z',
-})
+interface PriceDisplayProps extends FlexProps {
+  currency: string
+  price: number
+  duration: string
+}
 
-const PricingDetail = (props: ListItemProps & { iconColor: string }) => {
-  const { children, iconColor, ...rest } = props
+const PriceDisplay = (props: PriceDisplayProps) => {
+  const { currency, price, duration, ...rest } = props
   return (
-    <ListItem display="flex" alignItems="flex-start" fontWeight="medium" maxW="260px" {...rest}>
-      <CheckIcon marginEnd="3" mt="1" color={iconColor} />
+    <Flex w="100%" align="center" fontWeight="extrabold" {...rest}>
+      <Text fontSize="4xl" lineHeight="1" marginEnd="2">
+        {currency}
+      </Text>
+      <Text fontSize="6xl" lineHeight="1" letterSpacing="tight">
+        {price}
+      </Text>
+      <Text fontSize="2xl" marginStart="1" alignSelf="flex-end">
+        {duration}
+      </Text>
+    </Flex>
+  )
+}
+
+const PricingDetail = (props: ListItemProps) => {
+  const { children, ...rest } = props
+  return (
+    <ListItem display="flex" alignItems="center" fontWeight="medium" {...rest}>
+      <ListIcon fontSize="2xl" as={HiCheckCircle} color="gray.400" marginEnd="4" mt="1" />
       <Text as="span" display="inline-block">
         {children}
       </Text>
@@ -33,51 +53,47 @@ const PricingDetail = (props: ListItemProps & { iconColor: string }) => {
 interface PricingCardProps extends BoxProps {
   features: string[]
   name: string
-  duration: string
-  extras: string
   description: string
-  price: string
-  onClick?: () => void
+  duration: string
+  price: number
   colorScheme: string
+  onClick?: () => void
 }
 
 export const PricingCard = (props: PricingCardProps) => {
-  const { features, name, description, duration, price, extras, onClick, colorScheme: c, ...rest } = props
-
+  const { features, name, description, onClick, price, duration, colorScheme: c, ...rest } = props
   return (
-    <Box p={{ base: '10', md: '16' }} {...rest}>
-      <Heading>{name}</Heading>
-      <Divider opacity={1} borderWidth="2px" borderColor={mode(`${c}.500`, `${c}.200`)} my="6" w="56px" />
-
-      <Text maxW="280px" fontSize="lg">
-        {description}
-      </Text>
-
-      <Box mt="2">
-        <Text fontSize={{ base: '6xl', md: '7xl' }} fontWeight="extrabold">
-          {price}
+    <Box
+      bg={mode('white', 'gray.700')}
+      shadow="md"
+      w="full"
+      maxW="lg"
+      mx="auto"
+      rounded="lg"
+      overflow="hidden"
+      {...rest}
+    >
+      <Box bg={`${c}.600`} px="8" py="8" color="white">
+        <Text fontWeight="bold" fontSize="lg">
+          {name}
         </Text>
-        <Text casing="uppercase" fontWeight="bold">
-          {duration}
-        </Text>
-        <Text mt="2" color={mode('gray.600', 'gray.400')}>
-          {extras}
+        <PriceDisplay my="2" currency="$" price={price} duration={duration} />
+        <Text>{description}</Text>
+      </Box>
+      <Box px="8" py="6" borderBottomWidth="1px">
+        <LightMode>
+          <Button onClick={onClick} size="lg" w="full" colorScheme={c} rightIcon={<HiArrowNarrowRight />}>
+            Start for free
+          </Button>
+        </LightMode>
+        <Text mt="2" color={mode('gray.600', 'gray.400')} align="center" fontSize="sm">
+          No credit card required
         </Text>
       </Box>
-
-      <Button my="8" size="lg" fontSize="md" colorScheme={c} onClick={onClick}>
-        Start free trial
-      </Button>
-
-      <Box>
-        <Text fontWeight="bold" mb="4">
-          What you get:
-        </Text>
-        <List spacing="4">
+      <Box px="8" pt="10" pb="12">
+        <List stylePosition="outside" spacing="4">
           {features.map((feature, index) => (
-            <PricingDetail key={index} iconColor={mode(`${c}.500`, `${c}.200`)}>
-              {feature}
-            </PricingDetail>
+            <PricingDetail key={index}>{feature}</PricingDetail>
           ))}
         </List>
       </Box>

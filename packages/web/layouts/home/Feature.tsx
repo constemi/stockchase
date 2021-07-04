@@ -9,20 +9,16 @@ export const Feature = () => {
       <Box maxW={{ base: 'xl', md: '5xl' }} mx="auto" px={{ base: '6', md: '8' }}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacingX="10" spacingY="14">
           <FeatureItem title="Secure by default" icon={<FcPrivacy />}>
-            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-            takimata sanctus.
+            We encrypt and hash all pertinent data, we do not sell or provide user data to third parties
           </FeatureItem>
           <FeatureItem title="Always up to date" icon={<FcTimeline />}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-            labore.
+            Consistent updates and research anchors our ability to provide meaningful utility
           </FeatureItem>
           <FeatureItem title="Incredible statistics" icon={<FcDoughnutChart />}>
-            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-            takimata sanctus.
+            Deep fundamental analysis of markets and capital flows paint a picture of human behavior
           </FeatureItem>
           <FeatureItem title="Support for multiple devices" icon={<FcMultipleDevices />}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-            labore.
+            We support a mobile and tablet devices first design methodology
           </FeatureItem>
         </SimpleGrid>
       </Box>
