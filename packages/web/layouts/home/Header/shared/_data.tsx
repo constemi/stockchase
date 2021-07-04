@@ -14,8 +14,8 @@ export interface Link {
 }
 
 export const links: Link[] = [
-  { label: 'For Designers', href: '#' },
-  { label: 'For Teams', href: '#' },
+  { label: 'For Traders', href: '#' },
+  { label: 'For Institutions', href: '#' },
   {
     label: 'Resources',
     children: [
@@ -27,13 +27,13 @@ export const links: Link[] = [
       },
       {
         label: 'Events & Meetups',
-        description: 'Discover and join your local Sketch community.',
+        description: 'Discover and join your local finance community.',
         href: '#',
         icon: <IoCalendar />,
       },
       {
         label: 'Extensions',
-        description: 'Do even more with Assistants, plugins and integrations.',
+        description: 'Do even more with our partners and integrations.',
         href: '#',
         icon: <IoGrid />,
       },

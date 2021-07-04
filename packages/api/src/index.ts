@@ -1,5 +1,8 @@
 import 'reflect-metadata'
-import 'dotenv/config'
+
+import * as dotenv from 'dotenv'
+dotenv.config({ path: __dirname + '/.env' })
+
 import * as Eta from 'eta'
 import * as Sentry from '@sentry/node'
 import path from 'path'

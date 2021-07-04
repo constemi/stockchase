@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import {
   Badge,
   Box,
@@ -49,13 +50,14 @@ export function Hero() {
             </Box>
           </Heading>
           <Text mt={4} fontSize="xl" fontWeight="medium" color={mode('gray.600', 'gray.400')}>
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit
-            sunt amet fugiat veniam occaecat fugiat aliqua.
+            The fastest way to follow markets, we offer deep research and analysis of global capital flows.
           </Text>
           <Stack direction={{ base: 'column', sm: 'row' }} spacing="4" mt="8">
-            <Button size="lg" colorScheme="blue" height="14" px="8" fontSize="md">
-              Get Started Now
-            </Button>
+            <NextLink href="/register" passHref>
+              <Button as="a" size="lg" colorScheme="blue" height="14" px="8" fontSize="md">
+                Get Started Now
+              </Button>
+            </NextLink>
             <Button
               size="lg"
               bg="white"
