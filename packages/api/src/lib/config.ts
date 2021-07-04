@@ -29,7 +29,7 @@ export const CORS_OPTIONS: CORS.CorsOptions = {
   origin: '*',
   maxAge: 86400,
 }
-export const WEB_ORIGIN = IS_PRODUCTION ? 'https://stockchase.vercel.app' : 'http://localhost:3000'
+export const WEB_ORIGIN = IS_PRODUCTION ? 'https://stockchase.org' : 'http://localhost:3000'
 
 export const API_ORIGIN = IS_PRODUCTION ? 'https://stockchase.herokuapp.com' : 'http://localhost:5000'
 
