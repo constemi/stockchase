@@ -3,6 +3,7 @@ import React from 'react'
 import {
   chakra,
   Flex,
+  Box,
   HStack,
   IconButton,
   useColorMode,
@@ -46,6 +47,9 @@ function HeaderContent(props: HeaderProps) {
           <NextLink href="/" passHref>
             <chakra.a display="block" aria-label="StockChase UI, Back to homepage">
               <Logo iconColor="blue.300" display={{ base: 'none', md: 'block' }} />
+              <Box minW="3rem" display={{ base: 'block', md: 'none' }}>
+                <Logo iconOnly iconColor="blue.300" />
+              </Box>
             </chakra.a>
           </NextLink>
         </Flex>
