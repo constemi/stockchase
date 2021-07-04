@@ -92,7 +92,6 @@ class FullstackBoilerplate extends ServerWithWebsocket {
       schema,
     })
 
-    // apolloServer.installSubscriptionHandlers(this.httpServer)
     apolloServer.applyMiddleware({
       cors: CORS_OPTIONS,
       app: this.app,

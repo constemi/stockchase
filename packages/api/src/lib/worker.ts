@@ -32,8 +32,8 @@ const syncQueue = new Queue('Sync', {
 })
 
 export async function addJobs() {
-  // await syncQueue.add('updateCASymbols', { exchange: 'TO' }, { repeat: { cron: '* 15 3 * * *' } })
-  // await syncQueue.add('updateUSSymbols', { exchange: 'US' }, { repeat: { cron: '* 15 1 * * *' } })
+  await syncQueue.add('updateCASymbols', { exchange: 'TO' }, { repeat: { cron: '0 0 * * SUN' } })
+  await syncQueue.add('updateUSSymbols', { exchange: 'US' }, { repeat: { cron: '0 0 * * SAT' } })
 }
 
 export async function getWorkers() {
@@ -49,13 +49,16 @@ export const syncWorker = new Worker(
     })
     const data = await response.json()
     const security = getRepository(Security)
+    const entities: Array<Partial<Security & { symbolid: string }>> = []
 
     data.map(async (item: Asset) => {
       const searchResult = await security.findOne({ displaySymbol: item.displaySymbol })
       if (!searchResult) {
-        security.save([{ ...item, symbolId: cuid(), simple: item.displaySymbol.replace('.TO', '') }])
+        entities.push({ ...item, symbolId: cuid(), simple: item.displaySymbol.replace('.TO', '') })
       }
     })
+
+    security.save(entities)
   },
   {
     connection: {
