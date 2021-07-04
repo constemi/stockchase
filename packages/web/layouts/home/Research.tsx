@@ -85,7 +85,7 @@ export const Research = () => {
             category="Spending"
             media="https://images.unsplash.com/photo-1586034679970-cb7b5fc4928a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
             title="7 Steps to Get Financial Results At Home"
-            description="How to size your positions and use your spare catchflow and savings"
+            description="How to right size your savings to make compounding work for you"
             href="#"
             author={{ name: 'Constemi', href: '#' }}
           />

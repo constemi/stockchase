@@ -8,7 +8,7 @@ import { SignupForm } from 'features/register/RegisterForm'
 export default function Register() {
   const [submittedEmail, setEmail] = React.useState('')
   return (
-    <Box minH="100vh" bg={{ md: mode('gray.100', 'inherit') }}>
+    <Box minH="100vh" bg={{ md: mode('gray.100', 'gray.900') }}>
       <GradientBanner
         showBanner={Boolean(submittedEmail)}
         boldText="Confirm your email"

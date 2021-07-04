@@ -91,7 +91,7 @@ export default function Login() {
             minW={{ md: '420px' }}
             mt="10"
             rounded={{ md: '2xl' }}
-            bg={{ md: mode('white', 'gray.800') }}
+            bg={{ md: mode('white', 'gray.700') }}
             shadow={{ md: 'lg' }}
             px={{ md: '10' }}
             pt={{ base: '8', md: '12' }}
