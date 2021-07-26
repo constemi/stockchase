@@ -9,7 +9,9 @@ import {
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import * as React from 'react'
+import { formatCountry } from 'features/chart/utils'
 import { HiChevronRight } from 'react-icons/hi'
 import { getQuote } from 'lib/express/fetch.quote'
 
@@ -70,35 +72,61 @@ interface TradingProps {
   security?: EtfProfile & SimpleProfile
   securityType: string
   currentSymbol: string
-  messageHistory: MessageEvent | undefined
+  messageHistory: TradeEvents | undefined
+}
+
+interface TradeEvents {
+  data?: Trade[]
+}
+
+const getEventsBySymbol = (events: TradeEvents | undefined, symbol: string): Trade[] => {
+  return events?.data?.filter((trade: Trade) => trade.s === symbol) || []
+}
+
+const processEventColor = (prevPrice: number, currPrice: number) => {
+  let color = 'white'
+  if (currPrice > prevPrice) {
+    color = 'green.300'
+  } else if (currPrice < prevPrice) {
+    color = 'red.300'
+  } else {
+    color = mode('blackAlpha.700', 'whiteAlpha.800')
+  }
+  return color
+}
+
+const processIntradayMove = (currTrade: Trade, prevClose: number): number => {
+  if (!currTrade) return 0
+  return ((currTrade.p - prevClose) / currTrade.p) * 100
+}
+
+const processEvents = (events: Trade[], prevClose: number) => {
+  const { 0: initialTrade, length, [length - 1]: currTrade } = events
+
+  return {
+    currTrade,
+    initialTrade,
+    color: processEventColor(initialTrade?.p, currTrade?.p),
+    intradayMove: processIntradayMove(currTrade, prevClose),
+  }
 }
 
 export function Trading(props: TradingProps) {
-  const [previousClose, setPreviousClose] = React.useState(0)
+  const [lastClose, setLastClose] = React.useState(0)
   const { messageHistory, currentSymbol, security, securityType } = props
 
   React.useEffect(() => {
     async function fetchQuote() {
       const quote = await getQuote(currentSymbol)
-      setPreviousClose(quote.pc)
+      setLastClose(quote.pc)
     }
     fetchQuote()
-  }, [currentSymbol, setPreviousClose])
+  }, [currentSymbol, setLastClose])
 
-  const events = messageHistory?.data?.filter((trade: Trade) => trade.s === currentSymbol) || []
-  const { 0: firstTrade, length, [length - 1]: lastTrade } = events
-  const intradayMove = lastTrade ? ((lastTrade.p - previousClose) / lastTrade.p) * 100 : 0
-
-  let color = 'white'
-  if (lastTrade && lastTrade.p > firstTrade.p) {
-    color = 'green.300'
-  } else if (lastTrade && lastTrade.p < firstTrade.p) {
-    color = 'red.300'
-  } else {
-    color = mode('blackAlpha.700', 'whiteAlpha.800')
-  }
-
-  const currency = security?.currency || (security?.country === 'united states' && 'USD')
+  const { color, currTrade, intradayMove } = processEvents(
+    getEventsBySymbol(messageHistory, currentSymbol),
+    lastClose,
+  )
 
   return (
     <Box bg={mode('white', 'gray.900')} as="section" minH="140px" position="relative">
@@ -111,18 +139,18 @@ export function Trading(props: TradingProps) {
               size="xl"
               fontWeight="extrabold"
             >
-              {security?.name || security?.name}
+              {security?.name}
             </Heading>
             <Text color={mode('blackAlpha.700', 'whiteAlpha.800')} fontSize={{ md: '2xl' }} maxW="lg">
-              {currentSymbol} 🇺🇸 {security?.exchange}
+              {currentSymbol} {formatCountry(security?.country || security?.currency)} {security?.exchange}
             </Text>
             <Stack direction="row" justifyContent="space-between" py="4">
               <Box display="flex" direction="row">
                 <Heading fontSize={{ md: '3xl' }} color={color}>
-                  <Box direction="row">{(lastTrade && lastTrade.p) || previousClose}</Box>
+                  <Box direction="row">{(currTrade && currTrade.p) || lastClose}</Box>
                 </Heading>
                 <Text size="xs" color={mode('blackAlpha.700', 'whiteAlpha.800')} pl="2">
-                  {currency && currency}
+                  {security?.currency}
                 </Text>
                 <Text color={intradayMove > 0 ? 'green.300' : 'red.400'} pl="1">
                   {intradayMove.toFixed(2)}%
@@ -131,18 +159,26 @@ export function Trading(props: TradingProps) {
               <Stack direction="row" spacing={12}>
                 <Image borderRadius="full" boxSize="25px" src={security?.logo} />
                 <Text fontWeight="extrabold">{security?.ipo || security?.listdate}</Text>
-                <Text fontWeight="extrabold">{security?.marketCapitalization || security?.marketcap}</Text>
+                <Text fontWeight="extrabold">
+                  {new Intl.NumberFormat('en-US', {
+                    maximumFractionDigits: 1,
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error: TS is missing the types
+                    notation: 'compact',
+                    compactDisplay: 'short',
+                  }).format(security?.marketCapitalization || security?.marketcap || 0)}
+                </Text>
                 <Text fontWeight="extrabold">{security?.shareOutstanding || security?.type}</Text>
               </Stack>
             </Stack>
             <Stack direction="row" justifyContent="space-between" py="2">
-              <Text fontSize="xs" color={lastTrade ? 'gray.500' : 'gray.500'}>
-                MARKET {`${lastTrade ? 'OPEN ' : 'CLOSED '}`}
+              <Text fontSize="xs" color={currTrade ? 'gray.500' : 'gray.500'}>
+                MARKET {`${currTrade ? 'OPEN ' : 'CLOSED '}`}
                 {`${new Date().toLocaleString()}`}
               </Text>
               <Box>
-                {securityType === 'Common Stock' && (
-                  <Stack direction="row" spacing={14}>
+                {securityType !== 'ETP' && (
+                  <Stack direction="row" spacing={9}>
                     <Text fontSize="xs">COMPANY</Text>
                     <Text fontSize="xs">IPO DATE</Text>
                     <Text fontSize="xs">MARKETCAP</Text>
@@ -150,9 +186,9 @@ export function Trading(props: TradingProps) {
                   </Stack>
                 )}
                 {securityType === 'ETP' && (
-                  <Stack direction="row" spacing={14}>
-                    <Text fontSize="xs">COMPANY</Text>
-                    <Text fontSize="xs">IPO DATE</Text>
+                  <Stack direction="row" spacing={9}>
+                    <Text fontSize="xs">INDEX</Text>
+                    <Text fontSize="xs">LAUNCHED</Text>
                     <Text fontSize="xs">MARKETCAP</Text>
                     <Text fontSize="xs">TYPE</Text>
                   </Stack>
@@ -160,33 +196,37 @@ export function Trading(props: TradingProps) {
               </Box>
             </Stack>
             <Stack direction={{ base: 'column', md: 'row' }} mt="10" spacing="4">
-              <Button
-                as="a"
-                href="#"
-                colorScheme="blue"
-                px="8"
-                rounded="full"
-                size="lg"
-                fontSize="md"
-                fontWeight="bold"
-              >
-                Get Started for Free
-              </Button>
-              <HStack
-                as="a"
-                transition="background 0.2s"
-                justify={{ base: 'center', md: 'flex-start' }}
-                href="#"
-                color={mode('gray.600', 'white')}
-                rounded="full"
-                fontWeight="bold"
-                px="6"
-                py="3"
-                _hover={{ bg: mode('gray.300', 'whiteAlpha.200') }}
-              >
-                <span>Full-featured chart</span>
-                <HiChevronRight />
-              </HStack>
+              <NextLink href="/register" passHref>
+                <Button
+                  as="a"
+                  href="#"
+                  colorScheme="blue"
+                  px="8"
+                  rounded="full"
+                  size="lg"
+                  fontSize="md"
+                  fontWeight="bold"
+                >
+                  Get Started for Free
+                </Button>
+              </NextLink>
+              <NextLink href={{ pathname: `chart/${currentSymbol}` }} passHref>
+                <HStack
+                  as="a"
+                  transition="background 0.2s"
+                  justify={{ base: 'center', md: 'flex-start' }}
+                  href="#"
+                  color={mode('gray.600', 'white')}
+                  rounded="full"
+                  fontWeight="bold"
+                  px="6"
+                  py="3"
+                  _hover={{ bg: mode('gray.300', 'whiteAlpha.200') }}
+                >
+                  <span>Full-featured chart</span>
+                  <HiChevronRight />
+                </HStack>
+              </NextLink>
             </Stack>
           </Box>
         </Box>

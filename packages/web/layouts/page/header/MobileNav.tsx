@@ -1,4 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import * as React from 'react'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+
 import {
   Box,
   BoxProps,
@@ -12,13 +16,10 @@ import {
   useColorModeValue,
   useUpdateEffect,
 } from '@chakra-ui/react'
-import { AnimatePresence, motion, useElementScroll } from 'framer-motion'
-import { useRouteChanged } from 'lib/hooks/useRouteChanged'
-import NextLink from 'next/link'
-import { useRouter } from 'next/router'
-import * as React from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { RemoveScroll } from 'react-remove-scroll'
+import { AnimatePresence, motion, useElementScroll } from 'framer-motion'
+import { useRouteChanged } from 'lib/hooks/useRouteChanged'
 import { Logo } from 'layouts/shared/Logo'
 import { SidebarContent } from '../sidebar/Sidebar'
 

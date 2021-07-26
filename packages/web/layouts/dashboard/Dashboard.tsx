@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import sub from 'date-fns/sub'
 import { scaleLog } from 'd3-scale'
 import { useSocketio } from 'components/providers/IOProvider'
-import { SearchSecurityResponse } from 'lib/graphql'
+import { MeFragment, SearchSecurityResponse } from 'lib/graphql'
 import { Box, Container, Heading, useColorModeValue as mode } from '@chakra-ui/react'
 import { NewsFeed } from 'features/news/NewsFeed'
 import { Page } from 'layouts/page/Page'
@@ -11,9 +11,7 @@ import { Trading } from 'layouts/dashboard/Trading'
 import { ButtonPanel } from 'features/chart/ButtonPanel'
 import { getEtfProfile } from 'lib/express/fetch.etfprofile'
 import { getSimpleProfile } from 'lib/express/fetch.simpleprofile'
-import { chartIntervals, intervalMap } from 'features/chart/utils'
-import { MeFragment } from 'lib/graphql'
-
+import { Interval } from 'features/chart/utils'
 import type { EtfProfile } from 'lib/express/fetch.etfprofile'
 import type { SimpleProfile } from 'lib/express/fetch.simpleprofile'
 
@@ -23,30 +21,53 @@ type MeType = MeFragment | null | undefined
 interface DashboardProps {
   me: MeType
 }
-type IntervalKeys = keyof typeof chartIntervals
 
+interface Messages {
+  data: {
+    c: string[]
+    p: number
+    s: string
+    t: number
+    v: number
+  }[]
+  type: string
+  newEntry: string
+}
 export interface Action {
-  ETP?: () => EtfProfile
-  'Common Stock'?: () => SimpleProfile
+  ETP?: (symbol: string) => Promise<EtfProfile>
+  ADR?: (symbol: string) => Promise<SimpleProfile>
+  'Common Stock'?: (symbol: string) => Promise<SimpleProfile>
 }
 
-const actions = {
-  ETP: getEtfProfile,
-  'Common Stock': getSimpleProfile,
+const getAction = (securityType: keyof Action) => {
+  const actions: Action = {
+    ETP: getEtfProfile,
+    ADR: getSimpleProfile,
+    'Common Stock': getSimpleProfile,
+  }
+  return actions[securityType]
 }
 
 export const Dashboard = (props: DashboardProps) => {
-  const [isActive, setActiveButton] = React.useState('1Y')
+  const [resolution, setResolution] = React.useState('1Y')
   const [securityType, setSecurityType] = React.useState('ETP')
   const [currentSymbol, setCurrentSymbol] = React.useState('SPY')
   const [security, setSecurity] = React.useState<any>()
   const [logarithmic, setLogScale] = React.useState(false)
-  const [messageHistory, setMessage] = React.useState()
-  const [currentInterval, setIntervals] = React.useState<any>()
+  const [messageHistory, setMessage] = React.useState<Messages>()
+  const [currentInterval, setInterval] = React.useState<any>()
+
+  const intervalMap = React.useMemo(() => new Interval(), [])
 
   const socket = useSocketio()
+  const isEven = (count: number) => count % 2 === 0
+
   socket.on('message', (message) => {
-    setMessage(message)
+    let count = 0
+    if (isEven(count)) {
+      setMessage(message)
+      count++
+    }
   })
 
   React.useEffect(() => {
@@ -54,35 +75,28 @@ export const Dashboard = (props: DashboardProps) => {
   }, [socket, currentSymbol])
 
   React.useEffect(() => {
-    const interval = {
-      intervalStart: Math.round(sub(new Date(), chartIntervals[isActive as IntervalKeys]).getTime() / 1000),
+    setInterval({
+      intervalStart: Math.round(sub(new Date(), intervalMap.get(resolution)).getTime() / 1000),
       intervalEnd: Math.round(new Date().getTime() / 1000),
-    }
-    setIntervals(interval)
-  }, [isActive])
+    })
+  }, [resolution, intervalMap])
 
   React.useEffect(() => {
-    const fetchProfile = async () => {
-      const get = actions[securityType as keyof Action]
-      const profile = await get(currentSymbol)
-      setSecurity(profile)
+    const fetchSecurityProfile = async () => {
+      const fetchSecurity = getAction(securityType as keyof Action)
+      if (fetchSecurity) setSecurity(await fetchSecurity(currentSymbol))
     }
-    fetchProfile()
+    fetchSecurityProfile()
   }, [securityType, currentSymbol])
 
   const handleResult = (result: SearchSecurityResponse) => {
     socket.emit('unsubscribe', currentSymbol)
-
     setSecurityType(result.type)
     setCurrentSymbol(result.displaySymbol)
   }
 
-  const { me } = props
-  type IntervalLabelKeys = keyof typeof intervalMap
-  const resolution = intervalMap[isActive as IntervalLabelKeys]
-
   return (
-    <Page tradeContext me={me} heading="" handleResult={handleResult}>
+    <Page tradeContext me={props.me} heading="" handleResult={handleResult}>
       <Trading
         security={security}
         securityType={securityType}
@@ -96,17 +110,17 @@ export const Dashboard = (props: DashboardProps) => {
         <Box bgGradient={mode('none', 'linear(to-t, #393d4f1c, gray.900)')} shadow="md" rounded="md">
           <Box h="500">
             <Series
-              yScale={logarithmic && scaleLog()}
-              tickLabelFill={mode('inherit', 'currentColor')}
               symbol={currentSymbol}
-              resolution={resolution}
+              yScale={logarithmic && scaleLog()}
+              resolution={intervalMap.labels[resolution]}
+              tickLabelFill={mode('inherit', 'currentColor')}
               {...currentInterval}
             />
             <ButtonPanel
-              isActive={isActive}
+              isActive={resolution}
               logarithmic={logarithmic}
               setLogScale={setLogScale}
-              setActiveButton={setActiveButton}
+              setResolution={setResolution}
             />
           </Box>
         </Box>

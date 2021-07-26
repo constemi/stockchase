@@ -18,7 +18,7 @@ interface WithOHLCState {
   lastCandle: number
 }
 
-export function withUpdatingData(initialLength = 120, interval = 1_000 * 60) {
+export function withUpdatingData(initialLength = 120, interval = 1000 * 60 * 5) {
   return <TProps extends WithOHLCLocalProps>(OriginalComponent: React.ComponentClass<TProps>) => {
     return class WithOHLCData extends React.Component<TProps, WithOHLCState> {
       public interval?: number
@@ -34,9 +34,9 @@ export function withUpdatingData(initialLength = 120, interval = 1_000 * 60) {
 
       public async componentDidMount() {
         this.updateChart()
-        // this.interval = window.setInterval(() => {
-        //   this.updateChart()
-        // }, interval)
+        this.interval = window.setInterval(() => {
+          this.updateChart(true)
+        }, interval)
       }
 
       public componentDidUpdate(prevProps: WithOHLCLocalProps, prevState: WithOHLCState) {
@@ -46,7 +46,8 @@ export function withUpdatingData(initialLength = 120, interval = 1_000 * 60) {
           prevProps.intervalStart !== this.props.intervalStart ||
           prevProps.intervalEnd !== this.props.intervalEnd
         ) {
-          this.setState({ data: [], lastCandle: 0 }, this.updateChart)
+          const initialState = { data: [], lastCandle: 0 }
+          this.setState(initialState, this.updateChart)
         }
       }
 
@@ -65,7 +66,7 @@ export function withUpdatingData(initialLength = 120, interval = 1_000 * 60) {
         )
       }
 
-      private async updateChart() {
+      private async updateChart(merge?: boolean) {
         const { symbol, resolution, intervalStart, intervalEnd } = this.props
         const dynamicStart = this.state.lastCandle || intervalStart
         const dynamicEnd = this.state.lastCandle ? Math.round(new Date().getTime() / 1000) : intervalEnd
@@ -74,7 +75,7 @@ export function withUpdatingData(initialLength = 120, interval = 1_000 * 60) {
         const lastCandle = candles[candles.length - 1]?.['date']
 
         this.setState((prevState) => ({
-          data: prevState.data.concat(candles),
+          data: merge ? prevState.data.concat(candles) : candles,
           lastCandle: Math.round(lastCandle?.getTime() / 1000),
         }))
       }

@@ -11,7 +11,9 @@ export const FeatureItem = (props: FeatureProps) => {
   const { title, children, icon } = props
   return (
     <Stack spacing="6" direction={{ base: 'column', md: 'row' }}>
-      <Box fontSize="6xl">{icon}</Box>
+      <Box data-testid="iconContainer" fontSize="6xl">
+        {icon}
+      </Box>
       <Stack spacing="1">
         <Text fontWeight="extrabold" fontSize="lg">
           {title}

@@ -3,6 +3,7 @@
     "jsx": "preserve",
     "lib": ["dom", "es2018", "es2019.object", "esnext.asynciterable"],
     "typeRoots": ["./node_modules/@types"],
+    "types": ["@types/jest"],
     "rootDir": "src",
     "target": "es6",
     "composite": false,

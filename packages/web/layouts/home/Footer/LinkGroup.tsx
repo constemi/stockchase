@@ -7,8 +7,9 @@ interface LinkGroupProps {
 }
 
 export const LinkGroup = (props: LinkGroupProps) => {
-  const { data } = props
-  const { links, title } = data
+  const {
+    data: { links, title },
+  } = props
 
   return (
     <Box>

@@ -22,6 +22,7 @@ import MultiRef from 'react-multi-ref'
 import scrollIntoView from 'scroll-into-view-if-needed'
 import { findAll } from 'highlight-words-core'
 import { SearchButton } from './SearchButton'
+import { formatCountry } from 'features/chart/utils'
 
 export const SEARCH = gql`
   query Search($data: SearchSecurityInput!) {
@@ -170,16 +171,6 @@ function OmniSearch(props: SearchFieldProps) {
 
   const open = menu.isOpen && results.length > 0
 
-  const formatCountry = (currency: string | undefined): string => {
-    switch (currency) {
-      case 'CAD':
-        return '🇨🇦'
-      case 'USD':
-        return '🇺🇸'
-      default:
-        return ''
-    }
-  }
   return (
     <>
       <SearchButton symbol={symbol} onClick={modal.onOpen} />
@@ -234,64 +225,61 @@ function OmniSearch(props: SearchFieldProps) {
                 }}
               >
                 <Box as="ul" role="listbox" borderTopWidth="1px" pt={2} pb={4}>
-                  {results.map((item, index) => {
-                    const selected = index === active
-                    return (
-                      <Box
-                        id={`search-item-${index}`}
-                        as="li"
-                        aria-selected={selected ? true : undefined}
-                        cursor="pointer"
-                        onMouseEnter={() => {
-                          setActive(index)
-                          eventRef.current = 'mouse'
-                        }}
-                        onClick={() => {
-                          modal.onClose()
-                          if (handleResult) {
-                            handleResult(item)
-                          }
-                          setSymbol(item.displaySymbol)
-                        }}
-                        ref={menuNodes.ref(index)}
-                        role="option"
-                        key={item.figi}
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          minH: 16,
-                          mt: 2,
-                          px: 4,
-                          py: 2,
-                          rounded: 'lg',
-                          bg: 'gray.100',
-                          '.chakra-ui-dark &': { bg: 'gray.600' },
-                          _selected: {
-                            bg: 'teal.500',
+                  {results.map((item, index) => (
+                    <Box
+                      key={`${item.figi}`}
+                      id={`search-item-${item.figi}`}
+                      as="li"
+                      aria-selected={index === active ? true : undefined}
+                      cursor="pointer"
+                      onMouseEnter={() => {
+                        setActive(index)
+                        eventRef.current = 'mouse'
+                      }}
+                      onClick={() => {
+                        modal.onClose()
+                        if (handleResult) {
+                          handleResult(item)
+                        }
+                        setSymbol(item.displaySymbol)
+                      }}
+                      ref={menuNodes.ref(index)}
+                      role="option"
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        minH: 16,
+                        mt: 2,
+                        px: 4,
+                        py: 2,
+                        rounded: 'lg',
+                        bg: 'gray.100',
+                        '.chakra-ui-dark &': { bg: 'gray.600' },
+                        _selected: {
+                          bg: 'teal.500',
+                          color: 'white',
+                          mark: {
                             color: 'white',
-                            mark: {
-                              color: 'white',
-                              textDecoration: 'underline',
-                            },
+                            textDecoration: 'underline',
                           },
-                        }}
-                      >
-                        {formatCountry(item.currency)}
+                        },
+                      }}
+                    >
+                      {formatCountry(item.currency)}
 
-                        <Box flex="1" ml="4">
-                          <Box fontWeight="medium" fontSize="xs" opacity={0.7}>
-                            {item.displaySymbol}
-                          </Box>
-
-                          <Box fontWeight="semibold">
-                            <OptionText searchWords={[query]} textToHighlight={item.description} />
-                          </Box>
+                      <Box flex="1" ml="4">
+                        <Box fontWeight="medium" fontSize="xs" opacity={0.7}>
+                          {item.displaySymbol}
                         </Box>
 
-                        <EnterIcon opacity={0.5} />
+                        <Box fontWeight="semibold">
+                          <OptionText searchWords={[query]} textToHighlight={item.description} />
+                        </Box>
                       </Box>
-                    )
-                  })}
+
+                      <EnterIcon opacity={0.5} />
+                    </Box>
+                  ))}
                 </Box>
               </Box>
             )}
