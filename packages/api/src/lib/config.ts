@@ -10,7 +10,7 @@ export const {
   SENDGRID_API_KEY = 'SENDGRID_API_KEY',
   DATABASE_URL = '',
   REDIS_URL = '127.0.0.1',
-  REDIS_PORT = 6379,
+  REDIS_PORT = '6379',
   REDIS_PASS = '',
   SESSION_TOKEN = 'stockchase:token',
   EXCHANGE_URL = 'EXCHANGE_URL',

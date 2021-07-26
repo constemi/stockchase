@@ -1,10 +1,10 @@
-import * as Sentry from '@sentry/node'
-import fetch from 'node-fetch'
-import cuid from 'cuid'
-import { Queue, Worker } from 'bullmq'
-import { REDIS_PORT, REDIS_URL, REDIS_PASS, EXCHANGE_URL, FINNHUB_KEY } from './config'
-import { getRepository } from 'typeorm'
-import { Security } from '../modules/security/security.entity'
+// import * as Sentry from '@sentry/node'
+// import fetch from 'node-fetch'
+// import cuid from 'cuid'
+// import { Queue, Worker } from 'bullmq'
+// import { REDIS_PORT, REDIS_URL, REDIS_PASS, EXCHANGE_URL, FINNHUB_KEY } from './config'
+// import { getRepository } from 'typeorm'
+// import { Security } from '../modules/security/security.entity'
 
 // exchanges and codes https://docs.google.com/spreadsheets/d/1I3pBxjfXB056-g_JYf_6o3Rns3BV2kMGG1nCatb91ls/edit#gid=0
 // Create a new connection in every instance
@@ -12,6 +12,7 @@ import { Security } from '../modules/security/security.entity'
 //{"currency":"CAD","description":"IA CLARINGTON GLOBAL BOND FU","displaySymbol":"IGLB.TO","figi":"BBG00M93B6B7","mic":"XTSE","symbol":"IGLB.TO","type":"ETP"}
 //
 
+/* 
 interface Asset {
   currency: string
   description: string
@@ -83,3 +84,8 @@ syncWorker.on('failed', (job, err) => {
 syncWorker.on('error', (err) => {
   Sentry.captureException(err)
 })
+*/
+
+export async function addJobs() {
+  console.log('jobs ready')
+}
