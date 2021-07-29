@@ -24,6 +24,9 @@ export const {
 // IS PRODUCTION
 export const IS_PRODUCTION = APP_ENV === 'production'
 
+// IS DEVELOPMENT
+export const IS_DEVELOPMENT = APP_ENV === 'development'
+
 // CORS
 export const CORS_OPTIONS: CORS.CorsOptions = {
   origin: '*',

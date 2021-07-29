@@ -1,5 +1,4 @@
 import 'reflect-metadata'
-
 import * as dotenv from 'dotenv'
 dotenv.config({ path: __dirname + '/.env' })
 
@@ -24,6 +23,7 @@ import {
   SENTRY_DSN,
   IS_PRODUCTION,
   WEB_ORIGIN,
+  IS_DEVELOPMENT,
 } from './lib/config'
 
 Sentry.init({
@@ -90,8 +90,8 @@ class FullstackBoilerplate extends ServerWithWebsocket {
       plugins: [ApolloServerLoaderPlugin({ typeormGetConnection: getConnection }), queryComplexityPlugin],
       formatResponse,
       validationRules: [DepthLimitRule],
-      introspection: true,
-      playground: true,
+      introspection: IS_DEVELOPMENT,
+      playground: IS_DEVELOPMENT,
       schema,
     })
 

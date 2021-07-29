@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/NoQuarterTeam/fullstack-boilerplate.svg?branch=master)](https://travis-ci.org/NoQuarterTeam/fullstack-boilerplate)
 
-# Fullstack Boilerplate
+# StockChase
 
 ## Typescript + React + Graphql
 
@@ -32,9 +32,9 @@ Comes with user authentication included
 
 **Must have node, yarn/npm, postgres and redis installed and setup locally**
 
-1. `git clone https://github.com/NoQuarterCo/fullstack-boilerplate.git`
+1. `git clone https://github.com/constemi/stockchase.git`
 2. `yarn install`
-3. `createdb fullstack-boilerplate` (must have postgres setup locally)
+3. `createdb {dbName}` (must have postgres setup locally)
 4. `cd packages/api && yarn watch`
 5. `cd packages/web && yarn start`
 
