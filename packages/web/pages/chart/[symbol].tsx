@@ -1,7 +1,7 @@
-import { Box, useColorModeValue as mode } from '@chakra-ui/react'
 import * as React from 'react'
 import sub from 'date-fns/sub'
 import dynamic from 'next/dynamic'
+import { Box, Stack, useColorModeValue as mode } from '@chakra-ui/react'
 import { scaleLog } from 'd3-scale'
 import { useRouter } from 'next/router'
 import { ButtonPanel } from 'features/chart/ButtonPanel'
@@ -9,6 +9,14 @@ import { FullScreenSeriesHeader } from 'features/chart/FullScreenSeriesHeader'
 import { Interval } from 'features/chart/utils'
 
 const FullScreenSeries = dynamic(() => import('features/chart/FullScreenCandleSeries'), { ssr: false })
+
+function MarketDrawer() {
+  return (
+    <Box p="25" display="flex" flex="1" bg={mode('white.100', 'gray.900')}>
+      <Stack spacing="24px"></Stack>
+    </Box>
+  )
+}
 
 function FullScreenChart() {
   const [resolution, setResolution] = React.useState('1Y')
@@ -29,30 +37,29 @@ function FullScreenChart() {
   }, [resolution, intervalMap])
 
   return (
-    <>
-      <FullScreenSeriesHeader />
-
-      <Box
-        display="flex"
-        flexDirection="column"
-        flex="1"
-        bgGradient={mode('none', 'linear(to-t, #393d4f1c, gray.900)')}
-      >
-        <FullScreenSeries
-          yScale={logarithmic && scaleLog()}
-          tickLabelFill={mode('inherit', 'currentColor')}
-          symbol={symbol}
-          resolution={intervalMap.labels[resolution]}
-          {...currentInterval}
+    <Box display="flex" flex="1" direction="row">
+      <Box w="80%">
+        <FullScreenSeriesHeader />
+        <Box display="flex" flexDirection="column" flex="1" bg={mode('white.100', 'gray.900')}>
+          <FullScreenSeries
+            yScale={logarithmic && scaleLog()}
+            tickLabelFill={mode('inherit', 'currentColor')}
+            symbol={symbol}
+            resolution={intervalMap.labels[resolution]}
+            {...currentInterval}
+          />
+        </Box>
+        <ButtonPanel
+          isActive={resolution}
+          logarithmic={logarithmic}
+          setLogScale={setLogScale}
+          setResolution={setResolution}
         />
       </Box>
-      <ButtonPanel
-        isActive={resolution}
-        logarithmic={logarithmic}
-        setLogScale={setLogScale}
-        setResolution={setResolution}
-      />
-    </>
+      <Box display="flex">
+        <MarketDrawer />
+      </Box>
+    </Box>
   )
 }
 

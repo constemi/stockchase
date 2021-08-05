@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Button, ButtonGroup } from '@chakra-ui/react'
+import { Box, Button, ButtonGroup, useColorModeValue as mode } from '@chakra-ui/react'
 import { Interval } from './utils'
 
 interface ButtonPanelProps {
@@ -14,7 +14,13 @@ export function ButtonPanel(props: ButtonPanelProps) {
   const intervalMap = React.useMemo(() => new Interval(), [])
 
   return (
-    <Box h="10" display="flex" justifyContent="space-between" borderTop="1px solid gray">
+    <Box
+      h="10"
+      display="flex"
+      justifyContent="space-between"
+      bg={mode('white.100', 'gray.900')}
+      borderTop="1px solid gray"
+    >
       <ButtonGroup flexWrap="wrap" spacing={1} pl="1" pt="1">
         {Object.keys(intervalMap.labels).map((label, idx) => (
           <Button

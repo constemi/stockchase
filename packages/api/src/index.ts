@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+
 import * as dotenv from 'dotenv'
 dotenv.config({ path: __dirname + '/.env' })
 
@@ -34,14 +35,13 @@ Sentry.init({
 })
 
 import { ExpressContext } from './lib/types'
-import { addJobs } from './lib/worker'
 import { ServerWithWebsocket } from './lib/wserver'
 import { createDbConnection } from './db'
 import { formatResponse } from './middleware/formatResponse'
 import { ErrorInterceptor } from './middleware/apolloMiddleware'
 import { ComplexityMiddleware } from './middleware/complexityMiddleware'
 
-class FullstackBoilerplate extends ServerWithWebsocket {
+class Stockchase extends ServerWithWebsocket {
   constructor() {
     super()
     this.init().catch((error) => {
@@ -62,7 +62,6 @@ class FullstackBoilerplate extends ServerWithWebsocket {
 
   async setupDb() {
     await createDbConnection({ runMigrations: true })
-    await addJobs()
     this.logger.info('DB ready')
   }
 
@@ -125,4 +124,4 @@ class FullstackBoilerplate extends ServerWithWebsocket {
   }
 }
 
-new FullstackBoilerplate()
+new Stockchase()

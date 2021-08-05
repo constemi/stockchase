@@ -192,7 +192,7 @@ class StockChart extends React.Component<StockChartProps> {
 const FullScreenCandleSeries = withUpdatingData()(
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error: TS doesn't detect HOC props passthrough
-  withSize({ style: { minHeight: '93vh' } })(withDeviceRatio()(StockChart)),
+  withSize({ style: { minHeight: 'calc(100vh - 80px)' } })(withDeviceRatio()(StockChart)),
 )
 
 export default FullScreenCandleSeries
