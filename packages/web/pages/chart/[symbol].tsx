@@ -13,7 +13,19 @@ const FullScreenSeries = dynamic(() => import('features/chart/FullScreenCandleSe
 function MarketDrawer() {
   return (
     <Box p="25" display="flex" flex="1" bg={mode('white.100', 'gray.900')}>
-      <Stack spacing="24px"></Stack>
+      <Box
+        bg={mode('white', 'gray.900')}
+        shadow="md"
+        w="full"
+        maxW="lg"
+        mx="auto"
+        rounded="lg"
+        overflow="hidden"
+      >
+        <Stack spacing="24px">
+          <h2>Stock Price Info</h2>
+        </Stack>
+      </Box>
     </Box>
   )
 }
@@ -56,7 +68,7 @@ function FullScreenChart() {
           setResolution={setResolution}
         />
       </Box>
-      <Box display="flex">
+      <Box display="flex" flex="1">
         <MarketDrawer />
       </Box>
     </Box>

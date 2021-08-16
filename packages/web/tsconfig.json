@@ -4,7 +4,7 @@
     "lib": ["dom", "es2018", "es2019.object", "esnext.asynciterable"],
     "typeRoots": ["./node_modules/@types"],
     "types": ["@types/jest"],
-    "rootDir": "src",
+    "rootDir": "../web",
     "target": "es6",
     "composite": false,
     "allowJs": true,
