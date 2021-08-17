@@ -11,7 +11,7 @@ interface SocialAccountProps extends FlexProps {
   onDisconnect?: () => void
 }
 
-export const SocialAccount = (props: SocialAccountProps) => {
+export const ExternalAccount = (props: SocialAccountProps) => {
   const { provider, icon, iconColor, username, onConnect, onDisconnect, ...flexProps } = props
   return (
     <Flex align="center" {...flexProps}>
