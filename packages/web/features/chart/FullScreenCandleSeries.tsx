@@ -17,6 +17,7 @@ import {
   YAxis,
   CrossHairCursor,
   EdgeIndicator,
+  MouseCoordinateX,
   MouseCoordinateY,
   ZoomButtons,
   withDeviceRatio,
@@ -33,6 +34,7 @@ interface StockChartProps {
   readonly ratio: number
   readonly yScale?: ScaleLogarithmic<number, number> | undefined | false
   readonly tickLabelFill?: string // x-y axis label color
+  readonly gridLinesStrokeStyle?: string
 }
 
 class StockChart extends React.Component<StockChartProps> {
@@ -45,6 +47,7 @@ class StockChart extends React.Component<StockChartProps> {
   public render() {
     const {
       data: initialData,
+      gridLinesStrokeStyle,
       dateTimeFormat = '%d %b',
       tickLabelFill,
       yScale,
@@ -86,7 +89,6 @@ class StockChart extends React.Component<StockChartProps> {
     const chartHeight = gridHeight
 
     const timeDisplayFormat = timeFormat(dateTimeFormat)
-    console.log(timeDisplayFormat)
 
     return (
       <ChartCanvas
@@ -113,23 +115,26 @@ class StockChart extends React.Component<StockChartProps> {
         </Chart>
         <Chart id={3} height={chartHeight} yExtents={this.candleChartExtents}>
           <XAxis
-            showGridLines
-            gridLinesStrokeStyle="rgb(49, 51, 60)"
-            showTicks={false}
+            showTicks
+            showTickLabel
             tickLabelFill={tickLabelFill}
-            showTickLabel={false}
+            showGridLines
+            gridLinesStrokeStyle={gridLinesStrokeStyle}
           />
           <YAxis
-            showGridLines
-            gridLinesStrokeStyle="rgb(49, 51, 60)"
+            showTicks
+            showTickLabel
             tickFormat={this.pricesDisplayFormat}
             tickLabelFill={tickLabelFill}
+            showGridLines
+            gridLinesStrokeStyle={gridLinesStrokeStyle}
           />
           <CandlestickSeries />
           <LineSeries yAccessor={ema26.accessor()} strokeStyle={ema26.stroke()} />
           <CurrentCoordinate yAccessor={ema26.accessor()} fillStyle={ema26.stroke()} />
           <LineSeries yAccessor={ema12.accessor()} strokeStyle={ema12.stroke()} />
           <CurrentCoordinate yAccessor={ema12.accessor()} fillStyle={ema12.stroke()} />
+          <MouseCoordinateX displayFormat={timeDisplayFormat} />
           <MouseCoordinateY rectWidth={margin.right} displayFormat={this.pricesDisplayFormat} />
           <EdgeIndicator
             itemType="last"
@@ -192,7 +197,7 @@ class StockChart extends React.Component<StockChartProps> {
 const FullScreenCandleSeries = withUpdatingData()(
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error: TS doesn't detect HOC props passthrough
-  withSize({ style: { minHeight: 'calc(100vh - 80px)' } })(withDeviceRatio()(StockChart)),
+  withSize({ style: { minHeight: '93vh' } })(withDeviceRatio()(StockChart)),
 )
 
 export default FullScreenCandleSeries

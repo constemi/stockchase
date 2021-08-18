@@ -18,8 +18,9 @@ export function ButtonPanel(props: ButtonPanelProps) {
       h="10"
       display="flex"
       justifyContent="space-between"
+      borderTop="7px solid"
+      borderTopColor={mode('gray.200', 'gray.700')}
       bg={mode('white.100', 'gray.900')}
-      borderTop="1px solid gray"
     >
       <ButtonGroup flexWrap="wrap" spacing={1} pl="1" pt="1">
         {Object.keys(intervalMap.labels).map((label, idx) => (

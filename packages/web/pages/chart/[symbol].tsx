@@ -11,18 +11,18 @@ import {
   Th,
   Tbody,
   IconButton,
-  useColorModeValue as mode,
   Stack,
   StackDivider,
   StackItem,
   Heading,
+  useColorModeValue as mode,
 } from '@chakra-ui/react'
 import { PlusSquareIcon } from '@chakra-ui/icons'
 import { scaleLog } from 'd3-scale'
 import { useRouter } from 'next/router'
+import { Interval } from 'features/chart/utils'
 import { ButtonPanel } from 'features/chart/ButtonPanel'
 import { FullScreenSeriesHeader } from 'features/chart/FullScreenSeriesHeader'
-import { Interval } from 'features/chart/utils'
 
 const FullScreenSeries = dynamic(() => import('features/chart/FullScreenCandleSeries'), { ssr: false })
 
@@ -124,15 +124,16 @@ function FullScreenChart() {
   }, [resolution, intervalMap])
 
   return (
-    <Box display="flex" flex="1" direction="row">
+    <Box display="flex" minH="100vh" direction="row">
       <Box w="80%">
         <FullScreenSeriesHeader />
-        <Box display="flex" flexDirection="column" flex="1" bg={mode('white.100', 'gray.900')}>
+        <Box flexDirection="column" flex="1" bg={mode('white.100', 'gray.900')}>
           <FullScreenSeries
-            yScale={logarithmic && scaleLog()}
-            tickLabelFill={mode('inherit', 'currentColor')}
             symbol={symbol}
             resolution={intervalMap.labels[resolution]}
+            yScale={logarithmic && scaleLog()}
+            tickLabelFill={mode('gray', 'currentColor')}
+            gridLinesStrokeStyle={mode('lightGray', 'rgb(49, 51, 60)')}
             {...currentInterval}
           />
         </Box>

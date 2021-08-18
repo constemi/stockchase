@@ -123,9 +123,9 @@ export function Trading(props: TradingProps) {
     fetchQuote()
   }, [currentSymbol, setLastClose])
 
-  const { color, currTrade, intradayMove } = React.useMemo(
-    () => processEvents(getEventsBySymbol(messageHistory, currentSymbol), lastClose),
-    [messageHistory, currentSymbol, lastClose],
+  const { color, currTrade, intradayMove } = processEvents(
+    getEventsBySymbol(messageHistory, currentSymbol),
+    lastClose,
   )
 
   return (
