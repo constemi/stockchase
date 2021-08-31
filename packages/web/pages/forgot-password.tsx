@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as Yup from 'yup'
 import { Button, Text, Stack, Heading, Box, Center } from '@chakra-ui/react'
 import { gql } from '@apollo/client'
 import { useRouter } from 'next/router'
@@ -7,7 +8,7 @@ import Head from 'next/head'
 import { Form } from 'components/Form'
 import { Input } from 'components/Input'
 import { useToast } from 'lib/hooks/useToast'
-import Yup from 'yup'
+
 import { useForm } from 'lib/hooks/useForm'
 import { useForgotPasswordMutation, MutationForgotPasswordArgs } from 'lib/graphql'
 

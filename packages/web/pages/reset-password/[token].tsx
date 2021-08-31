@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Yup from 'yup'
+import * as Yup from 'yup'
 import { Stack, Button, Text, Heading, Box, Center } from '@chakra-ui/react'
 import { gql } from '@apollo/client'
 import { useRouter } from 'next/router'
