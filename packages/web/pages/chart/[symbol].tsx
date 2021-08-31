@@ -1,127 +1,37 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Box, useColorModeValue as mode } from '@chakra-ui/react'
 import sub from 'date-fns/sub'
 import dynamic from 'next/dynamic'
-import {
-  Box,
-  Select,
-  Table,
-  Thead,
-  Tr,
-  Td,
-  Th,
-  Tbody,
-  IconButton,
-  Stack,
-  StackDivider,
-  StackItem,
-  Heading,
-  useColorModeValue as mode,
-} from '@chakra-ui/react'
-import { PlusSquareIcon } from '@chakra-ui/icons'
 import { scaleLog } from 'd3-scale'
 import { useRouter } from 'next/router'
-import { Interval } from 'features/chart/utils'
 import { ButtonPanel } from 'features/chart/ButtonPanel'
+import { MarketDrawer } from 'layouts/chart/MarketDrawer'
+import { Interval as IntervalMap } from 'features/chart/utils'
 import { FullScreenSeriesHeader } from 'features/chart/FullScreenSeriesHeader'
 
 const FullScreenSeries = dynamic(() => import('features/chart/FullScreenCandleSeries'), { ssr: false })
 
-function MarketDataTable() {
-  return (
-    <Table size="sm">
-      <Thead>
-        <Tr>
-          <Th>Symbol</Th>
-          <Th isNumeric>Last</Th>
-          <Th isNumeric>Chg</Th>
-          <Th>Chg%</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        <Tr>
-          <Td>SPX</Td>
-          <Td isNumeric>4438.05</Td>
-          <Td isNumeric>25.4</Td>
-          <Td>-0.94%</Td>
-        </Tr>
-        <Tr>
-          <Td>NDX</Td>
-          <Td isNumeric>14977.76</Td>
-          <Td isNumeric>-164.74</Td>
-          <Td>-1.10%</Td>
-        </Tr>
-        <Tr>
-          <Td>DJI</Td>
-          <Td isNumeric>35271.12</Td>
-          <Td isNumeric>-354.25</Td>
-          <Td>-0.99%</Td>
-        </Tr>
-        <Tr>
-          <Td>VIX</Td>
-          <Td isNumeric>18.00</Td>
-          <Td isNumeric>1.88</Td>
-          <Td>11.79%</Td>
-        </Tr>
-        <Tr>
-          <Td>DXY</Td>
-          <Td isNumeric>93.101</Td>
-          <Td isNumeric>0.489</Td>
-          <Td>0.53%</Td>
-        </Tr>
-      </Tbody>
-    </Table>
-  )
-}
-
-function MarketDrawer() {
-  return (
-    <Box display="flex" flex="1" bg={mode('white.100', 'gray.900')}>
-      <Box
-        bg={mode('white', 'gray.900')}
-        shadow="md"
-        w="full"
-        maxW="lg"
-        mx="auto"
-        rounded="md"
-        overflow="hidden"
-        borderLeft="7px solid"
-        borderLeftColor={mode('gray.200', 'gray.700')}
-      >
-        <Stack>
-          <Box display="flex" direction="row" justifyContent="space-between" pb="5">
-            <Select placeholder="Watchlist" variant="filled" w="50%" />
-            <IconButton w="40px" h="40px" aria-label="add symbol" icon={<PlusSquareIcon />} />
-          </Box>
-          <MarketDataTable />
-          <StackItem displayName="Stocks" pl="4" py="4">
-            <Heading fontSize="13px" color="gray.300">
-              STOCKS
-            </Heading>
-          </StackItem>
-          <StackDivider />
-        </Stack>
-      </Box>
-    </Box>
-  )
+interface ChartInterval {
+  intervalStart: number
+  intervalEnd: number
 }
 
 function FullScreenChart() {
-  const [resolution, setResolution] = React.useState('1Y')
-  const [logarithmic, setLogScale] = React.useState(false)
-  const [currentInterval, setIntervals] = React.useState<any>()
+  const [resolution, setResolution] = useState('1Y')
+  const [logarithmic, setLogScale] = useState(false)
+  const [currentInterval, setInterval] = useState<ChartInterval>({ intervalStart: 0, intervalEnd: 0 })
 
-  const router = useRouter()
-  const { symbol } = router.query
+  const { query } = useRouter()
+  const symbol = query.symbol as string
+  const Interval = React.useMemo(() => new IntervalMap(), [])
 
-  const intervalMap = React.useMemo(() => new Interval(), [])
-
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = {
-      intervalStart: Math.round(sub(new Date(), intervalMap.get(resolution)).getTime() / 1000),
+      intervalStart: Math.round(sub(new Date(), Interval.getChartInterval(resolution)).getTime() / 1000),
       intervalEnd: Math.round(new Date().getTime() / 1000),
     }
-    setIntervals(interval)
-  }, [resolution, intervalMap])
+    setInterval(interval)
+  }, [resolution, Interval])
 
   return (
     <Box display="flex" minH="100vh" direction="row">
@@ -130,7 +40,7 @@ function FullScreenChart() {
         <Box flexDirection="column" flex="1" bg={mode('white.100', 'gray.900')}>
           <FullScreenSeries
             symbol={symbol}
-            resolution={intervalMap.labels[resolution]}
+            resolution={Interval.labels[resolution] as string}
             yScale={logarithmic && scaleLog()}
             tickLabelFill={mode('gray', 'currentColor')}
             gridLinesStrokeStyle={mode('lightGray', 'rgb(49, 51, 60)')}

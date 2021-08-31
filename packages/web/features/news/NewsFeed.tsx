@@ -6,12 +6,12 @@ import { Description } from './Description'
 import { getNews, NewsType } from 'lib/express/fetch.news'
 
 interface NewsFeedProps {
-  currentSymbol: string
+  symbol: string
 }
 
 export function NewsFeed(props: NewsFeedProps) {
   const [newsFeed, setNewsFeed] = React.useState<NewsType[]>()
-  const { currentSymbol } = props
+  const { symbol } = props
 
   React.useEffect(() => {
     const intervalEnd = new Date()
@@ -19,14 +19,14 @@ export function NewsFeed(props: NewsFeedProps) {
 
     async function fetchNewsFeed() {
       const data = await getNews(
-        currentSymbol,
+        symbol,
         format(intervalStart, 'yyyy-MM-dd'),
         format(intervalEnd, 'yyyy-MM-dd'),
       )
       setNewsFeed(data)
     }
     fetchNewsFeed()
-  }, [currentSymbol])
+  }, [symbol])
 
   return (
     <Box as="section" bg={mode('gray.100', 'inherit')} py="12">
@@ -41,7 +41,7 @@ export function NewsFeed(props: NewsFeedProps) {
         >
           <Box px="6" py="4">
             <Text as="h3" fontWeight="bold" fontSize="lg">
-              {currentSymbol} News
+              {symbol} News
             </Text>
             <Text color={mode('gray.600', 'gray.300')} fontSize="sm">
               Various Sources

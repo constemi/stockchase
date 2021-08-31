@@ -2,15 +2,11 @@ import { format } from 'd3-format'
 import { timeFormat } from 'd3-time-format'
 import * as React from 'react'
 import {
-  ema,
   discontinuousTimeScaleProviderBuilder,
   Chart,
   ChartCanvas,
-  CurrentCoordinate,
   BarSeries,
   CandlestickSeries,
-  LineSeries,
-  MovingAverageTooltip,
   OHLCTooltip,
   lastVisibleItemBasedZoomAnchor,
   XAxis,
@@ -27,14 +23,14 @@ import { ScaleLogarithmic } from 'd3-scale'
 import { IOHLCData, withUpdatingData } from './data'
 
 interface StockChartProps {
-  readonly data: IOHLCData[]
-  readonly height: number
-  readonly dateTimeFormat?: string
-  readonly width: number
-  readonly ratio: number
-  readonly yScale?: ScaleLogarithmic<number, number> | undefined | false
-  readonly tickLabelFill?: string // x-y axis label color
-  readonly gridLinesStrokeStyle?: string
+  data: IOHLCData[]
+  height: number
+  dateTimeFormat?: string
+  width: number
+  ratio: number
+  yScale?: ScaleLogarithmic<number, number> | undefined | false
+  tickLabelFill?: string // x-y axis label color
+  gridLinesStrokeStyle?: string
 }
 
 class StockChart extends React.Component<StockChartProps> {
@@ -56,27 +52,9 @@ class StockChart extends React.Component<StockChartProps> {
       width,
     } = this.props
 
-    const ema12 = ema()
-      .id(1)
-      .options({ windowSize: 50 })
-      .merge((d: any, c: any) => {
-        d.ema12 = c
-      })
-      .accessor((d: any) => d.ema12)
-
-    const ema26 = ema()
-      .id(2)
-      .options({ windowSize: 26 })
-      .merge((d: any, c: any) => {
-        d.ema26 = c
-      })
-      .accessor((d: any) => d.ema26)
-
-    const calculatedData = ema26(ema12(initialData))
-
     const { margin, xScaleProvider } = this
 
-    const { data, xScale, xAccessor, displayXAccessor } = xScaleProvider(calculatedData)
+    const { data, xScale, xAccessor, displayXAccessor } = xScaleProvider(initialData)
 
     const max = xAccessor(data[data.length - 1])
     const min = xAccessor(data[Math.max(0, data.length - 100)])
@@ -105,7 +83,7 @@ class StockChart extends React.Component<StockChartProps> {
         zoomAnchor={lastVisibleItemBasedZoomAnchor}
       >
         <Chart
-          id={2}
+          id="basic-candle-series"
           height={barChartHeight}
           origin={barChartOrigin}
           yExtents={this.barChartExtents}
@@ -130,10 +108,6 @@ class StockChart extends React.Component<StockChartProps> {
             gridLinesStrokeStyle={gridLinesStrokeStyle}
           />
           <CandlestickSeries />
-          <LineSeries yAccessor={ema26.accessor()} strokeStyle={ema26.stroke()} />
-          <CurrentCoordinate yAccessor={ema26.accessor()} fillStyle={ema26.stroke()} />
-          <LineSeries yAccessor={ema12.accessor()} strokeStyle={ema12.stroke()} />
-          <CurrentCoordinate yAccessor={ema12.accessor()} fillStyle={ema12.stroke()} />
           <MouseCoordinateX displayFormat={timeDisplayFormat} />
           <MouseCoordinateY rectWidth={margin.right} displayFormat={this.pricesDisplayFormat} />
           <EdgeIndicator
@@ -143,23 +117,6 @@ class StockChart extends React.Component<StockChartProps> {
             lineStroke={this.openCloseColor}
             displayFormat={this.pricesDisplayFormat}
             yAccessor={this.yEdgeIndicator}
-          />
-          <MovingAverageTooltip
-            origin={[8, 24]}
-            options={[
-              {
-                yAccessor: ema26.accessor(),
-                type: 'EMA',
-                stroke: ema26.stroke(),
-                windowSize: ema26.options().windowSize,
-              },
-              {
-                yAccessor: ema12.accessor(),
-                type: 'EMA',
-                stroke: ema12.stroke(),
-                windowSize: ema12.options().windowSize,
-              },
-            ]}
           />
           <ZoomButtons />
           <OHLCTooltip origin={[8, 16]} textFill="#2196f3" />

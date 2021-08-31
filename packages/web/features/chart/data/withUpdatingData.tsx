@@ -5,12 +5,13 @@ import { IOHLCData } from './iOHLCData'
 import { getCandles } from 'lib/express/fetch.candles'
 
 interface WithOHLCLocalProps {
-  readonly symbol: string
-  readonly resolution: string
-  readonly intervalStart: number
-  readonly intervalEnd: number
-  readonly yScale?: ScaleLogarithmic<number, number> | undefined | false
-  readonly tickLabelFill?: string // x-y axis label color
+  symbol: string
+  resolution: string
+  intervalStart: number
+  intervalEnd: number
+  yScale?: ScaleLogarithmic<number, number> | undefined | false
+  tickLabelFill?: string // x-y axis label color
+  gridLinesStrokeStyle?: string
 }
 
 interface WithOHLCState {

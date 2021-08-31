@@ -7,6 +7,7 @@ interface Quote {
   l: number
   c: number
   pc: number
+  t: number
 }
 
 export const getQuote = async (symbol: string): Promise<Quote> => {

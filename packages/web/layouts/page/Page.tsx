@@ -12,19 +12,19 @@ interface PageProps {
   me?: MeType
   heading?: string
   children: React.ReactNode
-  tradeContext?: boolean
-  handleResult?: (result: SearchSecurityResponse) => void
+  includeTabNavigation?: boolean
+  handleSearchResult: (result: SearchSecurityResponse) => void
 }
 
 export const Page = (props: PageProps) => {
-  const { heading, children, tradeContext = false, handleResult } = props
+  const { heading, children, includeTabNavigation = false, handleSearchResult } = props
   return (
     <Flex direction="column" bg={mode('white', 'gray.900')}>
       {/* App Header */}
-      <Header handleResult={handleResult} />
+      <Header handleSearchResult={handleSearchResult} />
       {/* Page Header */}
       <Box bg={mode('white', 'gray.900')} pt="8" shadow="sm">
-        <Container maxW="8xl" hidden={!tradeContext}>
+        <Container maxW="8xl" hidden={!includeTabNavigation}>
           {/* Desktop Navigation Menu */}
           <HStack display={{ base: 'none', lg: 'flex' }} flex="1" spacing={{ base: '0', lg: '3' }} pb="8">
             <NavItem.Desktop active icon={<HiViewGrid />} label="Charts" />

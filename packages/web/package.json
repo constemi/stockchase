@@ -40,7 +40,6 @@
     "d3-dsv": "^2.0.0",
     "d3-time-format": "^3.0.0",
     "date-fns": "^2.21.2",
-    "dayjs": "^1.8.23",
     "features": "link:./src/features",
     "framer-motion": "3.10.6",
     "friendly-challenge": "^0.8.3",

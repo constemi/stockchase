@@ -74,13 +74,13 @@ export class ServerWithWebsocket extends Server {
       socket.on('subscribe', (symbol: string) => {
         socket.join(symbol)
         client?.send(JSON.stringify({ type: 'subscribe', symbol }))
-        console.log(socket.id, socket.rooms.size, symbol)
+        // this.logger.info(`subscribe-event:: ${socket.id}-${socket.rooms.size}-${symbol}`)
       })
 
       socket.on('unsubscribe', (symbol) => {
         socket.leave(symbol)
         client?.send(JSON.stringify({ type: 'unsubscribe', symbol }))
-        console.log(socket.id, socket.rooms.size, symbol)
+        // this.logger.info(`unsub-event:: ${socket.id}-${socket.rooms.size}-${symbol}`)
       })
     })
 

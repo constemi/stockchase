@@ -1,7 +1,6 @@
 import { IncomingMessage } from 'http'
 import cookie from 'cookie'
 import Router from 'next/router'
-import dayjs from 'dayjs'
 import { GetServerSidePropsContext } from 'next'
 
 import { ParsedUrlQuery } from 'querystring'
@@ -35,19 +34,6 @@ export const humanize = (str: string) => {
     .replace(/^[a-z]/, function (m) {
       return m.toUpperCase()
     })
-}
-
-export const formatFileName = (filename: string): string => {
-  const type = filename.split('.').pop()
-  let name = filename
-    .split('.')[0]
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, '-')
-  name = dayjs().format('YYYYMMDDHHmmss') + '-' + name
-  if (type) {
-    name = name + '.' + type.toLowerCase()
-  }
-  return name
 }
 
 export const redirect = (

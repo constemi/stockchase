@@ -20,6 +20,24 @@ export class Interval {
   _YTD = this.distanceInDays(new Date(new Date().getFullYear(), 0, 1, 1), new Date())
   _1D = this.includeWeekend(new Date())
 
+  private distanceInDays(a: Date, b: Date): number {
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
+
+    return Math.floor((utc2 - utc1) / this._MS_PER_DAY)
+  }
+
+  private includeWeekend(date: Date): number {
+    switch (date.getDay()) {
+      case 0:
+        return 3
+      case 6:
+        return 2
+      default:
+        return 1
+    }
+  }
+
   public labels: Dict = {
     '1D': '1',
     '5D': '5',
@@ -32,7 +50,7 @@ export class Interval {
     All: 'M',
   }
 
-  public get(context: string): Dict {
+  public getChartInterval(key: string): Dict {
     const durationMap = {
       '1D': { days: this._1D },
       '5D': { days: 5 },
@@ -44,24 +62,6 @@ export class Interval {
       '5Y': { years: 5 },
       All: { years: 10 },
     }
-    return durationMap[context as keyof typeof durationMap]
-  }
-
-  private distanceInDays(a: Date, b: Date): number {
-    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
-    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
-
-    return Math.floor((utc2 - utc1) / this._MS_PER_DAY)
-  }
-
-  includeWeekend(date: Date): number {
-    switch (date.getDay()) {
-      case 0:
-        return 3
-      case 6:
-        return 2
-      default:
-        return 1
-    }
+    return durationMap[key as keyof typeof durationMap]
   }
 }

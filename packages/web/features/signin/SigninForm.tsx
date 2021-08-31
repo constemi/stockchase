@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { MeFragmentDoc, LoginInput, MeQuery, MeDocument, useLoginMutation } from 'lib/graphql'
-import Yup from 'lib/yup'
+import Yup from 'yup'
 import { Form } from 'components/Form'
 import { SESSION_TOKEN } from 'lib/config'
 import { FormError } from 'components/FormError'

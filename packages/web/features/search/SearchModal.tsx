@@ -75,7 +75,7 @@ function EnterIcon(props: HTMLChakraProps<'svg'>) {
 }
 
 interface SearchFieldProps {
-  handleResult?: (result: SearchSecurityResponse) => void
+  handleSearchResult: (result: SearchSecurityResponse) => void
 }
 
 function OmniSearch(props: SearchFieldProps) {
@@ -93,7 +93,7 @@ function OmniSearch(props: SearchFieldProps) {
   const menuRef = React.useRef<HTMLDivElement>(null)
   const eventRef = React.useRef<'mouse' | 'keyboard' | null>(null)
 
-  const { handleResult } = props
+  const { handleSearchResult } = props
 
   React.useEffect(() => {
     router.events.on('routeChangeComplete', modal.onClose)
@@ -141,8 +141,8 @@ function OmniSearch(props: SearchFieldProps) {
           modal.onClose()
           const result = results?.[active]
           if (result) {
-            if (handleResult) {
-              handleResult(result)
+            if (handleSearchResult) {
+              handleSearchResult(result)
             }
             setSymbol(result.displaySymbol)
           }
@@ -150,7 +150,7 @@ function OmniSearch(props: SearchFieldProps) {
         }
       }
     },
-    [active, results, modal, handleResult],
+    [active, results, modal, handleSearchResult],
   )
 
   useUpdateEffect(() => {
@@ -238,8 +238,8 @@ function OmniSearch(props: SearchFieldProps) {
                       }}
                       onClick={() => {
                         modal.onClose()
-                        if (handleResult) {
-                          handleResult(item)
+                        if (handleSearchResult) {
+                          handleSearchResult(item)
                         }
                         setSymbol(item.displaySymbol)
                       }}

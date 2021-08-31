@@ -62,7 +62,7 @@ class BasicAreaSeries extends React.Component<ChartProps> {
         zoomAnchor={mouseBasedZoomAnchor}
       >
         <Chart
-          id={1}
+          id="basic-line-series"
           height={barChartHeight}
           origin={barChartOrigin}
           yExtents={this.yExtents}

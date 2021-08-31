@@ -23,7 +23,7 @@ import { MobileNavButton, MobileNavContent } from './MobileNav'
 import Search from 'features/search/SearchModal'
 
 interface HeaderProps {
-  handleResult?: (result: SearchSecurityResponse) => void
+  handleSearchResult: (result: SearchSecurityResponse) => void
 }
 
 function HeaderContent(props: HeaderProps) {
@@ -38,7 +38,7 @@ function HeaderContent(props: HeaderProps) {
     mobileNavBtnRef.current?.focus()
   }, [mobileNav.isOpen])
 
-  const { handleResult } = props
+  const { handleSearchResult } = props
 
   return (
     <>
@@ -55,7 +55,7 @@ function HeaderContent(props: HeaderProps) {
         </Flex>
 
         <Flex justify="flex-end" w="100%" align="center" color="gray.400" maxW="1100px">
-          <Search handleResult={handleResult} />
+          <Search handleSearchResult={handleSearchResult} />
           <IconButton
             size="md"
             fontSize="lg"
@@ -91,7 +91,7 @@ export function Header(props: HTMLChakraProps<'header'> & HeaderProps) {
     return scrollY.onChange(() => setY(scrollY.get()))
   }, [scrollY])
 
-  const { handleResult, ...rest } = props
+  const { handleSearchResult, ...rest } = props
   return (
     <chakra.header
       ref={ref}
@@ -107,7 +107,7 @@ export function Header(props: HTMLChakraProps<'header'> & HeaderProps) {
       {...rest}
     >
       <chakra.div height="4.5rem" mx="auto" maxW="8xl">
-        <HeaderContent handleResult={handleResult} />
+        <HeaderContent handleSearchResult={handleSearchResult} />
       </chakra.div>
     </chakra.header>
   )

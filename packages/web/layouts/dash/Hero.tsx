@@ -1,3 +1,5 @@
+import NextLink from 'next/link'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Button,
@@ -9,11 +11,12 @@ import {
   Text,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
-import NextLink from 'next/link'
-import * as React from 'react'
 import { formatCountry } from 'features/chart/utils'
 import { HiChevronRight } from 'react-icons/hi'
 import { getQuote } from 'lib/express/fetch.quote'
+import { useSocketio } from 'components/providers/IOProvider'
+import type { EtfProfile } from 'lib/express/fetch.etfprofile'
+import type { SimpleProfile } from 'lib/express/fetch.simpleprofile'
 
 interface Trade {
   c: string[]
@@ -23,63 +26,13 @@ interface Trade {
   v: number
 }
 
-export interface SimpleProfile {
-  country: string
-  currency: string
-  exchange: string
-  ipo: string
-  marketCapitalization: number
-  name: string
-  phone: string
-  shareOutstanding: number
-  ticker: string
-  weburl: string
-  logo: string
-  finnhubIndustry: string
-}
-
-export interface EtfProfile {
-  logo: string
-  listdate: string
-  cik: string
-  bloomberg: string
-  figi: string | null
-  lei: string | null
-  country: string
-  industry: string
-  sector: string
-  marketcap: number
-  employees: number | null
-  phone: string
-  ceo: string
-  url: string
-  description: string
-  exchange: string
-  name: string
-  symbol: string
-  exchangeSymbol: string
-  hq_address: string
-  hq_state: string
-  hq_country: string
+interface Messages {
+  data: Trade[]
   type: string
-  updated: string
-  tags: Array<string | null>
-  similar: Array<string | null>
-  active: boolean
+  newEntry: string
 }
 
-interface TradingProps {
-  security?: EtfProfile & SimpleProfile
-  securityType: string
-  currentSymbol: string
-  messageHistory: TradeEvents | undefined
-}
-
-interface TradeEvents {
-  data?: Trade[]
-}
-
-const getEventsBySymbol = (events: TradeEvents | undefined, symbol: string): Trade[] => {
+const getEventsBySymbol = (events: Messages | undefined, symbol: string): Trade[] => {
   return events?.data?.filter((trade: Trade) => trade.s === symbol) || []
 }
 
@@ -96,7 +49,7 @@ const processEventColor = (prevPrice: number, currPrice: number) => {
 }
 
 const processIntradayMove = (currTrade: Trade, prevClose: number): number => {
-  if (!currTrade) return 0
+  if (!currTrade || currTrade.p === 0) return 0
   return ((currTrade.p - prevClose) / currTrade.p) * 100
 }
 
@@ -111,22 +64,32 @@ const processEvents = (events: Trade[], prevClose: number) => {
   }
 }
 
-export function Trading(props: TradingProps) {
-  const [lastClose, setLastClose] = React.useState(0)
-  const { messageHistory, currentSymbol, security, securityType } = props
+interface TradingProps {
+  symbol: string
+  security?: (EtfProfile & SimpleProfile) | undefined
+  securityType: string
+}
 
-  React.useEffect(() => {
+export function Hero(props: TradingProps) {
+  const [lastClose, setLastClose] = useState(0)
+  const [messages, setMessage] = useState<Messages>()
+
+  const { symbol, security, securityType } = props
+
+  const socket = useSocketio()
+  socket.on('message', (message) => {
+    setMessage(message)
+  })
+
+  useEffect(() => {
     async function fetchQuote() {
-      const quote = await getQuote(currentSymbol)
+      const quote = await getQuote(symbol)
       setLastClose(quote.pc)
     }
     fetchQuote()
-  }, [currentSymbol, setLastClose])
+  }, [symbol, setLastClose])
 
-  const { color, currTrade, intradayMove } = processEvents(
-    getEventsBySymbol(messageHistory, currentSymbol),
-    lastClose,
-  )
+  const { color, currTrade, intradayMove } = processEvents(getEventsBySymbol(messages, symbol), lastClose)
 
   return (
     <Box bg={mode('white', 'gray.900')} as="section" minH="140px" position="relative">
@@ -142,7 +105,7 @@ export function Trading(props: TradingProps) {
               {security?.name}
             </Heading>
             <Text color={mode('blackAlpha.700', 'whiteAlpha.800')} fontSize={{ md: '2xl' }} maxW="lg">
-              {currentSymbol} {formatCountry(security?.country || security?.currency)} {security?.exchange}
+              {symbol} {formatCountry(security?.country || security?.currency)} {security?.exchange}
             </Text>
             <Stack direction="row" justifyContent="space-between" py="4">
               <Box display="flex" direction="row">
@@ -173,8 +136,7 @@ export function Trading(props: TradingProps) {
             </Stack>
             <Stack direction="row" justifyContent="space-between" py="2">
               <Text fontSize="xs" color={currTrade ? 'gray.500' : 'gray.500'}>
-                MARKET {`${currTrade ? 'OPEN ' : 'CLOSED '}`}
-                {`${new Date().toLocaleString()}`}
+                LOCAL TIME {new Date().toLocaleString()}
               </Text>
               <Box>
                 {securityType !== 'ETP' && (
@@ -210,7 +172,7 @@ export function Trading(props: TradingProps) {
                   Get Started for Free
                 </Button>
               </NextLink>
-              <NextLink href={{ pathname: `chart/${currentSymbol}` }} passHref>
+              <NextLink href={{ pathname: `chart/${symbol}` }} passHref>
                 <HStack
                   as="a"
                   transition="background 0.2s"

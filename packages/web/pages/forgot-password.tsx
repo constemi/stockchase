@@ -7,7 +7,7 @@ import Head from 'next/head'
 import { Form } from 'components/Form'
 import { Input } from 'components/Input'
 import { useToast } from 'lib/hooks/useToast'
-import Yup from 'lib/yup'
+import Yup from 'yup'
 import { useForm } from 'lib/hooks/useForm'
 import { useForgotPasswordMutation, MutationForgotPasswordArgs } from 'lib/graphql'
 
