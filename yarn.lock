@@ -1470,10 +1470,10 @@
   resolved "https://registry.yarnpkg.com/@commitlint/types/-/types-11.0.0.tgz#719cf05fcc1abb6533610a2e0f5dd1e61eac14fe"
   integrity sha512-VoNqai1vR5anRF5Tuh/+SWDFk7xi7oMwHrHrbm1BprYXjB2RJsWLhUrStMssDxEl5lW/z3EUdg8RvH/IUBccSQ==
 
-"@constemi/itsdangerjs@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@constemi/itsdangerjs/-/itsdangerjs-0.0.1.tgz#20b3b3e266539bedeaf0783642c575625915cc43"
-  integrity sha512-4gFNP3s7ksn0KkzwPC0C+hV6i4Mb9CULFxVS37yBDVW3lJyEdYQl1LNKGfIVwmzlKM8at3SPoD4WSOkEj2MMNg==
+"@constemi/itsdangerjs@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@constemi/itsdangerjs/-/itsdangerjs-0.0.2.tgz#1cb5803b26fb1262150d64c90f5451511f431340"
+  integrity sha512-/TKmvxodKwhI42BIKt7YJQR1xD2bWeUFtxjs4RFbRMHjtWgYn5WocyclbkM0WEDY0xoS16eQQxykwdtzYhoCfw==
 
 "@emotion/babel-plugin@^11.3.0":
   version "11.3.0"
