@@ -33,7 +33,7 @@ export const humanize = (str: string) => {
     .replace(/[_\s]+/g, ' ')
     .replace(/^[a-z]/, function (m) {
       return m.toUpperCase()
-    })
+    });
 }
 
 export const formatFileName = (filename: string): string => {
@@ -97,5 +97,5 @@ export function reorder<R>(list: R[], startIndex: number, endIndex: number): R[]
 
 export function isMobile() {
   if (!isBrowser) return false
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent);
 }

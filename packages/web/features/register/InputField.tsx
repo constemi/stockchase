@@ -10,14 +10,17 @@ interface InputFieldProps extends InputProps {
 }
 
 export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>((props, ref) => {
-  const { register, errors } = useFormContext()
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext()
   const fieldError = errors?.[props.name] as FieldError | string
 
   const { label, ...rest } = props
   return (
     <FormControl position="relative" isInvalid={!!fieldError}>
       <FormLabel mb={1}>{label}</FormLabel>
-      <Input ref={register} size="lg" fontSize="md" {...rest} />
+      <Input size="lg" fontSize="md" {...rest} />
       <InputError error={fieldError} />
     </FormControl>
   )
