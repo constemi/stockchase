@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+import fetch from 'cross-fetch'
 import { json } from 'body-parser'
 import { IsString, IsNumber } from 'class-validator'
 import { Body, Post, Controller, UseBefore, BadRequestError } from 'routing-controllers'
