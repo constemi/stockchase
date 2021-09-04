@@ -38,7 +38,7 @@
     "components": "link:./src/components",
     "cookie": "^0.4.1",
     "d3-dsv": "^3.0.0",
-    "d3-time-format": "^3.0.0",
+    "d3-time-format": "^4.0.0",
     "date-fns": "^2.21.2",
     "features": "link:./src/features",
     "framer-motion": "3.10.6",
