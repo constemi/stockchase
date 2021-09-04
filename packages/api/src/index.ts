@@ -86,13 +86,17 @@ class Stockchase extends ServerWithWebsocket {
     const DepthLimitRule = depthLimit(10)
     const apolloServer = new ApolloServer({
       context: ({ req, res }: ExpressContext) => ({ req, res }),
-      plugins: [ApolloServerLoaderPlugin({ typeormGetConnection: getConnection }), queryComplexityPlugin],
+      plugins: [
+        ApolloServerLoaderPlugin({ typeormGetConnection: getConnection }) as any, // any type until type-graphql-dataloader supports apollo-server-3.0
+        queryComplexityPlugin,
+      ],
       formatResponse,
       validationRules: [DepthLimitRule],
       introspection: IS_DEVELOPMENT,
-      playground: IS_DEVELOPMENT,
       schema,
     })
+
+    await apolloServer.start()
 
     apolloServer.applyMiddleware({
       cors: CORS_OPTIONS,
