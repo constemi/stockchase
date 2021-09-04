@@ -1,14 +1,10 @@
 import { GraphQLSchema } from 'graphql'
 import { UserInputError } from 'apollo-server-express'
 import { getComplexity, simpleEstimator, fieldExtensionsEstimator } from 'graphql-query-complexity'
-import {
-  GraphQLRequestContextDidResolveOperation,
-  BaseContext,
-  ValueOrPromise,
-} from 'apollo-server-plugin-base'
+import { GraphQLRequestContextDidResolveOperation, BaseContext } from 'apollo-server-plugin-base'
 
 export const ComplexityMiddleware = (schema: GraphQLSchema) => () => ({
-  didResolveOperation(ctx: GraphQLRequestContextDidResolveOperation<BaseContext>): ValueOrPromise<void> {
+  didResolveOperation(ctx: GraphQLRequestContextDidResolveOperation<BaseContext>): void {
     const max = 20
     const actual = getComplexity({
       schema,
