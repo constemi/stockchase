@@ -77,7 +77,7 @@ export class ExchangeController {
         throw new BadRequestError(data['error'])
       }
       return data
-    } catch (error) {
+    } catch (error: any) {
       throw new BadRequestError(error?.message)
     }
   }
@@ -95,7 +95,7 @@ export class ExchangeController {
         throw new BadRequestError(data['error'])
       }
       return data
-    } catch (error) {
+    } catch (error: any) {
       throw new BadRequestError(error?.message)
     }
   }
@@ -115,7 +115,7 @@ export class ExchangeController {
         throw new BadRequestError(data['error'])
       }
       return data
-    } catch (error) {
+    } catch (error: any) {
       throw new BadRequestError(error?.message)
     }
   }
@@ -133,7 +133,7 @@ export class ExchangeController {
         throw new BadRequestError(data['error'])
       }
       return data
-    } catch (error) {
+    } catch (error: any) {
       throw new BadRequestError(error?.message)
     }
   }
