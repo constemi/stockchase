@@ -1,7 +1,7 @@
-import * as React from "react"
-import { useFormContext, UseFormMethods, FormProvider } from "react-hook-form"
-import { Box } from "@chakra-ui/react"
-import { useToast } from "../lib/hooks/useToast"
+import * as React from 'react'
+import { useFormContext, UseFormReturn, FormProvider } from 'react-hook-form'
+import { Box } from '@chakra-ui/react'
+import { useToast } from 'lib/hooks/useToast'
 
 interface FormContainerProps {
   onSubmit?: (values: any) => Promise<any> | any
@@ -21,9 +21,9 @@ const FormContainer: React.FC<FormContainerProps> = (props) => {
       }
     } catch {
       toast({
-        title: "Network error",
-        description: "Something went wrong. We have been notified!",
-        status: "error",
+        title: 'Network error',
+        description: 'Something went wrong. We have been notified!',
+        status: 'error',
       })
       return
     }
@@ -41,7 +41,7 @@ const FormContainer: React.FC<FormContainerProps> = (props) => {
   )
 }
 
-interface Props<T> extends UseFormMethods<T>, FormContainerProps {
+interface Props<T> extends UseFormReturn<T>, FormContainerProps {
   children: React.ReactNode
 }
 

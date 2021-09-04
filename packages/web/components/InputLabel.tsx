@@ -1,14 +1,14 @@
-import * as React from "react"
-import { FormLabel, Text, FormLabelProps, useColorModeValue } from "@chakra-ui/react"
+import * as React from 'react'
+import { FormLabel, Text, FormLabelProps, useColorModeValue } from '@chakra-ui/react'
 
-interface Props extends Omit<FormLabelProps, "children"> {
+interface Props extends Omit<FormLabelProps, 'children'> {
   name?: string
   label?: string
   subLabel?: string
 }
 
 export const InputLabel: React.FC<Props> = ({ subLabel, ...props }) => {
-  const subLabelColor = useColorModeValue("gray.400", "gray.300")
+  const subLabelColor = useColorModeValue('gray.400', 'gray.300')
   if (!props.label) return null
 
   return (
@@ -24,7 +24,7 @@ export const InputLabel: React.FC<Props> = ({ subLabel, ...props }) => {
 }
 
 export const InlineInputLabel: React.FC<Props> = ({ subLabel, ...props }) => {
-  const subLabelColor = useColorModeValue("gray.400", "gray.300")
+  const subLabelColor = useColorModeValue('gray.400', 'gray.300')
 
   if (!props.label) return null
   return (
@@ -32,7 +32,7 @@ export const InlineInputLabel: React.FC<Props> = ({ subLabel, ...props }) => {
       lineHeight="14px"
       htmlFor={props.name}
       fontWeight={400}
-      fontSize={{ base: "0.8rem", md: "0.9rem" }}
+      fontSize={{ base: '0.8rem', md: '0.9rem' }}
       mb={0}
       mr={2}
       minW={{ base: 70, md: 100 }}

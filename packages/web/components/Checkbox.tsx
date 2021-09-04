@@ -1,8 +1,8 @@
-import * as React from "react"
-import { Flex, Checkbox as CCheckbox, CheckboxProps, FormControl, Box } from "@chakra-ui/react"
-import { useFormContext, FieldError } from "react-hook-form"
-import { InlineInputError, InputError } from "./InputError"
-import { InputLabel, InlineInputLabel } from "./InputLabel"
+import * as React from 'react'
+import { Flex, Checkbox as CCheckbox, CheckboxProps, FormControl, Box } from '@chakra-ui/react'
+import { useFormContext, FieldError } from 'react-hook-form'
+import { InlineInputError, InputError } from './InputError'
+import { InputLabel, InlineInputLabel } from './InputLabel'
 
 interface Props extends CheckboxProps {
   name: string
@@ -11,7 +11,13 @@ interface Props extends CheckboxProps {
 }
 
 export const Checkbox = ({ label, subLabel, ...props }: Props) => {
-  const { register, unregister, setValue, watch, errors } = useFormContext()
+  const {
+    register,
+    unregister,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext()
   const fieldError = errors?.[props.name] as FieldError | string
   React.useEffect(() => {
     return () => unregister(props.name)
@@ -22,11 +28,11 @@ export const Checkbox = ({ label, subLabel, ...props }: Props) => {
       <InputLabel label={label} subLabel={subLabel} name={props.name} />
       <Box>
         <CCheckbox
-          ref={register}
+          {...register(props.name)}
           isChecked={value}
           onChange={() => setValue(props.name, !value)}
           mb={0}
-          colorScheme="orange"
+          colorScheme="purple"
           size="lg"
           {...props}
         />
@@ -36,7 +42,13 @@ export const Checkbox = ({ label, subLabel, ...props }: Props) => {
   )
 }
 export const InlineCheckbox = ({ label, subLabel, ...props }: Props) => {
-  const { register, unregister, setValue, watch, errors } = useFormContext()
+  const {
+    register,
+    unregister,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useFormContext()
   const fieldError = errors?.[props.name] as FieldError | string
   React.useEffect(() => {
     return () => unregister(props.name)
@@ -50,11 +62,11 @@ export const InlineCheckbox = ({ label, subLabel, ...props }: Props) => {
         <InlineInputLabel label={label} subLabel={subLabel} name={props.name} />
         <Box>
           <CCheckbox
-            ref={register}
+            {...register(props.name)}
             isChecked={value}
             onChange={() => setValue(props.name, !value)}
             mb={0}
-            colorScheme="orange"
+            colorScheme="purple"
             size="lg"
             {...props}
           />
