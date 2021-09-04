@@ -1,16 +1,16 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   useForm as useHookForm,
   UseFormOptions,
   useFormContext as useHookFormContext,
   FieldError,
   UseFormMethods,
-} from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { ExecutionResult } from "graphql"
+} from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { ExecutionResult } from 'graphql'
 
-import { MutationHandler, useMutationHandler } from "./useMutationHandler"
-import Yup from "../yup"
+import { MutationHandler, useMutationHandler } from './useMutationHandler'
+import * as Yup from 'yup'
 
 interface Props<T> extends UseFormOptions<T> {
   schema?: Yup.ObjectSchema<any>
@@ -19,9 +19,9 @@ export function useForm<T extends Record<string, any>>(props?: Props<T>) {
   const [appError, setAppError] = React.useState<string | null | undefined>()
   const mutationHandler = useMutationHandler()
   const form = useHookForm<T>({
-    mode: "onSubmit",
-    reValidateMode: "onChange",
-    criteriaMode: "all",
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    criteriaMode: 'all',
     resolver: props?.schema && yupResolver(props.schema),
     ...props,
   })
@@ -42,7 +42,7 @@ export function useForm<T extends Record<string, any>>(props?: Props<T>) {
     appError,
     setAppError,
     handler,
-    handleSubmit: form.handleSubmit as UseFormMethods<T>["handleSubmit"],
+    handleSubmit: form.handleSubmit as UseFormMethods<T>['handleSubmit'],
   }
 }
 
