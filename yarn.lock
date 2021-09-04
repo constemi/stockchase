@@ -8329,10 +8329,10 @@ graphql-extensions@^0.15.0:
     apollo-server-env "^3.1.0"
     apollo-server-types "^0.9.0"
 
-graphql-query-complexity@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.8.0.tgz#990c670f3916bcee93ad0d2e67a07469d85af26f"
-  integrity sha512-xfM2J7kbX8ZiPNWvCva8kSC7Zmwku2TK2sYDptxl810uj5Q4piKRsmeiv+on7sqJFjiRw8hp/h5qyQ5CvR9bnA==
+graphql-query-complexity@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.9.0.tgz#11bff1b369b5f6bffe757201d696994fda422f6d"
+  integrity sha512-jLRM4K4seKdz+TFQpmYsvFj4ZwlLnVEH0KbxE5vzw0oDCc6y0KRiALJiIzr8J6gSJ+LiAjUmCiJqtw1HJd3Udg==
   dependencies:
     lodash.get "^4.4.2"
 
