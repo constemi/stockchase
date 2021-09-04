@@ -51,7 +51,7 @@
     "dataloader": "2.0.0",
     "dayjs": "1.9.6",
     "dotenv": "8.2.0",
-    "eta": "1.12.1",
+    "eta": "1.12.3",
     "express": "4.17.1",
     "express-jwt": "6.0.0",
     "glob": "7.1.6",
