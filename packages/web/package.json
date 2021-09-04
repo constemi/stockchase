@@ -41,7 +41,7 @@
     "d3-time-format": "^3.0.0",
     "date-fns": "^2.21.2",
     "features": "link:./src/features",
-    "framer-motion": "3.10.6",
+    "framer-motion": "4.1.17",
     "friendly-challenge": "^0.8.3",
     "graphql": "^15.5.0",
     "highlight-words-core": "^1.2.2",
