@@ -4,8 +4,9 @@ import NextLink from 'next/link'
 import { GradientBanner } from 'features/banner/GradientBanner'
 import { Logo } from 'layouts/shared/Logo'
 import { SignupForm } from 'features/register/RegisterForm'
+import { withNoAuth } from 'components/hoc/withNoAuth'
 
-export default function Register() {
+function Register() {
   const [submittedEmail, setEmail] = React.useState('')
 
   return (
@@ -64,3 +65,5 @@ export default function Register() {
     </Box>
   )
 }
+
+export default withNoAuth(Register)

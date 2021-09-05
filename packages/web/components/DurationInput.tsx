@@ -1,7 +1,7 @@
-import { FormControl, Flex, Input, InputProps, Text, HStack, useColorModeValue } from "@chakra-ui/react"
-import * as React from "react"
-import { useFormContext, FieldError } from "react-hook-form"
-import { InlineInputLabel } from "./InputLabel"
+import { FormControl, Flex, Input, InputProps, Text, HStack, useColorModeValue } from '@chakra-ui/react'
+import * as React from 'react'
+import { useFormContext, FieldError } from 'react-hook-form'
+import { InlineInputLabel } from './InputLabel'
 
 interface Props extends InputProps {
   name: string
@@ -10,7 +10,13 @@ interface Props extends InputProps {
 }
 
 export const InlineDurationInput = ({ label, subLabel, ...props }: Props) => {
-  const { register, unregister, watch, errors, setValue } = useFormContext()
+  const {
+    register,
+    unregister,
+    watch,
+    formState: { errors },
+    setValue,
+  } = useFormContext()
 
   const hoursRef = React.useRef<HTMLInputElement>(null)
   const minutesRef = React.useRef<HTMLInputElement>(null)
@@ -20,11 +26,11 @@ export const InlineDurationInput = ({ label, subLabel, ...props }: Props) => {
   }, [register, unregister, props.name])
 
   const fieldError = errors?.[props.name] as FieldError | string
-  const color = useColorModeValue("gray.500", "gray.300")
+  const color = useColorModeValue('gray.500', 'gray.300')
 
   const duration = watch(props.name) as string
-  const hours = duration.split(":")[0] || ""
-  const minutes = duration.split(":")[1] || ""
+  const hours = duration.split(':')[0] || ''
+  const minutes = duration.split(':')[1] || ''
 
   return (
     <FormControl isInvalid={!!fieldError} isRequired={props.isRequired}>

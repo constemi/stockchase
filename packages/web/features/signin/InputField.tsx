@@ -33,7 +33,7 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>((p
       >
         {label}
       </FormLabel>
-      <Input size="lg" fontSize="md" {...rest} />
+      <Input {...register(props.name)} size="lg" fontSize="md" {...rest} />
       <InputError error={fieldError} />
     </FormControl>
   )

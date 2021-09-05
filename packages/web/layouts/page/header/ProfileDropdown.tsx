@@ -11,7 +11,7 @@ import {
   UseMenuButtonProps,
   useColorModeValue as mode,
 } from '@chakra-ui/react'
-import { useMe } from 'components/providers/MeProvider'
+import { useMe } from 'lib/hooks/useMe'
 import { useLogout } from 'lib/hooks/useLogout'
 import { useRouter } from 'next/router'
 import { MeFragment } from 'lib/graphql'
@@ -52,7 +52,7 @@ const ProfileMenuButton = (props: UseMenuButtonProps & MeType) => {
 }
 
 export function ProfileDropdown() {
-  const me = useMe()
+  const { me, loading } = useMe()
   const router = useRouter()
   const logout = useLogout()
 

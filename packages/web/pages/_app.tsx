@@ -5,7 +5,6 @@ import { ApolloProvider } from '@apollo/client'
 import { ChakraProvider } from '@chakra-ui/react'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
-import { MeProvider } from 'components/providers/MeProvider'
 import { useApollo } from 'lib/apollo/client'
 import { theme } from 'lib/theme'
 import { IS_PRODUCTION, SENTRY_DSN } from 'lib/config'
@@ -35,9 +34,7 @@ export default function FullstackBoilerplateApp(props: AppProps<any>) {
       </Head>
       <ChakraProvider theme={theme}>
         <ApolloProvider client={apolloClient}>
-          <MeProvider>
-            <Component {...pageProps} />
-          </MeProvider>
+          <Component {...pageProps} />
         </ApolloProvider>
       </ChakraProvider>
     </>

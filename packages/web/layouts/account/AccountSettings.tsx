@@ -17,10 +17,10 @@ import format from 'date-fns/format'
 import { Card } from '../shared/Card'
 import { FieldGroup } from './FieldGroup'
 import { HeadingGroup } from '../shared/HeadingGroup'
-import { useMe } from 'components/providers/MeProvider'
+import { useMe } from 'lib/hooks/useMe'
 
 export const AccountSettings = (props: StackProps) => {
-  const me = useMe()
+  const { me, loading } = useMe()
   const fullName = `${me?.firstName} ${me?.lastName}`
 
   return (

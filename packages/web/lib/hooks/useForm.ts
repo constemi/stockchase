@@ -1,10 +1,10 @@
 import * as React from 'react'
 import {
   useForm as useHookForm,
-  UseFormOptions,
+  UseFormProps,
   useFormContext as useHookFormContext,
   FieldError,
-  UseFormMethods,
+  UseFormReturn,
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ExecutionResult } from 'graphql'
@@ -12,7 +12,7 @@ import { ExecutionResult } from 'graphql'
 import { MutationHandler, useMutationHandler } from './useMutationHandler'
 import * as Yup from 'yup'
 
-interface Props<T> extends UseFormOptions<T> {
+interface Props<T> extends UseFormProps<T> {
   schema?: Yup.ObjectSchema<any>
 }
 export function useForm<T extends Record<string, any>>(props?: Props<T>) {
@@ -42,11 +42,11 @@ export function useForm<T extends Record<string, any>>(props?: Props<T>) {
     appError,
     setAppError,
     handler,
-    handleSubmit: form.handleSubmit as UseFormMethods<T>['handleSubmit'],
+    handleSubmit: form.handleSubmit as UseFormReturn<T>['handleSubmit'],
   }
 }
 
-export type UseAppFormContextOptions = UseFormMethods<any> & {
+export type UseAppFormContextOptions = UseFormReturn<any> & {
   appError?: string
 }
 

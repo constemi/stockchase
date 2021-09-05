@@ -19,6 +19,7 @@ if (APP_ENV) {
 
 export const IS_PRODUCTION = env === 'production'
 export const IS_DEV = !IS_PRODUCTION
+export const REDIRECT_PATH = 'redirect'
 export const API_VERSION = 'v1'
 
 export const SENTRY_DSN = 'https://16a8c3d918984e9f91a466295074624c@o528463.ingest.sentry.io/5645842'
