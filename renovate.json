@@ -18,21 +18,5 @@
       "extends": ["schedule:monthly"]
     }
   ],
-  "ignoreDeps": [
-    "yarn",
-    "expo-image-picker",
-    "expo-linear-gradient",
-    "expo-permissions",
-    "expo-location",
-    "expo-linking",
-    "expo-status-bar",
-    "react-native-maps",
-    "react-native",
-    "react-native-reanimated",
-    "react-native-screens",
-    "react-native-webview",
-    "react-native-safe-area-context",
-    "react-native-svg",
-    "@react-native-community/masked-view"
-  ]
+  "ignoreDeps": ["yarn"]
 }
