@@ -7,6 +7,8 @@ interface ConstructorOptions {
 declare module 'friendly-challenge' {
   export declare class WidgetInstance {
     static reset: () => void
-    constructor(container: HTMLDivElement, options: ConstructorOptions) {}
+    constructor(container: HTMLDivElement, options: ConstructorOptions) {
+      super()
+    }
   }
 }
