@@ -1,10 +1,11 @@
 import { Resolver, Query } from 'type-graphql'
-import { Inject } from 'typedi'
+import { Inject, Service } from 'typedi'
 import { Payment } from './payment.entity'
 import { PaymentService } from './payment.service'
 import { PaymentRespository } from './payment.repository'
 import { ContextUser } from '../shared/context/contextUser'
 
+@Service()
 @Resolver(() => Payment)
 export class PaymentResolver {
   @Inject(() => PaymentService)

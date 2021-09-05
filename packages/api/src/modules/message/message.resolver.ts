@@ -1,4 +1,4 @@
-import { Inject } from 'typedi'
+import { Inject, Service } from 'typedi'
 import { getManager } from 'typeorm'
 import { Resolver, Query, Mutation, Arg } from 'type-graphql'
 
@@ -17,6 +17,7 @@ import { MessageChildrenResponse } from './responses/children.response'
 import { CurrentUser } from '../shared/context/currentUser'
 import { Security } from '../security/security.entity'
 
+@Service()
 @Resolver(() => Message)
 export class MessageResolver {
   @Inject(() => MessageService)

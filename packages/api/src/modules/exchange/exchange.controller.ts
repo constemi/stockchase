@@ -1,5 +1,6 @@
 import fetch from 'cross-fetch'
 import { json } from 'body-parser'
+import { Service } from 'typedi'
 import { IsString, IsNumber } from 'class-validator'
 import { Body, Post, Controller, UseBefore, BadRequestError } from 'routing-controllers'
 import { AuthMiddleware } from '../../middleware/expressAuthMiddlewate'
@@ -35,6 +36,7 @@ class NewsRequestParams {
   intervalEnd: string
 }
 
+@Service()
 @Controller()
 export class ExchangeController {
   @Post('/stock/candle')

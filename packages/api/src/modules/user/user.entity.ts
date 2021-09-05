@@ -1,7 +1,6 @@
 import { BeforeInsert, Entity, OneToMany } from 'typeorm'
 import { ObjectType, Field } from 'type-graphql'
 import argon2 from 'argon2'
-
 import { BaseEntity } from '../shared/base.entity'
 import { BooleanField, StringField } from '../shared/fields'
 import { Payment } from '../payment/payment.entity'

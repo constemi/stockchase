@@ -1,5 +1,5 @@
 import { Resolver, Query, Arg } from 'type-graphql'
-import { Inject } from 'typedi'
+import { Inject, Service } from 'typedi'
 // import { User } from '../user/user.entity'
 import { Security } from './security.entity'
 import { SecurityService } from './security.service'
@@ -9,6 +9,7 @@ import { ContextUser } from '../shared/context/contextUser'
 import { SearchSecurityInput } from './inputs/SearchSecurity.input'
 import { SearchSecurityResponse } from './responses/SearchSecurity.response'
 
+@Service()
 @Resolver(() => Security)
 export class SecurityResolver {
   @Inject(() => SecurityService)

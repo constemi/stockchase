@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Arg, Ctx } from 'type-graphql'
-import { Inject } from 'typedi'
+import { Inject, Service } from 'typedi'
 import { decryptToken, createToken } from '../../lib/jwt'
 import { User } from './user.entity'
 import { UserService } from './user.service'
@@ -16,6 +16,7 @@ import { ResolverContext } from '../shared/context/resolver'
 import { AuthMiddleware } from '../../middleware/apolloAuthMiddleware'
 import { RegisterInput } from './inputs/register.input'
 
+@Service()
 @Resolver(() => User)
 export class UserResolver {
   @Inject(() => UserService)

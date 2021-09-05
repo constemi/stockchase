@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/node'
 import { getRepository } from 'typeorm'
+import { Service } from 'typedi'
 import { Response } from 'express'
 import { User } from '../user/user.entity'
 import { Get, Res, Controller, HttpCode, Render, QueryParam } from 'routing-controllers'
@@ -7,6 +8,7 @@ import { createAuthToken } from '../../lib/jwt'
 import { decryptOtpToken } from '../../lib/otp'
 import { SESSION_TOKEN, WEB_ORIGIN, API_ORIGIN } from '../../lib/config'
 
+@Service()
 @Controller()
 export class AuthController {
   /**

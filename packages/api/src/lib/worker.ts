@@ -1,18 +1,14 @@
-// import * as Sentry from '@sentry/node'
-// import fetch from 'node-fetch'
-// import cuid from 'cuid'
-// import { Queue, Worker } from 'bullmq'
-// import { REDIS_PORT, REDIS_URL, REDIS_PASS, EXCHANGE_URL, FINNHUB_KEY } from './config'
-// import { getRepository } from 'typeorm'
-// import { Security } from '../modules/security/security.entity'
+import * as Sentry from '@sentry/node'
+import cuid from 'cuid'
+import fetch from 'cross-fetch'
+import { Queue, Worker } from 'bullmq'
+import { getRepository } from 'typeorm'
+import { Security } from '../modules/security/security.entity'
+import { REDIS_PORT, REDIS_URL, REDIS_PASS, EXCHANGE_URL, FINNHUB_KEY } from './config'
 
 // exchanges and codes https://docs.google.com/spreadsheets/d/1I3pBxjfXB056-g_JYf_6o3Rns3BV2kMGG1nCatb91ls/edit#gid=0
-// Create a new connection in every instance
+// {"currency":"CAD","description":"IA CLARINGTON GLOBAL BOND FU","displaySymbol":"IGLB.TO","figi":"BBG00M93B6B7","mic":"XTSE","symbol":"IGLB.TO","type":"ETP"}
 
-//{"currency":"CAD","description":"IA CLARINGTON GLOBAL BOND FU","displaySymbol":"IGLB.TO","figi":"BBG00M93B6B7","mic":"XTSE","symbol":"IGLB.TO","type":"ETP"}
-//
-
-/* 
 interface Asset {
   currency: string
   description: string
@@ -32,11 +28,6 @@ const syncQueue = new Queue('Sync', {
   },
 })
 
-export async function addJobs() {
-  await syncQueue.add('updateCASymbols', { exchange: 'TO' }, { repeat: { cron: '0 0 * * SUN' } })
-  await syncQueue.add('updateUSSymbols', { exchange: 'US' }, { repeat: { cron: '0 0 * * SAT' } })
-}
-
 export async function getWorkers() {
   const workers = await syncQueue.getWorkers()
   console.log(workers)
@@ -48,18 +39,15 @@ export const syncWorker = new Worker(
     const response = await fetch(`${EXCHANGE_URL}=${job.data.exchange}&token=${FINNHUB_KEY}`, {
       method: 'GET',
     })
-    const data = await response.json()
-    const security = getRepository(Security)
+    const symbolList = await response.json()
+    const repository = getRepository(Security)
     const entities: Array<Partial<Security & { symbolid: string }>> = []
 
-    data.map(async (item: Asset) => {
-      const searchResult = await security.findOne({ displaySymbol: item.displaySymbol })
-      if (!searchResult) {
-        entities.push({ ...item, symbolId: cuid(), simple: item.displaySymbol.replace('.TO', '') })
-      }
+    symbolList.map(async (item: Asset) => {
+      const data = await repository.findOne({ displaySymbol: item.displaySymbol })
+      if (!data) entities.push({ ...item, symbolId: cuid(), simple: item.displaySymbol.replace('.TO', '') })
     })
-
-    security.save(entities)
+    repository.save(entities)
   },
   {
     connection: {
@@ -84,8 +72,9 @@ syncWorker.on('failed', (job, err) => {
 syncWorker.on('error', (err) => {
   Sentry.captureException(err)
 })
-*/
 
 export async function addJobs() {
   console.log('jobs ready')
+  // await syncQueue.add('updateCASymbols', { exchange: 'TO' }, { repeat: { cron: '0 0 * * SUN' } })
+  // await syncQueue.add('updateUSSymbols', { exchange: 'US' }, { repeat: { cron: '0 0 * * SAT' } })
 }
