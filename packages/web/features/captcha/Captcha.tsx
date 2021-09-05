@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-
+import { WidgetInstance } from 'friendly-challenge'
 import { Box } from '@chakra-ui/react'
 
 interface CaptchaProps {
@@ -8,7 +8,6 @@ interface CaptchaProps {
 }
 
 export const Captcha = (props: CaptchaProps) => {
-  const { WidgetInstance } = require('friendly-challenge')
   const container = useRef<HTMLDivElement>(null)
   const widget = useRef<typeof WidgetInstance>()
 
@@ -32,9 +31,9 @@ export const Captcha = (props: CaptchaProps) => {
       })
     }
 
-    // return () => {
-    //   if (widget.current != undefined) widget.current.reset()
-    // }
+    return function () {
+      if (widget.current != undefined) widget.current.reset()
+    }
   }, [container, props, WidgetInstance])
 
   return props.hasFocus ? (
