@@ -1,15 +1,12 @@
-import cookie from 'cookie'
 import Yup from 'lib/yup'
 import { gql, useApolloClient } from '@apollo/client'
-import { Box, Button, Flex, Input, LightMode, Stack, Text, useColorModeValue as mode } from '@chakra-ui/react'
+import { Box, Button, Flex, LightMode, Stack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { InputField } from './InputField'
 import { Captcha } from 'features/captcha/Captcha'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { MutationForgotPasswordArgs, useForgotPasswordMutation } from 'lib/graphql'
 import { Form } from 'components/Form'
-import { SESSION_TOKEN } from 'lib/config'
 import { FormError } from 'components/FormError'
 import { useForm } from 'lib/hooks/useForm'
 import { useToast } from 'lib/hooks/useToast'
@@ -68,11 +65,10 @@ export function ForgotPassForm() {
       <Stack spacing="8">
         <div onFocus={onFocus}>
           <InputField name="email" label="Email" type="email" />
-          {/* <Input autoFocus name="email" placeholder="Email" /> */}
         </div>
-        {/* <Box>
+        <Box>
           <Captcha hasFocus={hasFocus} onSolve={onSolve} />
-        </Box> */}
+        </Box>
       </Stack>
       <Flex
         spacing="4"
@@ -91,7 +87,7 @@ export function ForgotPassForm() {
             fontSize="md"
             fontWeight="bold"
             isLoading={loading}
-            // isDisabled={!isSolved || loading}
+            isDisabled={!isSolved || loading}
           >
             Submit
           </Button>
