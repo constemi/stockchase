@@ -20,7 +20,7 @@ import { HeadingGroup } from '../shared/HeadingGroup'
 import { useMe } from 'lib/hooks/useMe'
 
 export const AccountSettings = (props: StackProps) => {
-  const { me, loading } = useMe()
+  const { me } = useMe()
   const fullName = `${me?.firstName} ${me?.lastName}`
 
   return (

@@ -4,7 +4,7 @@ import { Dashboard } from 'layouts/dash/Dashboard'
 import { Home } from 'layouts/home/Home'
 
 export default function Index() {
-  const { me, loading } = useMe()
+  const { me } = useMe()
   if (me) {
     return <Dashboard me={me} />
   }
