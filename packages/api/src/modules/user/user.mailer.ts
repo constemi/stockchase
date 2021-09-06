@@ -11,7 +11,7 @@ export class UserMailer extends Mailer {
     try {
       if (!user.email) return
       this.send({
-        templateId: 'todo',
+        templateId: 'd-196b2055d4124fa092bee69f4d75b737',
         to: user.email,
         variables: {
           link: `${API_ORIGIN}/v1/auth/callback/challenge?` + new URLSearchParams({ token }),

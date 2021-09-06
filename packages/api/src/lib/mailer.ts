@@ -56,23 +56,28 @@ export class Mailer {
   }
 
   async sendDev(args: MailArgs) {
-    const [template] = await sendgridClient.request({
-      method: 'GET',
-      url: `/v3/templates/${args.templateId}`,
-    })
+    try {
+      const [template] = await sendgridClient.request({
+        method: 'GET',
+        url: `/v3/templates/${args.templateId}`,
+      })
 
-    const version = (template.body as SendGridResponse).versions
-      .sort((a, b) => dayjs(a.updated_at).unix() - dayjs(b.updated_at).unix())
-      .pop()
-    if (!version) return
-    const htmlSource = handlebars.compile(version.html_content)
-    const html = htmlSource(args.variables)
+      const version = (template.body as SendGridResponse).versions
+        .sort((a, b) => dayjs(a.updated_at).unix() - dayjs(b.updated_at).unix())
+        .pop()
+      if (!version) return
+      const htmlSource = handlebars.compile(version.html_content)
+      const html = htmlSource(args.variables)
 
-    const textSource = handlebars.compile(version.plain_content)
-    const text = textSource(args.variables)
+      const textSource = handlebars.compile(version.plain_content)
+      const text = textSource(args.variables)
 
-    const subject = args.variables?.subject || version.subject
-
-    this.devMail.sendMail({ to: args.to, from: this.from, subject, html, text })
+      const subject = args.variables?.subject || version.subject
+      this.devMail.sendMail({ to: args.to, from: this.from, subject, html, text })
+    } catch (err) {
+      Sentry.captureException(err)
+      console.log('Error sending mail:', err)
+      throw err
+    }
   }
 }
