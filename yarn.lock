@@ -3862,10 +3862,10 @@
   resolved "https://registry.yarnpkg.com/@types/highlight-words-core/-/highlight-words-core-1.2.1.tgz#cda9ed2cd04ea93165d3d3b20686b545d285ff66"
   integrity sha512-9VZUA5omXBfn+hDxFjUDu1FOJTBM3LmvqfDey+Z6Aa8B8/JmF5SMj6FBrjfgJ/Q3YXOZd3qyTDfJyMZSs/wCUA==
 
-"@types/ioredis@4.27.2":
-  version "4.27.2"
-  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.27.2.tgz#067d0e361d7a01f6231fa6b9c6f08846102ba71e"
-  integrity sha512-/HXAbeJOR4Ub1O0XVlOFxrRTf2Yeq7BSre3qGoBvTTxN29tSmQPPwIYYxyzm2SkNgvx0Re9ahqCVanOVHqAARg==
+"@types/ioredis@4.27.3":
+  version "4.27.3"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.27.3.tgz#0cb0f018840c6c6cdfe5e56d2536f21da4d9e06e"
+  integrity sha512-XKt0Jh+UTleEPm6RoumukUOIKl14eQPQ+qhZgtAV9LpWH1ISmyI2BLyXreKO8WAF3tYgPQTcUmajbdrHs/esaQ==
   dependencies:
     "@types/node" "*"
 
