@@ -74,7 +74,7 @@
     "@types/d3": "7.0.0",
     "@types/graphql": "14.2.3",
     "@types/highlight-words-core": "1.2.1",
-    "@types/jest": "27.0.1",
+    "@types/jest": "27.0.2",
     "@types/jwt-decode": "2.2.1",
     "@types/node": "14.17.17",
     "@types/react": "17.0.22",
