@@ -5337,10 +5337,10 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
-bullmq@1.47.2:
-  version "1.47.2"
-  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.47.2.tgz#464915dd7e18d38d3dd45ba7f1edd059a4086f29"
-  integrity sha512-IMzWjXdw6B5RSqPyEiOvoA0efjfTFx2DuB1N+z3T2wYcOVLIcIFybbFjhqVn9Sv/Zb5l6TpuFiU52P+C+/DpNA==
+bullmq@1.48.0:
+  version "1.48.0"
+  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.48.0.tgz#920eb51807ecc2593a7c3991b18d8e9e1daf5b4d"
+  integrity sha512-fFAZMFXqTC+1UiOszKzf+2xKvufBTWuYFvqex0JM5aFqu1gz7VePl9tentF43IWvvOVSDNVx2OzfPOO2dP1tpw==
   dependencies:
     "@types/ioredis" "^4.27.0"
     cron-parser "^2.7.3"
