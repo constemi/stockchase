@@ -42,7 +42,7 @@
     "date-fns": "^2.21.2",
     "features": "link:./src/features",
     "framer-motion": "4.1.17",
-    "friendly-challenge": "^0.8.3",
+    "friendly-challenge": "^0.9.0",
     "highlight-words-core": "^1.2.2",
     "layouts": "link:./src/layouts",
     "lib": "link:./src/lib",
