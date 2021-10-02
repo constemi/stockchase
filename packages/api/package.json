@@ -71,7 +71,7 @@
     "type-graphql": "1.1.1",
     "type-graphql-dataloader": "0.4.0",
     "typedi": "0.10.0",
-    "typeorm": "0.2.37"
+    "typeorm": "0.2.38"
   },
   "devDependencies": {
     "@types/argon2": "0.15.0",
