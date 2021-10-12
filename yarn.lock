@@ -5358,16 +5358,16 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
-bullmq@1.50.0:
-  version "1.50.0"
-  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.50.0.tgz#69da7f40ab3eb5c073a24cc2941783f4fcf0619f"
-  integrity sha512-96E6UVFFaj/5rYCFIkA8NWIzxx3ZEpExH4fOAwcKNYClPY/UY5jiX9qXbFECtiq6TJkCcv0JWTvor3rA7rY/cQ==
+bullmq@1.50.2:
+  version "1.50.2"
+  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.50.2.tgz#14ed5e4be0b4446687e397d000de772f63ddec56"
+  integrity sha512-DvBvtEDTfzP9d+2nBQoLxdwOmUnyOHIUBHbB9IiaHbWeKQbkVOIhXIHraqPD19nH0WdHAAG76sCNr3bm1LzOtQ==
   dependencies:
     cron-parser "^2.18.0"
     get-port "^5.1.1"
     ioredis "^4.27.9"
     lodash "^4.17.21"
-    msgpack "^1.0.3"
+    msgpackr "^1.4.5"
     semver "^6.3.0"
     tslib "^1.14.1"
     uuid "^8.3.2"
@@ -10764,12 +10764,20 @@ ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-msgpack@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/msgpack/-/msgpack-1.0.3.tgz#4106369ef1691a23884098c6217c4c07b95aa2f9"
-  integrity sha512-FX88+Pexuh+UItdqg68WhNPGPhqs57RlXAYyXNZ8eTQC/Tx5lzeIoxTxA2qAd7qU5a/crON5F0ADf4l6k2b7Jw==
+msgpackr-extract@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/msgpackr-extract/-/msgpackr-extract-1.0.14.tgz#87d3fe825d226e7f3d9fe136375091137f958561"
+  integrity sha512-t8neMf53jNZRF+f0H9VvEUVvtjGZ21odSBRmFfjZiyxr9lKYY0mpY3kSWZAIc7YWXtCZGOvDQVx2oqcgGiRBrw==
   dependencies:
-    nan "^2.14.0"
+    nan "^2.14.2"
+    node-gyp-build "^4.2.3"
+
+msgpackr@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/msgpackr/-/msgpackr-1.4.5.tgz#07244796f40bee3dee3028d6fe532cabb4ddfb6b"
+  integrity sha512-AFmAehFqidJaSAWig6cp+8MZU3r7rtL1sgBxzXR9YICfG8vGRemCcVoqPG81CqRHdxP/VX/DyM85wltqPseXNw==
+  optionalDependencies:
+    msgpackr-extract "^1.0.14"
 
 multer@1.3.0:
   version "1.3.0"
@@ -10824,7 +10832,7 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nan@^2.14.0:
+nan@^2.14.2:
   version "2.15.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.15.0.tgz#3f34a473ff18e15c1b5626b62903b5ad6e665fee"
   integrity sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==
@@ -10957,6 +10965,11 @@ node-gyp-build@^4.2.0:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.2.3.tgz#ce6277f853835f718829efb47db20f3e4d9c4739"
   integrity sha512-MN6ZpzmfNCRM+3t57PTJHgHyw/h4OWnZ6mR8P5j/uZtqQr46RRuDE/P+g3n0YR/AiYXeWixZZzaip77gdICfRg==
+
+node-gyp-build@^4.2.3:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.3.0.tgz#9f256b03e5826150be39c764bf51e993946d71a3"
+  integrity sha512-iWjXZvmboq0ja1pUGULQBexmxq8CV4xBhX7VDOTbL7ZR4FOowwY/VOtRxBN/yKxmdGoIp4j5ysNT4u3S2pDQ3Q==
 
 node-gyp@^5.0.2:
   version "5.1.1"
