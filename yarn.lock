@@ -8301,10 +8301,10 @@ graphql-depth-limit@1.1.0:
   dependencies:
     arrify "^1.0.1"
 
-graphql-query-complexity@0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.10.0.tgz#489042275bc2405da9b051b4397530e5c34d6a0f"
-  integrity sha512-dygwzTt7fT/AyaoKV18oyX1TLuZaht8p+EQuHQCDt7dCP2lRJL52nnO3aNgcpzjHGUwsin11OeRl/XrBz6YP3w==
+graphql-query-complexity@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/graphql-query-complexity/-/graphql-query-complexity-0.11.0.tgz#6078e72a39a410bb5285673077565ec8ee127c6b"
+  integrity sha512-1Ns64a41XYLehYFxZwoEn7i7myUQPd/fLRZPZ73ULjln4VBWMwptzB8LiPWNaRHsTjLMkecZPeqmuKYNXrFIGA==
   dependencies:
     lodash.get "^4.4.2"
 
