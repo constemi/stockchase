@@ -5531,10 +5531,10 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
-bullmq@1.54.3:
-  version "1.54.3"
-  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.54.3.tgz#b1439302f1779a56dd1e0c58349dc33709ca2869"
-  integrity sha512-W5lhNROPoIhftifixT3QgbpanL8L7LFd3AN2TTFDanyV0eLBhWyv6KJgkZG+bbPDGqNQ9wfa3mFpiHOvbbk93Q==
+bullmq@1.54.4:
+  version "1.54.4"
+  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.54.4.tgz#f93d588aac1f0a3d686b701f2cff1476780e9f76"
+  integrity sha512-F6bHmbQi5pHwhC4GAUyi3/USKCx8+tCefFEYyNhRMUpis+bA7Y5Ot7cfqXa+k/IeLsr/+4ld+LcL2Q0lPFf++Q==
   dependencies:
     cron-parser "^2.18.0"
     get-port "^5.1.1"
