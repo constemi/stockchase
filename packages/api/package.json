@@ -39,7 +39,7 @@
     "@types/socket.io": "3.0.2",
     "apollo-server-express": "3.5.0",
     "argon2": "0.28.3",
-    "aws-sdk": "2.1018.0",
+    "aws-sdk": "2.1040.0",
     "bullmq": "1.54.6",
     "chalk": "4.1.2",
     "class-transformer": "0.5.1",
