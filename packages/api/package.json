@@ -35,7 +35,7 @@
     "@sendgrid/mail": "7.6.0",
     "@sentry/node": "6.16.0",
     "@sentry/tracing": "6.16.0",
-    "@types/lodash": "4.14.177",
+    "@types/lodash": "4.14.178",
     "@types/socket.io": "3.0.2",
     "apollo-server-express": "3.5.0",
     "argon2": "0.28.3",
