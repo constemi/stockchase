@@ -40,7 +40,7 @@
     "apollo-server-express": "3.6.2",
     "argon2": "0.28.3",
     "aws-sdk": "2.1040.0",
-    "bullmq": "1.66.1",
+    "bullmq": "1.67.0",
     "chalk": "4.1.2",
     "class-transformer": "0.5.1",
     "class-validator": "0.13.2",
