@@ -82,7 +82,7 @@
     "@types/react-select": "4.0.18",
     "@types/yup": "0.29.13",
     "babel-jest": "27.4.6",
-    "eslint-config-next": "12.0.9",
+    "eslint-config-next": "12.0.10",
     "eslint-config-react-app": "7.0.0",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0",
