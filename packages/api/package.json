@@ -32,7 +32,7 @@
   "dependencies": {
     "@constemi/itsdangerjs": "0.0.2",
     "@sendgrid/client": "7.6.1",
-    "@sendgrid/mail": "7.6.0",
+    "@sendgrid/mail": "7.6.1",
     "@sentry/node": "6.17.6",
     "@sentry/tracing": "6.17.6",
     "@types/lodash": "4.14.178",
