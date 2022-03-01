@@ -5925,15 +5925,14 @@ argon2@*:
     node-addon-api "^3.0.2"
     opencollective-postinstall "^2.0.3"
 
-argon2@0.28.4:
-  version "0.28.4"
-  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.28.4.tgz#af6df523b839a78b3cfbfdbfa789ffa2c6672d9f"
-  integrity sha512-WsfqiDp/tf5+eieLc1+S7RtO7Y3cAiZQ1F6GIaskENoJy/6xuCN5WGBIc8dG7QVPDavy6jUSads8zwZTtrHVag==
+argon2@0.28.5:
+  version "0.28.5"
+  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.28.5.tgz#0c8d6366c389bae3194c89baf4011721a644ded4"
+  integrity sha512-kGFCctzc3VWmR1aCOYjNgvoTmVF5uVBUtWlXCKKO54d1K+31zRz45KAcDIqMo2746ozv/52d25nfEekitaXP0w==
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.8"
     "@phc/format" "^1.0.0"
     node-addon-api "^4.3.0"
-    opencollective-postinstall "^2.0.3"
 
 argparse@^1.0.7:
   version "1.0.10"
