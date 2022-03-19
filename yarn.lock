@@ -5040,10 +5040,10 @@
   resolved "https://registry.yarnpkg.com/@types/highlight-words-core/-/highlight-words-core-1.2.1.tgz#cda9ed2cd04ea93165d3d3b20686b545d285ff66"
   integrity sha512-9VZUA5omXBfn+hDxFjUDu1FOJTBM3LmvqfDey+Z6Aa8B8/JmF5SMj6FBrjfgJ/Q3YXOZd3qyTDfJyMZSs/wCUA==
 
-"@types/ioredis@4.28.9":
-  version "4.28.9"
-  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.28.9.tgz#0da19b0be2f806364fbca23c49d610d782d459dc"
-  integrity sha512-0uclpMv1u5MeDohCnAvT8FPvCQt9WprBJRFhAatuaRDJpELzHyDg8bV+MCclFfYz0nAbVNO0xoWsud2/NhOJWg==
+"@types/ioredis@4.28.10":
+  version "4.28.10"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.28.10.tgz#40ceb157a4141088d1394bb87c98ed09a75a06ff"
+  integrity sha512-69LyhUgrXdgcNDv7ogs1qXZomnfOEnSmrmMFqKgt1XMJxmoOSG/u3wYy13yACIfKuMJ8IhKgHafDO3sx19zVQQ==
   dependencies:
     "@types/node" "*"
 
