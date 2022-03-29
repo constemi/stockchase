@@ -85,7 +85,7 @@
     "eslint-config-next": "12.1.2",
     "eslint-config-react-app": "7.0.0",
     "eslint-plugin-react": "7.29.4",
-    "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-react-hooks": "4.4.0",
     "jest": "27.5.1",
     "next-transpile-modules": "9.0.0"
   }
