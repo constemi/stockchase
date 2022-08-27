@@ -63,11 +63,11 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@graphql-codegen/add": "3.2.0",
-    "@graphql-codegen/cli": "2.11.3",
-    "@graphql-codegen/typescript": "2.7.2",
-    "@graphql-codegen/typescript-operations": "2.5.2",
-    "@graphql-codegen/typescript-react-apollo": "3.3.2",
+    "@graphql-codegen/add": "3.2.1",
+    "@graphql-codegen/cli": "2.11.8",
+    "@graphql-codegen/typescript": "2.7.3",
+    "@graphql-codegen/typescript-operations": "2.5.3",
+    "@graphql-codegen/typescript-react-apollo": "3.3.3",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",
     "@types/cookie": "0.5.1",
