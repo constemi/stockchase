@@ -37,7 +37,7 @@
     "@sentry/tracing": "6.19.7",
     "@types/lodash": "4.14.202",
     "@types/socket.io": "3.0.2",
-    "@apollo/server": "4.0.0",
+    "@apollo/server": "4.9.3",
     "argon2": "0.29.1",
     "aws-sdk": "2.1083.0",
     "bullmq": "1.89.2",
