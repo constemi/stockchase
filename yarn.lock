@@ -4458,10 +4458,10 @@
     semver "^7.3.4"
     tar "^6.1.0"
 
-"@mapbox/node-pre-gyp@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.9.tgz#09a8781a3a036151cdebbe8719d6f8b25d4058bc"
-  integrity sha512-aDF3S3rK9Q2gey/WAttUlISduDItz5BU3306M9Eyv6/oS40aMprnopshtlKTykxRNIBEZuRMaZAnbrQ4QtKGyw==
+"@mapbox/node-pre-gyp@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.11.tgz#417db42b7f5323d79e93b34a6d7a2a12c0df43fa"
+  integrity sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==
   dependencies:
     detect-libc "^2.0.0"
     https-proxy-agent "^5.0.0"
@@ -6534,14 +6534,14 @@ argon2@*:
     node-addon-api "^3.0.2"
     opencollective-postinstall "^2.0.3"
 
-argon2@0.29.1:
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.29.1.tgz#e6b621ba5dcaf02ea8246669532c2934799973e3"
-  integrity sha512-bWXzAsQA0B6EFWZh5li+YBk+muoknAb8KacAi1h/bC6Gigy9p5ANbrPvpnjTIb7i9I11/8Df6FeSxpJDK3vy4g==
+argon2@0.31.2:
+  version "0.31.2"
+  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.31.2.tgz#bb6590a63b8ff71c4a3a1907572893ff8dd9ffff"
+  integrity sha512-QSnJ8By5Mth60IEte45w9Y7v6bWcQw3YhRtJKKN8oNCxnTLDiv/AXXkDPf2srTMfxFVn3QJdVv2nhXESsUa+Yg==
   dependencies:
-    "@mapbox/node-pre-gyp" "^1.0.9"
+    "@mapbox/node-pre-gyp" "^1.0.11"
     "@phc/format" "^1.0.0"
-    node-addon-api "^5.0.0"
+    node-addon-api "^7.0.0"
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -13364,10 +13364,10 @@ node-addon-api@^3.0.2:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.2.1.tgz#81325e0a2117789c0128dab65e7e38f07ceba161"
   integrity sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==
 
-node-addon-api@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-5.0.0.tgz#7d7e6f9ef89043befdb20c1989c905ebde18c501"
-  integrity sha512-CvkDw2OEnme7ybCykJpVcKH+uAOLV2qLqiyla128dN9TkEWfrYmxG6C2boDe5KcNQqZF3orkqzGgOMvZ/JNekA==
+node-addon-api@^7.0.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-7.1.0.tgz#71f609369379c08e251c558527a107107b5e0fdb"
+  integrity sha512-mNcltoe1R8o7STTegSOHdnJNN7s5EUvhoS7ShnTHDyOSd+8H+UdWODq6qSv67PjC8Zc5JRT8+oLAMCr0SIXw7g==
 
 node-domexception@1.0.0:
   version "1.0.0"
