@@ -7322,10 +7322,10 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
-bullmq@1.89.2:
-  version "1.89.2"
-  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.89.2.tgz#7f673999b053461e3f13e187862aac1ddf9ef3f7"
-  integrity sha512-C39GF7BxTRdufrQZcwnrHYeH81hev/QP7GXdWdwTf65V/R2b+hCS2ECvleYpS3yaXMUZvcJ/tuVlL9//u77RnQ==
+bullmq@1.91.1:
+  version "1.91.1"
+  resolved "https://registry.yarnpkg.com/bullmq/-/bullmq-1.91.1.tgz#ed17cfd4e314afa398fd099a32d365046b1ed4bc"
+  integrity sha512-u7dat9I8ZwouZ651AMZkBSvB6NVUPpnAjd4iokd9DM41whqIBnDjuL11h7+kEjcpiDKj6E+wxZiER00FqirZQg==
   dependencies:
     cron-parser "^4.6.0"
     get-port "6.1.2"
@@ -7335,7 +7335,7 @@ bullmq@1.89.2:
     msgpackr "^1.6.2"
     semver "^7.3.7"
     tslib "^2.0.0"
-    uuid "^8.3.2"
+    uuid "^9.0.0"
 
 busboy@^0.2.11:
   version "0.2.14"
@@ -17145,11 +17145,6 @@ uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
-
-uuid@^8.3.2:
-  version "8.3.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
-  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 uuid@^9.0.0:
   version "9.0.1"
