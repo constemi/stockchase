@@ -67,7 +67,7 @@
     "reflect-metadata": "0.2.1",
     "request-ip": "2.2.0",
     "routing-controllers": "0.10.4",
-    "socket.io": "4.5.1",
+    "socket.io": "4.7.4",
     "type-graphql": "1.1.1",
     "type-graphql-dataloader": "0.5.1",
     "typedi": "0.10.0",
