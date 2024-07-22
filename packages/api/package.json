@@ -48,7 +48,7 @@
     "cuid": "2.1.8",
     "dataloader": "2.2.2",
     "dayjs": "1.11.10",
-    "dotenv": "10.0.0",
+    "dotenv": "16.4.5",
     "eta": "1.12.3",
     "express": "4.19.2",
     "express-jwt": "6.1.2",
