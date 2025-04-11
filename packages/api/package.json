@@ -88,7 +88,7 @@
     "@types/ws": "7.4.7",
     "ts-node": "10.9.2",
     "ts-node-dev": "1.1.8",
-    "typeorm-seeding": "1.6.1"
+    "@jorgebodega/typeorm-seeding": "2.0.0"
   },
   "workspaces": {
     "nohoist": [
