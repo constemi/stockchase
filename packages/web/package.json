@@ -46,7 +46,7 @@
     "highlight-words-core": "^1.2.2",
     "layouts": "link:./src/layouts",
     "lib": "link:./src/lib",
-    "next": "^11.0.1-canary.2",
+    "next": "^14.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-error-boundary": "^3.0.0",
