@@ -47,7 +47,7 @@
     "cross-fetch": "3.1.8",
     "cuid": "2.1.8",
     "dataloader": "2.2.3",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.13",
     "dotenv": "10.0.0",
     "eta": "1.12.3",
     "express": "4.21.0",
