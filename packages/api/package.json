@@ -56,7 +56,7 @@
     "graphql": "16.11.0",
     "graphql-depth-limit": "1.1.0",
     "graphql-query-complexity": "0.12.0",
-    "handlebars": "4.7.8",
+    "handlebars": "4.7.9",
     "helmet": "4.6.0",
     "ioredis": "4.30.0",
     "jsonwebtoken": "8.5.1",
