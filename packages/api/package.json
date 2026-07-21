@@ -83,7 +83,7 @@
     "@types/jsonwebtoken": "8.5.9",
     "@types/morgan": "1.9.10",
     "@types/node": "14.18.63",
-    "@types/nodemailer": "6.4.23",
+    "@types/nodemailer": "6.4.24",
     "@types/request-ip": "0.0.41",
     "@types/ws": "7.4.7",
     "ts-node": "10.9.2",
